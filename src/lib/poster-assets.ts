@@ -1,9 +1,8 @@
 import type { ImageId } from "@/lib/image-credits";
 import { imageCredits } from "@/lib/image-credits";
-import pavelPoster from "@/assets/posters/12-pavel-host-poster-ru-full.webp.asset.json";
 import pavelPortrait from "@/assets/posters/pavel-original.jpg.asset.json";
 
-export const pavelImages = { poster: pavelPoster.url, portrait: pavelPortrait.url };
+export const pavelImages = { portrait: pavelPortrait.url };
 
 // A photo must document an identifiable stop, not merely the island or a promotional collage.
 export const tourPhotoNeeds: Record<string, Record<"en" | "be" | "uk" | "ru", string>> = {
