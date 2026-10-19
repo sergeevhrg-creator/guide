@@ -3,15 +3,19 @@ import { MessageCircle, Send, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { CONTACTS } from "@/lib/contacts";
+import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
 
 const copy = {
-  ru: { button: "Помочь выбрать маршрут", title: "Помочь выбрать маршрут", text: "Напишите в WhatsApp или Telegram, либо заполните короткую форму — я помогу подобрать день под ваш темп и погоду.", form: "Заполнить форму" },
-  en: { button: "Help me choose a route", title: "Help me choose a route", text: "Message me on WhatsApp or Telegram, or fill in the short form — I’ll help you pick a day that suits your pace and the weather.", form: "Fill in the form" },
-  be: { button: "Дапамагчы выбраць маршрут", title: "Дапамагчы выбраць маршрут", text: "Напішыце ў WhatsApp ці Telegram або запоўніце кароткую форму.", form: "Запоўніць форму" },
-  uk: { button: "Допомогти обрати маршрут", title: "Допомогти обрати маршрут", text: "Напишіть у WhatsApp чи Telegram або заповніть коротку форму.", form: "Заповнити форму" },
+  ru: { button: "Помочь выбрать маршрут", title: "Помочь выбрать экскурсию?", text: "Расскажите, какую Мадейру вы хотите увидеть. Я лично отвечу, помогу выбрать маршрут и заранее согласую все детали поездки.", form: "Оставить заявку" },
+  en: { button: "Help me choose a route", title: "Would you like help choosing a tour?", text: "Tell me what you would like to see in Madeira. I’ll reply personally, help you choose a route and agree the trip details in advance.", form: "Send an inquiry" },
+  be: { button: "Дапамагчы выбраць маршрут", title: "Дапамагчы выбраць экскурсію?", text: "Раскажыце, якую Мадэйру вы хочаце ўбачыць. Я адкажу асабіста, дапамагу выбраць маршрут і загадзя ўзгадню ўсе дэталі паездкі.", form: "Пакінуць запыт" },
+  uk: { button: "Допомогти обрати маршрут", title: "Допомогти обрати екскурсію?", text: "Розкажіть, яку Мадейру ви хочете побачити. Я відповім особисто, допоможу обрати маршрут і заздалегідь погоджу всі деталі поїздки.", form: "Залишити запит" },
 };
+
+const AUTO_OPEN_DELAY_MS = 25_000;
+const AUTO_OPEN_RETRY_MS = 8_000;
+const AUTO_OPEN_SEEN_KEY = "mosaic-contact-auto-seen";
 
 export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
   const { lang } = useLang();
@@ -19,6 +23,11 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
   const isMobile = useIsMobile();
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
+
+  function changeOpen(next: boolean) {
+    setOpen(next);
+    if (next) window.sessionStorage.setItem(AUTO_OPEN_SEEN_KEY, "1");
+  }
 
   useEffect(() => {
     const hero = document.querySelector("[data-hero]");
@@ -33,30 +42,56 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (window.sessionStorage.getItem(AUTO_OPEN_SEEN_KEY)) return;
+
+    let timer: number;
+    const tryOpen = () => {
+      if (window.sessionStorage.getItem(AUTO_OPEN_SEEN_KEY)) return;
+
+      const contact = document.getElementById("contact");
+      const contactRect = contact?.getBoundingClientRect();
+      const contactIsVisible = Boolean(
+        contactRect && contactRect.top < window.innerHeight && contactRect.bottom > 0,
+      );
+      const anotherDialogIsOpen = Boolean(document.querySelector('[role="dialog"]'));
+
+      if (document.visibilityState !== "visible" || contactIsVisible || anotherDialogIsOpen) {
+        timer = window.setTimeout(tryOpen, AUTO_OPEN_RETRY_MS);
+        return;
+      }
+
+      changeOpen(true);
+    };
+
+    timer = window.setTimeout(tryOpen, AUTO_OPEN_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <>
       {visible && !open && (
         <Button
           data-quick-contact
-          onClick={() => setOpen(true)}
+          onClick={() => changeOpen(true)}
           className="fixed bottom-4 left-1/2 z-30 -translate-x-1/2 rounded-full bg-mosaic-deep px-5 font-extrabold shadow-lg hover:bg-mosaic-ocean md:left-auto md:right-6 md:bottom-6 md:translate-x-0"
         >
           <Sparkles />
           {t.button}
         </Button>
       )}
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side={isMobile ? "bottom" : "right"} data-quick-panel className={isMobile ? "rounded-t-xl" : "w-full sm:max-w-sm"}>
+      <Sheet open={open} onOpenChange={changeOpen}>
+        <SheetContent side={isMobile ? "bottom" : "right"} data-quick-panel className={isMobile ? "max-h-[88dvh] overflow-y-auto rounded-t-xl pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]" : "w-full overflow-y-auto sm:max-w-sm"}>
           <SheetTitle className="pr-8 font-display text-xl font-extrabold text-mosaic-deep">{t.title}</SheetTitle>
           <SheetDescription className="mt-2 leading-6">{t.text}</SheetDescription>
           <div className="mt-6 grid gap-3">
             <Button asChild className="bg-mosaic-leaf font-bold hover:bg-mosaic-deep">
-              <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp {CONTACTS.whatsappNumber}</a>
+              <a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp {CONTACTS.whatsappNumber}</a>
             </Button>
             <Button asChild variant="outline" className="font-bold">
-              <a href={CONTACTS.telegramUrl} target="_blank" rel="noopener noreferrer"><Send />Telegram {CONTACTS.telegramHandle}</a>
+              <a href={contactUrl("telegram", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><Send />Telegram {CONTACTS.telegramHandle}</a>
             </Button>
-            <Button variant="secondary" className="font-bold" onClick={() => { setOpen(false); onOpenForm(); }}>{t.form}</Button>
+            <Button variant="secondary" className="font-bold" onClick={() => { changeOpen(false); onOpenForm(); }}>{t.form}</Button>
           </div>
         </SheetContent>
       </Sheet>

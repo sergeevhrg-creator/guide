@@ -1,16 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronRight, MessageCircle, Linkedin, Instagram } from "lucide-react";
+import { ArrowRight, ChevronRight, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { MadeiraHeroMotion } from "@/components/MadeiraHeroMotion";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
 import { SalesInquiryForm } from "@/components/SalesInquiryForm";
 import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
-import { CONTACTS } from "@/lib/contacts";
+import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { pavelImages } from "@/lib/poster-assets";
 import { imageCredits } from "@/lib/image-credits";
-import { mosaicContent, socialLinks } from "@/lib/mosaic-content";
+import { mosaicContent } from "@/lib/mosaic-content";
 import { salesTours, salesPosters, type SalesTour } from "@/lib/sales";
 import { salesCopy } from "@/lib/sales-copy";
 import { pavelIntroductionRu } from "@/lib/sales-editorial";
@@ -136,26 +136,30 @@ function HomePage() {
         </section>
 
         <section id="pavel" className="scroll-mt-20 bg-background py-16 sm:py-24">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-            <div className="relative min-h-80 overflow-hidden rounded-md bg-mosaic-deep">
+          <div className="mx-auto grid max-w-6xl items-start gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:px-8">
+            <div className="overflow-hidden rounded-2xl border border-border bg-mosaic-mist p-3 shadow-sm sm:p-4">
               <img
-                src={lang === "ru" ? salesPosters.host : pavelImages.portrait}
+                src={pavelImages.portrait}
                 alt={
                   {
                     en: "Pavel Sergeev, your host in Madeira",
                     be: "Павел Сяргееў, ваш гаспадар на Мадэйры",
                     uk: "Павло Сергєєв, ваш господар на Мадейрі",
-                    ru: "Павел Сергеев — ведущий частных путешествий на Мадейре; рекламная афиша",
+                    ru: "Павел Сергеев — ваш проводник по Мадейре",
                   }[lang]
                 }
-                className="h-full w-full object-cover"
+                className="h-auto w-full rounded-xl object-contain"
                 loading="lazy"
+                width="1280"
+                height="960"
               />
             </div>
-            <div className="flex flex-col justify-center lg:pl-6">
+            <div className="flex min-w-0 flex-col justify-center lg:py-2">
               <SectionHeading label={t.aboutLabel} title={introductionTitle[lang]} />
-              {(lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n").map((paragraph, i) => <p key={i} className="mt-5 leading-8 text-foreground/75">{paragraph}</p>)}
-              <p className="mt-5 leading-8 text-foreground/75">{transportNote[lang]}</p>
+              <div className="mt-4 space-y-3 text-[0.95rem] leading-6 text-foreground/75">
+                {(lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n").map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+              </div>
+              <p className="mt-4 border-l-2 border-mosaic-gold pl-3 text-sm leading-6 text-foreground/75">{transportNote[lang]}</p>
               <div className="mt-7 flex flex-wrap gap-3">
                 {t.aboutPoints.map((point, index) => (
                   <span
@@ -166,15 +170,14 @@ function HomePage() {
                   </span>
                 ))}
               </div>
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <Button
                   asChild
-                  variant="outline"
-                  className="border-mosaic-deep/25 font-bold text-mosaic-deep hover:bg-mosaic-mist"
+                  className="bg-mosaic-leaf font-bold hover:bg-mosaic-deep"
                 >
-                  <a href={socialLinks.linkedin} target="_blank" rel="noreferrer noopener">
-                    <Linkedin />
-                    LinkedIn
+                  <a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle />
+                    WhatsApp
                   </a>
                 </Button>
                 <Button
@@ -182,10 +185,13 @@ function HomePage() {
                   variant="outline"
                   className="border-mosaic-deep/25 font-bold text-mosaic-deep hover:bg-mosaic-mist"
                 >
-                  <a href={socialLinks.instagram} target="_blank" rel="noreferrer noopener">
-                    <Instagram />
-                    Instagram
+                  <a href={contactUrl("telegram", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer">
+                    <Send />
+                    Telegram
                   </a>
+                </Button>
+                <Button onClick={() => openOrder()} variant="secondary" className="font-bold">
+                  {t.journeyCta}
                 </Button>
               </div>
             </div>
