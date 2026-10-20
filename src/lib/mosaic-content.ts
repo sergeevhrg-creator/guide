@@ -74,40 +74,40 @@ export const tours: Tour[] = [
     categories: ["peaks", "quiet", "drive"],
     text: {
       en: {
-        title: "Sunrise at Pico do Arieiro",
+        title: "Sunrise at Pico do Areeiro",
         outcome:
           "You watch the first light rise over a sea of clouds, feel the cold mountain air and keep a morning you cannot repeat anywhere else.",
-        route: "Funchal · Pico do Arieiro · central massif viewpoints",
+        route: "Funchal · Pico do Areeiro · central massif viewpoints",
         duration: "5–6 hours (very early start)",
         format: "Private · up to 4 guests",
         price: "Price on request",
         weather: "Cloud, wind or closed trails can move us to another viewpoint the same morning.",
       },
       be: {
-        title: "Усход сонца на Pico do Arieiro",
+        title: "Усход сонца на Pico do Areeiro",
         outcome:
           "Вы сустракаеце першае святло над морам аблокаў, адчуваеце халоднае горнае паветра і забіраеце раніцу, якую не паўторыш нідзе.",
-        route: "Фуншал · Pico do Arieiro · аглядныя пляцоўкі цэнтральнага масіву",
+        route: "Фуншал · Pico do Areeiro · аглядныя пляцоўкі цэнтральнага масіву",
         duration: "5–6 гадзін (вельмі ранні старт)",
         format: "Прыватна · да 4 гасцей",
         price: "Кошт па запыце",
         weather: "Аблокі, вецер ці зачыненыя сцежкі могуць перанесці нас на іншы пункт агляду.",
       },
       uk: {
-        title: "Світанок на Pico do Arieiro",
+        title: "Світанок на Pico do Areeiro",
         outcome:
           "Ви зустрічаєте перше світло над морем хмар, відчуваєте холодне гірське повітря і забираєте ранок, який більше ніде не повториться.",
-        route: "Фуншал · Pico do Arieiro · оглядові точки центрального масиву",
+        route: "Фуншал · Pico do Areeiro · оглядові точки центрального масиву",
         duration: "5–6 годин (дуже ранній старт)",
         format: "Приватно · до 4 гостей",
         price: "Вартість за запитом",
         weather: "Хмари, вітер або закриті стежки можуть перенести нас на іншу оглядову точку.",
       },
       ru: {
-        title: "Рассвет на Pico do Arieiro",
+        title: "Рассвет на Pico do Areeiro",
         outcome:
           "Вы встречаете первый свет над морем облаков, чувствуете холодный горный воздух и увозите утро, которое больше нигде не повторится.",
-        route: "Фуншал · Pico do Arieiro · смотровые центрального массива",
+        route: "Фуншал · Pico do Areeiro · смотровые центрального массива",
         duration: "5–6 часов (очень ранний старт)",
         format: "Индивидуально · до 4 гостей",
         price: "Цена по запросу",
@@ -670,10 +670,10 @@ export const mosaicContent: Record<
 > = {
   en: {
     nav: ["Tours", "Journeys", "Guide", "About Pavel"],
-    heroSub: "Madeira, Portugal · private routes",
+    heroSub: "Private Madeira tours · personal routes",
     heroTitle: "See the Madeira you'll remember",
     heroText:
-      "Sunrises above the clouds, levadas, the ocean and the island’s living stories. Choose an experience — the route will be adapted to your pace, interests and dates.",
+      "Private Madeira day tours to Pico do Areeiro, Funchal, Fanal, Porto Moniz and Seixal. Choose an experience — the route will be adapted to your pace, interests and dates.",
     toursCta: "Choose a tour",
     journeyCta: "Help me choose a route",
     productsLabel: "Four ways to travel",
@@ -765,10 +765,10 @@ export const mosaicContent: Record<
   },
   be: {
     nav: ["Экскурсіі", "Падарожжы", "Гід", "Пра Паўла"],
-    heroSub: "Мадэйра, Партугалія · прыватныя маршруты",
+    heroSub: "Індывідуальныя экскурсіі па Мадэйры · прыватны маршрут",
     heroTitle: "Убачыць Мадэйру, якую вы запомніце",
     heroText:
-      "Усходы сонца над аблокамі, левады, акіян і жывыя гісторыі выспы. Выберыце ўражанне — маршрут будзе прыстасаваны да вашага тэмпу, інтарэсаў і дат.",
+      "Прыватныя маршруты да Pico do Areeiro, Фуншала, Фанала, Porto Moniz і Seixal. Выберыце ўражанне — паездка будзе прыстасавана да вашага тэмпу, інтарэсаў і дат.",
     toursCta: "Выбраць экскурсію",
     journeyCta: "Дапамажыце выбраць маршрут",
     productsLabel: "Чатыры фарматы",
@@ -860,10 +860,10 @@ export const mosaicContent: Record<
   },
   uk: {
     nav: ["Екскурсії", "Подорожі", "Гід", "Про Павла"],
-    heroSub: "Мадейра, Португалія · приватні маршрути",
+    heroSub: "Індивідуальні екскурсії Мадейрою · приватний маршрут",
     heroTitle: "Побачити Мадейру, яку ви пам’ятатимете",
     heroText:
-      "Світанки над хмарами, левади, океан і живі історії острова. Оберіть враження — маршрут буде пристосовано до вашого темпу, інтересів і дат.",
+      "Приватні маршрути до Pico do Areeiro, Фуншала, Фанала, Porto Moniz і Seixal. Оберіть враження — поїздку буде пристосовано до вашого темпу, інтересів і дат.",
     toursCta: "Обрати екскурсію",
     journeyCta: "Допоможіть обрати маршрут",
     productsLabel: "Чотири формати",
@@ -955,10 +955,10 @@ export const mosaicContent: Record<
   },
   ru: {
     nav: ["Экскурсии", "Путешествия", "Гид", "О Павле"],
-    heroSub: "Мадейра, Португалия · приватные маршруты",
+    heroSub: "Индивидуальные экскурсии по Мадейре · частный маршрут",
     heroTitle: "Увидеть дух Мадейры. Первозданная красота посреди океана.",
     heroText:
-      "Рассветы над облаками, левады, океан и живые истории острова. Выберите впечатление — маршрут будет адаптирован под ваш темп, интересы и даты.",
+      "Частные экскурсии к Pico do Areeiro, Фуншалу, Фаналу, Porto Moniz и Seixal. Выберите впечатление — маршрут будет адаптирован под ваш темп, интересы и даты.",
     toursCta: "Выбрать экскурсию",
     journeyCta: "Помочь выбрать маршрут",
     productsLabel: "Четыре формата",

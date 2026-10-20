@@ -24,18 +24,22 @@ export const Route = createFileRoute("/tours")({
       en: {
         title: "All Private Madeira Tours — Madeira Mosaic",
         description: "Explore private Madeira day tours and cruise excursions for up to 4 guests: mountains, ocean, Funchal, Fanal and more.",
+        keywords: "Madeira private tours, Madeira day tours, private guided tours Madeira, Funchal shore excursions, Pico do Areeiro sunrise tour, Porto Moniz Seixal Fanal tour",
       },
       ru: {
         title: "Все индивидуальные экскурсии по Мадейре — Madeira Mosaic",
         description: "Выберите индивидуальную экскурсию по Мадейре для группы до 4 гостей: горы, океан, Фуншал, Фанал и другие маршруты.",
+        keywords: "индивидуальные экскурсии на Мадейре, экскурсии по Мадейре на русском языке, русский гид на Мадейре, рассвет на Пику-ду-Арейру, экскурсия по Фуншалу",
       },
       be: {
         title: "Усе індывідуальныя экскурсіі па Мадэйры — Madeira Mosaic",
         description: "Выберыце індывідуальную экскурсію па Мадэйры для групы да 4 гасцей: горы, акіян, Фуншал, Фанал і іншыя маршруты.",
+        keywords: "індывідуальныя экскурсіі па Мадэйры, прыватныя туры па Мадэйры, світанак на Pico do Areeiro, экскурсія па Фуншале",
       },
       uk: {
         title: "Усі індивідуальні екскурсії Мадейрою — Madeira Mosaic",
         description: "Оберіть індивідуальну екскурсію Мадейрою для групи до 4 гостей: гори, океан, Фуншал, Фанал та інші маршрути.",
+        keywords: "індивідуальні екскурсії на Мадейрі, приватні тури Мадейрою, світанок на Pico do Areeiro, екскурсія Фуншалом",
       },
     }[lang];
     const canonical = `https://guide.orthodoxmadeira.com/tours?lang=${lang}`;
@@ -43,6 +47,7 @@ export const Route = createFileRoute("/tours")({
       meta: [
         { title: seo.title },
         { name: "description", content: seo.description },
+        { name: "keywords", content: seo.keywords },
         { property: "og:title", content: seo.title },
         { property: "og:description", content: seo.description },
         { property: "og:type", content: "website" },

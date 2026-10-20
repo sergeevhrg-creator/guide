@@ -211,30 +211,31 @@ function MadeiraGuidePage() {
     <div className="min-h-screen overflow-x-hidden bg-background">
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md">
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:flex lg:px-8">
-          <Link to="/" className="min-w-0 text-mosaic-deep">
+          <Link to="/" search={{ lang }} className="min-w-0 text-mosaic-deep">
             <MosaicLogo />
           </Link>
           <nav className="ml-auto hidden items-center gap-6 lg:flex" aria-label="Main navigation">
             <a
-              href="/#tours"
+              href={`/?lang=${lang}#tours`}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[0]}
             </a>
             <a
-              href="/#products"
+              href={`/?lang=${lang}#products`}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[1]}
             </a>
             <Link
               to="/madeira-guide"
+              search={{ lang }}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[2]}
             </Link>
             <a
-              href="/#pavel"
+              href={`/?lang=${lang}#pavel`}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[3]}
@@ -362,7 +363,7 @@ function MadeiraGuidePage() {
                 variant="outline"
                 className="mt-6 border-mosaic-deep/25 font-bold text-mosaic-deep"
               >
-                <Link to="/">
+                <Link to="/" search={{ lang }}>
                   <ArrowLeft />
                   {page.back}
                 </Link>

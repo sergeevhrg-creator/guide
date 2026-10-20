@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -11,7 +12,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { LanguageProvider } from "../lib/i18n/lang";
+import { LanguageProvider, langFromSearch } from "../lib/i18n/lang";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/CookieConsent";
 import { LegalFooter } from "../components/LegalFooter";
@@ -87,7 +88,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Madeira Mosaic" },
       { property: "og:description", content: "Private Madeira tours, island experiences and a practical guide." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://guide.orthodoxmadeira.com/assets/home-coast.webp" },
+      { property: "og:image:alt", content: "Madeira coast and Atlantic Ocean" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://guide.orthodoxmadeira.com/assets/home-coast.webp" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -111,10 +115,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const search = useRouterState({ select: (state) => state.location.searchStr });
+  const lang = langFromSearch(search);
   return (
-    <html lang="en">
+    <html lang={lang}>
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Madeira Mosaic",
+              url: "https://guide.orthodoxmadeira.com/",
+              inLanguage: ["en", "ru", "uk", "be"],
+            }),
+          }}
+        />
       </head>
       <body>
         {children}

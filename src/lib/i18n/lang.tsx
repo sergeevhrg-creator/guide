@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useRouterState } from "@tanstack/react-router";
 
 export type Lang = "en" | "be" | "uk" | "ru";
 
@@ -22,18 +23,25 @@ interface LangContextValue {
 
 const LangContext = createContext<LangContextValue>({ lang: "en", setLang: () => {} });
 
+export function langFromSearch(search: string): Lang {
+  const queryLang = new URLSearchParams(search).get("lang");
+  return queryLang && langOrder.includes(queryLang as Lang) ? (queryLang as Lang) : "en";
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const search = useRouterState({ select: (state) => state.location.searchStr });
+  const routeLang = langFromSearch(search);
+  const [lang, setLangState] = useState<Lang>(routeLang);
 
   useEffect(() => {
-    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    const queryLang = new URLSearchParams(search).get("lang");
     if (queryLang && langOrder.includes(queryLang as Lang)) {
       setLangState(queryLang as Lang);
       return;
     }
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored && langOrder.includes(stored as Lang)) setLangState(stored as Lang);
-  }, []);
+  }, [search]);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);

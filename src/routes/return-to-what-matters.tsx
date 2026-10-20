@@ -89,7 +89,7 @@ function ReturnJourneyPage() {
     <div className="min-h-screen bg-mosaic-mist text-foreground" lang={lang}>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-background/20 bg-mosaic-deep/90 text-primary-foreground backdrop-blur-lg">
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:flex sm:px-6 lg:px-8">
-          <Link to="/" className="flex min-w-0 items-center gap-2">
+          <Link to="/" search={{ lang }} className="flex min-w-0 items-center gap-2">
             <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
             <MosaicLogo compact onDark />
             <span className="sr-only">{t.nav.home}</span>
@@ -99,19 +99,20 @@ function ReturnJourneyPage() {
             aria-label="Journey navigation"
           >
             <a
-              href="/#tours"
+              href={`/?lang=${lang}#tours`}
               className="text-sm text-primary-foreground/75 transition hover:text-primary-foreground"
             >
               {t.nav.tours}
             </a>
-            <a
-              href="/#guide"
+            <Link
+              to="/madeira-guide"
+              search={{ lang }}
               className="text-sm text-primary-foreground/75 transition hover:text-primary-foreground"
             >
               {t.nav.guide}
-            </a>
+            </Link>
             <a
-              href="/#pavel"
+              href={`/?lang=${lang}#pavel`}
               className="text-sm text-primary-foreground/75 transition hover:text-primary-foreground"
             >
               {t.nav.pavel}

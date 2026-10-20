@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
-import { ArrowLeft, Check, Send } from "lucide-react";
+import { ArrowLeft, Check, ExternalLink, Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
@@ -21,6 +21,12 @@ const heroColors = {
   guide: "bg-mosaic-hydrangea",
 };
 const accents = ["bg-mosaic-ocean", "bg-mosaic-leaf", "bg-mosaic-roof", "bg-mosaic-hydrangea"];
+const retreatSiteLabel = {
+  en: "Open the full programme website",
+  be: "Адкрыць сайт поўнай праграмы",
+  uk: "Відкрити сайт повної програми",
+  ru: "Открыть сайт полной программы",
+};
 
 export function MosaicPage({
   pageKey,
@@ -72,30 +78,31 @@ export function MosaicPage({
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md">
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:flex lg:px-8">
-          <Link to="/" className="min-w-0 text-mosaic-deep">
+          <Link to="/" search={{ lang }} className="min-w-0 text-mosaic-deep">
             <MosaicLogo />
           </Link>
           <nav className="ml-auto hidden items-center gap-6 lg:flex" aria-label="Main navigation">
             <a
-              href="/#tours"
+              href={`/?lang=${lang}#tours`}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[0]}
             </a>
             <a
-              href="/#products"
+              href={`/?lang=${lang}#products`}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[1]}
             </a>
             <Link
               to="/madeira-guide"
+              search={{ lang }}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[2]}
             </Link>
             <a
-              href="/#pavel"
+              href={`/?lang=${lang}#pavel`}
               className="text-sm font-bold text-foreground/70 transition hover:text-mosaic-ocean"
             >
               {t.nav[3]}
@@ -179,7 +186,7 @@ export function MosaicPage({
                 variant="outline"
                 className="mt-6 border-mosaic-deep/25 font-bold text-mosaic-deep"
               >
-                <Link to="/">
+                <Link to="/" search={{ lang }}>
                   <ArrowLeft />
                   {page.back}
                 </Link>
@@ -190,6 +197,11 @@ export function MosaicPage({
                 <div className="grid gap-4">
                   <h3 className="font-display text-xl font-extrabold text-mosaic-deep">{page.ctaTitle}</h3>
                   <p className="text-sm leading-6 text-muted-foreground">{page.ctaText}</p>
+                  <Button asChild className="bg-mosaic-leaf font-extrabold hover:bg-mosaic-deep">
+                    <a href="https://retreat.orthodoxmadeira.com" target="_blank" rel="noopener noreferrer">
+                      {retreatSiteLabel[lang]} <ExternalLink aria-hidden />
+                    </a>
+                  </Button>
                   <Button asChild className="bg-mosaic-deep font-extrabold hover:bg-mosaic-ocean">
                     <a href={contactUrl("whatsapp", retreatMessage)} target="_blank" rel="noopener noreferrer">WhatsApp <Send aria-hidden /></a>
                   </Button>
