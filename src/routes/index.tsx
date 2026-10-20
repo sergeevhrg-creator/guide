@@ -22,39 +22,51 @@ export const Route = createFileRoute("/")({
     return lang === "en" || lang === "ru" || lang === "be" || lang === "uk" ? { lang } : {};
   },
   head: ({ match }) => {
-    const isRussian = match.search.lang === "ru";
-    const title = isRussian
-      ? "Индивидуальные экскурсии по Мадейре — Madeira Mosaic"
-      : "Madeira Mosaic — Private Madeira Tours & Cruise Excursions";
-    const description = isRussian
-      ? "Индивидуальные экскурсии по Мадейре для небольших групп до 4 гостей: горы, океан, Фуншал, Фанал и северо-запад острова."
-      : "Private Madeira tours for small groups of up to 4 guests: mountains, ocean, Funchal, Fanal and the north-west of the island.";
-    const canonical = `https://guide.orthodoxmadeira.com/${isRussian ? "?lang=ru" : "?lang=en"}`;
+    const lang = match.search.lang ?? "en";
+    const seo = {
+      en: {
+        title: "Madeira Mosaic — Private Madeira Tours & Cruise Excursions",
+        description: "Private Madeira tours for small groups of up to 4 guests: mountains, ocean, Funchal, Fanal and the north-west of the island.",
+      },
+      ru: {
+        title: "Индивидуальные экскурсии по Мадейре — Madeira Mosaic",
+        description: "Индивидуальные экскурсии по Мадейре для небольших групп до 4 гостей: горы, океан, Фуншал, Фанал и северо-запад острова.",
+      },
+      be: {
+        title: "Індывідуальныя экскурсіі па Мадэйры — Madeira Mosaic",
+        description: "Індывідуальныя экскурсіі па Мадэйры для невялікіх груп да 4 гасцей: горы, акіян, Фуншал, Фанал і паўночны захад вострава.",
+      },
+      uk: {
+        title: "Індивідуальні екскурсії Мадейрою — Madeira Mosaic",
+        description: "Індивідуальні екскурсії Мадейрою для невеликих груп до 4 гостей: гори, океан, Фуншал, Фанал і північний захід острова.",
+      },
+    }[lang];
+    const canonical = `https://guide.orthodoxmadeira.com/?lang=${lang}`;
     return {
-    meta: [
-      { title },
-      {
-        name: "description",
-        content: description,
-      },
-      { property: "og:title", content: title },
-      {
-        property: "og:description",
-        content: description,
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: canonical },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      { rel: "canonical", href: canonical },
-      { rel: "alternate", hrefLang: "en", href: "https://guide.orthodoxmadeira.com/?lang=en" },
-      { rel: "alternate", hrefLang: "ru", href: "https://guide.orthodoxmadeira.com/?lang=ru" },
-      { rel: "alternate", hrefLang: "be", href: "https://guide.orthodoxmadeira.com/?lang=be" },
-      { rel: "alternate", hrefLang: "uk", href: "https://guide.orthodoxmadeira.com/?lang=uk" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://guide.orthodoxmadeira.com/?lang=en" },
-    ],
-  };
+      meta: [
+        { title: seo.title },
+        {
+          name: "description",
+          content: seo.description,
+        },
+        { property: "og:title", content: seo.title },
+        {
+          property: "og:description",
+          content: seo.description,
+        },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: canonical },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [
+        { rel: "canonical", href: canonical },
+        { rel: "alternate", hrefLang: "en", href: "https://guide.orthodoxmadeira.com/?lang=en" },
+        { rel: "alternate", hrefLang: "ru", href: "https://guide.orthodoxmadeira.com/?lang=ru" },
+        { rel: "alternate", hrefLang: "be", href: "https://guide.orthodoxmadeira.com/?lang=be" },
+        { rel: "alternate", hrefLang: "uk", href: "https://guide.orthodoxmadeira.com/?lang=uk" },
+        { rel: "alternate", hrefLang: "x-default", href: "https://guide.orthodoxmadeira.com/?lang=en" },
+      ],
+    };
   },
   component: HomePage,
 });
@@ -198,7 +210,7 @@ function HomePage() {
           </div>
         </section>
 
-<section id="tours" className="scroll-mt-40 bg-mosaic-mist py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><SectionHeading label={t.catalogLabel} title={t.catalogTitle}/><p className="mt-5 max-w-3xl leading-7 text-muted-foreground">{t.catalogIntro}</p><div data-sales-grid className="mt-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 auto-rows-fr">{featured.map(tour => <SalesTourCard key={tour.id} tour={tour} onDetails={() => setSelectedTour(tour)} onDiscuss={openOrder}/>)}</div><div className="mt-10 flex justify-center"><Button asChild size="lg" className="bg-mosaic-deep font-extrabold hover:bg-mosaic-ocean"><Link to="/tours">{allToursLabel[lang]}<ArrowRight/></Link></Button></div><p className="mt-8 max-w-4xl text-sm leading-7 text-muted-foreground">{salesCopy.extras[lang]}</p></div></section>
+<section id="tours" className="scroll-mt-40 bg-mosaic-mist py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><SectionHeading label={t.catalogLabel} title={t.catalogTitle}/><p className="mt-5 max-w-3xl leading-7 text-muted-foreground">{t.catalogIntro}</p><div data-sales-grid className="mt-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 auto-rows-fr">{featured.map(tour => <SalesTourCard key={tour.id} tour={tour} onDetails={() => setSelectedTour(tour)} onDiscuss={openOrder}/>)}</div><div className="mt-10 flex justify-center"><Button asChild size="lg" className="bg-mosaic-deep font-extrabold hover:bg-mosaic-ocean"><Link to="/tours" search={{ lang }}>{allToursLabel[lang]}<ArrowRight/></Link></Button></div><p className="mt-8 max-w-4xl text-sm leading-7 text-muted-foreground">{salesCopy.extras[lang]}</p></div></section>
  <section id="products" className="scroll-mt-40 bg-background py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><SectionHeading label="7 DAYS" title={salesCopy.programs[lang]}/><div className="mt-10 grid gap-6 md:grid-cols-2">{programs.map((p,i) => <article key={p.title} className="flex min-w-0 flex-col overflow-hidden rounded-md border border-border bg-card"><img src={lang === "ru" ? (i === 0 ? salesPosters.retreat : salesPosters.family) : imageCredits[i === 0 ? "fanal" : "seixal"].src} alt={lang === "ru" ? `${p.title} — рекламная афиша` : p.title} loading="lazy" className={lang === "ru" ? "aspect-[4/5] w-full object-contain" : "aspect-[7/5] w-full object-cover"}/><div className="flex flex-1 flex-col p-6"><h3 className="font-display text-2xl font-extrabold text-mosaic-deep">{p.title}</h3><p className="mt-4 leading-7 text-muted-foreground">{p.body}</p><strong className="mt-5 text-mosaic-deep">{salesCopy.request[lang]}</strong><div className="mt-auto flex flex-wrap gap-3 pt-6"><Button asChild variant="outline"><Link to={i === 0 ? "/week-of-silence" : "/return-to-what-matters"}>{t.details}<ChevronRight/></Link></Button><Button onClick={() => openOrder(p.title)} className="bg-mosaic-deep hover:bg-mosaic-ocean">{salesCopy.discuss[lang]}</Button></div></div></article>)}</div></div></section>
  <section id="contact" className="scroll-mt-40 bg-mosaic-mist px-4 py-16 sm:px-6 sm:py-24"><SalesInquiryForm key={lang} products={[...salesTours.map(t => tourTitle(t, lang)), ...programs.map(p => p.title)]} selected={selection} onSelect={setSelection}/></section>
  </main><footer className="bg-mosaic-deep px-4 pb-24 pt-10 text-primary-foreground sm:pb-10"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row"><MosaicLogo compact onDark/><p className="text-center text-sm leading-6 text-primary-foreground/75 sm:text-right">{t.footer}<br/>{t.footerNote}<br/><PhotoCreditsLink/></p></div></footer>
