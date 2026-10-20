@@ -13,6 +13,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { LanguageProvider } from "../lib/i18n/lang";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { CookieConsent } from "../components/CookieConsent";
+import { LegalFooter } from "../components/LegalFooter";
 
 function NotFoundComponent() {
   return (
@@ -130,6 +132,8 @@ function RootComponent() {
       <LanguageProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <LegalFooter />
+        <CookieConsent />
       </LanguageProvider>
     </QueryClientProvider>
   );

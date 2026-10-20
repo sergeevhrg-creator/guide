@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as MadeiraGuideRouteImport } from './routes/madeira-guide'
 import { Route as PhotoCreditsRouteImport } from './routes/photo-credits'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RemoteWorkMadeiraRouteImport } from './routes/remote-work-madeira'
 import { Route as ReturnToWhatMattersRouteImport } from './routes/return-to-what-matters'
 import { Route as ToursRouteImport } from './routes/tours'
@@ -22,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MadeiraGuideRoute = MadeiraGuideRouteImport.update({
   id: '/madeira-guide',
   path: '/madeira-guide',
@@ -30,6 +37,11 @@ const MadeiraGuideRoute = MadeiraGuideRouteImport.update({
 const PhotoCreditsRoute = PhotoCreditsRouteImport.update({
   id: '/photo-credits',
   path: '/photo-credits',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RemoteWorkMadeiraRoute = RemoteWorkMadeiraRouteImport.update({
@@ -55,8 +67,10 @@ const WeekOfSilenceRoute = WeekOfSilenceRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
   '/madeira-guide': typeof MadeiraGuideRoute
   '/photo-credits': typeof PhotoCreditsRoute
+  '/privacy': typeof PrivacyRoute
   '/remote-work-madeira': typeof RemoteWorkMadeiraRoute
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
@@ -64,8 +78,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
   '/madeira-guide': typeof MadeiraGuideRoute
   '/photo-credits': typeof PhotoCreditsRoute
+  '/privacy': typeof PrivacyRoute
   '/remote-work-madeira': typeof RemoteWorkMadeiraRoute
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
@@ -74,8 +90,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
   '/madeira-guide': typeof MadeiraGuideRoute
   '/photo-credits': typeof PhotoCreditsRoute
+  '/privacy': typeof PrivacyRoute
   '/remote-work-madeira': typeof RemoteWorkMadeiraRoute
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
@@ -85,8 +103,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cookies'
     | '/madeira-guide'
     | '/photo-credits'
+    | '/privacy'
     | '/remote-work-madeira'
     | '/return-to-what-matters'
     | '/tours'
@@ -94,8 +114,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cookies'
     | '/madeira-guide'
     | '/photo-credits'
+    | '/privacy'
     | '/remote-work-madeira'
     | '/return-to-what-matters'
     | '/tours'
@@ -103,8 +125,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cookies'
     | '/madeira-guide'
     | '/photo-credits'
+    | '/privacy'
     | '/remote-work-madeira'
     | '/return-to-what-matters'
     | '/tours'
@@ -113,8 +137,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CookiesRoute: typeof CookiesRoute
   MadeiraGuideRoute: typeof MadeiraGuideRoute
   PhotoCreditsRoute: typeof PhotoCreditsRoute
+  PrivacyRoute: typeof PrivacyRoute
   RemoteWorkMadeiraRoute: typeof RemoteWorkMadeiraRoute
   ReturnToWhatMattersRoute: typeof ReturnToWhatMattersRoute
   ToursRoute: typeof ToursRoute
@@ -130,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/madeira-guide': {
       id: '/madeira-guide'
       path: '/madeira-guide'
@@ -142,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/photo-credits'
       fullPath: '/photo-credits'
       preLoaderRoute: typeof PhotoCreditsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/remote-work-madeira': {
@@ -177,8 +217,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CookiesRoute: CookiesRoute,
   MadeiraGuideRoute: MadeiraGuideRoute,
   PhotoCreditsRoute: PhotoCreditsRoute,
+  PrivacyRoute: PrivacyRoute,
   RemoteWorkMadeiraRoute: RemoteWorkMadeiraRoute,
   ReturnToWhatMattersRoute: ReturnToWhatMattersRoute,
   ToursRoute: ToursRoute,
