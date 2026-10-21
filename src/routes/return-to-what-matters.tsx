@@ -27,27 +27,33 @@ import { returnContent } from "@/lib/return-content";
 import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
 import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
+import { localizedSeoLinks, validateLangSearch } from "@/lib/seo";
 
 const dayWord = { en: "Day", be: "Дзень", uk: "День", ru: "День" } as const;
 
 export const Route = createFileRoute("/return-to-what-matters")({
-  head: () => ({
-    meta: [
-      { title: "Madeira: A Return to What Matters — 7 Days" },
-      {
-        name: "description",
-        content:
-          "A seven-day journey through Madeira’s ocean, mountains, Laurissilva forest, villages and vineyards.",
-      },
-      { property: "og:title", content: "Madeira. A Return to What Matters" },
-      {
-        property: "og:description",
-        content: "Seven days among the ocean, mountains and ancient forest of Madeira.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  validateSearch: validateLangSearch,
+  head: ({ match }) => {
+    const lang = match.search.lang ?? "en";
+    const seo = {
+      en: ["Madeira: A Return to What Matters — 7-Day Family Journey", "A seven-day family journey through Madeira’s ocean, mountains, Laurissilva forest, villages and vineyards, shaped around your family’s pace."],
+      ru: ["Мадейра: вернуться к главному — семейное путешествие на 7 дней", "Семидневное семейное путешествие по Мадейре: океан, горы, лавровый лес, деревни и виноградники в комфортном для семьи темпе."],
+      uk: ["Мадейра: повернутися до головного — сімейна подорож на 7 днів", "Семиденна сімейна подорож Мадейрою: океан, гори, лавровий ліс, села та виноградники у комфортному для родини темпі."],
+      be: ["Мадэйра: вярнуцца да галоўнага — сямейнае падарожжа на 7 дзён", "Сямідзённае сямейнае падарожжа па Мадэйры: акіян, горы, лаўровы лес, вёскі і вінаграднікі ў камфортным для сям’і тэмпе."],
+    }[lang];
+    return {
+      meta: [
+        { title: seo[0] },
+        { name: "description", content: seo[1] },
+        { property: "og:title", content: seo[0] },
+        { property: "og:description", content: seo[1] },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: `https://guide.orthodoxmadeira.com/return-to-what-matters?lang=${lang}` },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: localizedSeoLinks("/return-to-what-matters", lang),
+    };
+  },
   component: ReturnJourneyPage,
 });
 

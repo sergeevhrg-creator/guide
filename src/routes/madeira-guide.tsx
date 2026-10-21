@@ -22,6 +22,7 @@ import { mosaicContent } from "@/lib/mosaic-content";
 import { guideTabs, type GuideCard } from "@/lib/guide-content";
 import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
+import { localizedSeoLinks, validateLangSearch } from "@/lib/seo";
 
 const pageStrings = {
   en: {
@@ -157,24 +158,30 @@ function GuideCardView({
 }
 
 export const Route = createFileRoute("/madeira-guide")({
-  head: () => ({
-    meta: [
-      { title: "Madeira guide: full reference catalog" },
-      {
-        name: "description",
-        content:
-          "A practical, tabbed Madeira guide: beaches, mountains, levadas, museums, wineries, food, festivals, logistics, connectivity and emergency information.",
-      },
-      { property: "og:title", content: "Madeira guide: full reference catalog" },
-      {
-        property: "og:description",
-        content:
-          "Browse Madeira's beaches, mountains, levadas, food, festivals and practical logistics in one reference catalog.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  validateSearch: validateLangSearch,
+  head: ({ match }) => {
+    const lang = match.search.lang ?? "en";
+    const page = pageStrings[lang];
+    const descriptions = {
+      en: "A practical Madeira guide to beaches, mountains, levadas, food, festivals, transport and useful island information.",
+      ru: "Практический гид по Мадейре: пляжи, горы, левады, рестораны, фестивали, транспорт и полезная информация об острове.",
+      uk: "Практичний гід по Мадейрі: пляжі, гори, левади, їжа, фестивалі, транспорт і корисна інформація про острів.",
+      be: "Практычны гід па Мадэйры: пляжы, горы, левады, ежа, фестывалі, транспарт і карысная інфармацыя пра востраў.",
+    };
+    const canonical = `https://guide.orthodoxmadeira.com/madeira-guide?lang=${lang}`;
+    return {
+      meta: [
+        { title: `${page.title} — Madeira Mosaic` },
+        { name: "description", content: descriptions[lang] },
+        { property: "og:title", content: page.title },
+        { property: "og:description", content: descriptions[lang] },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: canonical },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: localizedSeoLinks("/madeira-guide", lang),
+    };
+  },
   component: MadeiraGuidePage,
 });
 
