@@ -31,8 +31,8 @@ export const Route = createFileRoute("/")({
       },
       ru: {
         title: "Индивидуальные экскурсии по Мадейре — Madeira Mosaic",
-        description: "Индивидуальные экскурсии по Мадейре для небольших групп до 4 гостей: горы, океан, Фуншал, Фанал и северо-запад острова.",
-        keywords: "индивидуальные экскурсии на Мадейре, экскурсии на Мадейре, русский гид на Мадейре, частный гид на Мадейре, экскурсия из порта Фуншал",
+        description: "Индивидуальные экскурсии по Мадейре на русском языке для 1–4 гостей: Пику-ду-Арейру, Фуншал, Фанал, Сейшал и Порту-Мониш.",
+        keywords: "индивидуальные экскурсии на Мадейре, экскурсии на Мадейре на русском языке, частные экскурсии по Мадейре, экскурсия из порта Фуншал",
       },
       be: {
         title: "Індывідуальныя экскурсіі па Мадэйры — Madeira Mosaic",
@@ -85,6 +85,9 @@ function HomePage() {
  const featured = featuredTourIds.map(id => salesTours.find(x => x.id === id)).filter((x): x is SalesTour => x !== undefined);
  const programs = [t.products[2], t.products[1]].filter(p => p !== undefined);
  function openOrder(title?: string) { setSelectedTour(null); setSelection(title ?? helpChooseRoute[lang]); window.setTimeout(() => { document.getElementById("contact")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); }, 50); }
+ const pavelParagraphs = (lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n");
+ const pavelCta = { ru: "Подобрать экскурсию с Павлом", en: "Plan a tour with Pavel", be: "Падабраць экскурсію з Паўлам", uk: "Підібрати екскурсію з Павлом" }[lang];
+ const pavelMore = { ru: "Подробнее о Павле", en: "More about Pavel", be: "Больш пра Паўла", uk: "Докладніше про Павла" }[lang];
  return <div className="min-h-screen bg-background">
  <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md"><div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:flex sm:px-6 lg:px-8">
  <a href="#top" className="min-w-0"><MosaicLogo/></a><nav className="ml-auto hidden gap-5 text-sm font-bold lg:flex" aria-label="Main navigation"><a href="#pavel">{t.nav[3]}</a><a href="#tours">{t.nav[0]}</a><a href="#products">{t.nav[1]}</a><Link to="/madeira-guide" search={{ lang }}>{t.nav[2]}</Link></nav><LanguageSwitcher/><Button asChild size="sm" className="hidden bg-mosaic-leaf hover:bg-mosaic-deep sm:inline-flex"><a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer"><MessageCircle/>WhatsApp</a></Button>
@@ -153,64 +156,52 @@ function HomePage() {
         </section>
 
         <section id="pavel" className="scroll-mt-20 bg-background py-16 sm:py-24">
-          <div className="mx-auto grid max-w-6xl items-start gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:px-8">
-            <div className="overflow-hidden rounded-2xl border border-border bg-mosaic-mist p-3 shadow-sm sm:p-4">
-              <img
-                src={pavelImages.portrait}
-                alt={
-                  {
-                    en: "Pavel Sergeev, your host in Madeira",
-                    be: "Павел Сяргееў, ваш гаспадар на Мадэйры",
-                    uk: "Павло Сергєєв, ваш господар на Мадейрі",
-                    ru: "Павел Сергеев — ваш проводник по Мадейре",
-                  }[lang]
-                }
-                className="h-auto w-full rounded-xl object-contain"
-                loading="lazy"
-                width="1280"
-                height="960"
-              />
+          <div className="mx-auto grid max-w-6xl items-start gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8">
+            <div className="grid gap-3 lg:col-span-5">
+              <div className="overflow-hidden rounded-2xl border border-border bg-mosaic-mist p-3 shadow-sm sm:p-4">
+                <img
+                  src={pavelImages.portrait}
+                  alt={{ en: "Pavel Sergeev in Madeira", be: "Павел Сяргееў на Мадэйры", uk: "Павло Сергєєв на Мадейрі", ru: "Павел Сергеев на Мадейре" }[lang]}
+                  className="aspect-[4/3] w-full rounded-xl object-cover"
+                  loading="lazy"
+                  width="1280"
+                  height="960"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3" aria-label={lang === "ru" ? "Мадейра глазами Павла" : "Madeira through Pavel's eyes"}>
+                <img src={imageCredits["pico-arieiro"].src} alt={lang === "ru" ? "Горы Мадейры" : "Madeira mountains"} loading="lazy" className="aspect-[4/3] w-full rounded-xl object-cover" />
+                <img src={imageCredits["home-coast"].src} alt={lang === "ru" ? "Побережье Мадейры" : "Madeira coast"} loading="lazy" className="aspect-[4/3] w-full rounded-xl object-cover" />
+              </div>
             </div>
-            <div className="flex min-w-0 flex-col justify-center lg:py-2">
+            <div className="flex min-w-0 flex-col justify-center lg:col-span-7 lg:py-2">
               <SectionHeading label={t.aboutLabel} title={introductionTitle[lang]} />
               <div className="mt-4 space-y-3 text-[0.95rem] leading-6 text-foreground/75">
-                {(lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n").map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+                {pavelParagraphs.slice(0, 2).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
               </div>
-              <p className="mt-4 border-l-2 border-mosaic-gold pl-3 text-sm leading-6 text-foreground/75">{transportNote[lang]}</p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                {t.aboutPoints.map((point, index) => (
+              <div className="mt-6 flex flex-wrap gap-2">
+                {t.aboutPoints.map((point) => (
                   <span
                     key={point}
-                    className={`rounded px-4 py-2 text-sm font-extrabold text-primary-foreground ${["bg-mosaic-ocean", "bg-mosaic-leaf", "bg-mosaic-roof"][index] ?? "bg-mosaic-deep"}`}
+                    className="rounded-full border border-mosaic-ocean/20 bg-mosaic-mist px-4 py-2 text-sm font-extrabold text-mosaic-deep"
                   >
                     {point}
                   </span>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button
-                  asChild
-                  className="bg-mosaic-leaf font-bold hover:bg-mosaic-deep"
-                >
-                  <a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle />
-                    WhatsApp
-                  </a>
+              <div className="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+                <Button onClick={() => openOrder()} className="bg-mosaic-deep font-bold hover:bg-mosaic-ocean">
+                  {pavelCta}<ArrowRight />
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-mosaic-deep/25 font-bold text-mosaic-deep hover:bg-mosaic-mist"
-                >
-                  <a href={contactUrl("telegram", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer">
-                    <Send />
-                    Telegram
-                  </a>
-                </Button>
-                <Button onClick={() => openOrder()} variant="secondary" className="font-bold">
-                  {t.journeyCta}
-                </Button>
+                <div className="flex flex-wrap gap-3">
+                  <Button asChild variant="outline" size="sm" className="border-mosaic-deep/25 font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp</a></Button>
+                  <Button asChild variant="ghost" size="sm" className="font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={contactUrl("telegram", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><Send />Telegram</a></Button>
+                </div>
               </div>
+              {pavelParagraphs.length > 2 && <details className="group mt-6 rounded-xl border border-border bg-card p-4">
+                <summary className="cursor-pointer list-none font-bold text-mosaic-deep marker:hidden">{pavelMore}<ChevronRight className="ml-1 inline h-4 w-4 transition-transform group-open:rotate-90" /></summary>
+                <div className="mt-4 space-y-3 text-[0.95rem] leading-6 text-foreground/75">{pavelParagraphs.slice(2).map((paragraph, i) => <p key={i}>{paragraph}</p>)}</div>
+              </details>}
+              <p className="mt-4 border-l-2 border-mosaic-gold pl-3 text-sm leading-6 text-foreground/75">{transportNote[lang]}</p>
             </div>
           </div>
         </section>
