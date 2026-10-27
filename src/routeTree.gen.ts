@@ -18,6 +18,7 @@ import { Route as RemoteWorkMadeiraRouteImport } from './routes/remote-work-made
 import { Route as ReturnToWhatMattersRouteImport } from './routes/return-to-what-matters'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as WeekOfSilenceRouteImport } from './routes/week-of-silence'
+import { Route as ToursSlugRouteImport } from './routes/tours_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const WeekOfSilenceRoute = WeekOfSilenceRouteImport.update({
   path: '/week-of-silence',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToursSlugRoute = ToursSlugRouteImport.update({
+  id: '/tours_/$slug',
+  path: '/tours/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
   '/week-of-silence': typeof WeekOfSilenceRoute
+  '/tours/$slug': typeof ToursSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
   '/week-of-silence': typeof WeekOfSilenceRoute
+  '/tours/$slug': typeof ToursSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
   '/week-of-silence': typeof WeekOfSilenceRoute
+  '/tours_/$slug': typeof ToursSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/return-to-what-matters'
     | '/tours'
     | '/week-of-silence'
+    | '/tours/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/return-to-what-matters'
     | '/tours'
     | '/week-of-silence'
+    | '/tours/$slug'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/return-to-what-matters'
     | '/tours'
     | '/week-of-silence'
+    | '/tours_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   ReturnToWhatMattersRoute: typeof ReturnToWhatMattersRoute
   ToursRoute: typeof ToursRoute
   WeekOfSilenceRoute: typeof WeekOfSilenceRoute
+  ToursSlugRoute: typeof ToursSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WeekOfSilenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tours_/$slug': {
+      id: '/tours_/$slug'
+      path: '/tours/$slug'
+      fullPath: '/tours/$slug'
+      preLoaderRoute: typeof ToursSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReturnToWhatMattersRoute: ReturnToWhatMattersRoute,
   ToursRoute: ToursRoute,
   WeekOfSilenceRoute: WeekOfSilenceRoute,
+  ToursSlugRoute: ToursSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

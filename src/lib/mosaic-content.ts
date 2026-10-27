@@ -670,12 +670,12 @@ export const mosaicContent: Record<
 > = {
   en: {
     nav: ["Tours", "Journeys", "Guide", "About Pavel"],
-    heroSub: "Private Madeira tours · personal routes",
-    heroTitle: "See the Madeira you'll remember",
+    heroSub: "Private itinerary · 1–4 guests",
+    heroTitle: "Private Madeira tours in English",
     heroText:
-      "Private Madeira day tours to Pico do Areeiro, Funchal, Fanal, Porto Moniz and Seixal. Choose an experience — the route will be adapted to your pace, interests and dates.",
-    toursCta: "Choose a tour",
-    journeyCta: "Help me choose a route",
+      "Pico do Areeiro at sunrise, Funchal, Fanal, Seixal and Porto Moniz. Pavel will help you choose a route for your group and personally confirm the trip details.",
+    toursCta: "Choose your tour",
+    journeyCta: "Message Pavel",
     productsLabel: "Four ways to travel",
     productsTitle: "Pick the format first, the route second",
     products: [

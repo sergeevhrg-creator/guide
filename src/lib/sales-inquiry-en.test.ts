@@ -1,9 +1,17 @@
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
-import { englishSalesInquiryMessage } from "./sales-inquiry-en";
-import { contactUrl } from "./contacts";
+import { englishSalesInquiryMessage } from "./sales-inquiry-en.ts";
+import { contactUrl } from "./contacts.ts";
 
-const enquiry = { name: "Test Guest", contact: "test@example.com", channel: "WhatsApp", dates: "12–14 November", guests: 4, product: "Two-Day Madeira Tour for Cruise Ship Passengers", comment: "Coastal views" };
+const enquiry = {
+  name: "Test Guest",
+  contact: "test@example.com",
+  channel: "WhatsApp",
+  dates: "12–14 November",
+  guests: 4,
+  product: "Two-Day Madeira Tour for Cruise Ship Passengers",
+  comment: "Coastal views",
+};
 describe("English sales handoff", () => {
   it("preserves the selected excursion and guest details in the WhatsApp draft", () => {
     const url = new URL(contactUrl("whatsapp", englishSalesInquiryMessage(enquiry)));
@@ -17,5 +25,18 @@ describe("English sales handoff", () => {
     const message = englishSalesInquiryMessage({ ...enquiry, product: "choose" });
     assert.ok(message.includes("Tour or programme: Please help me choose a route"));
     assert.ok(!message.includes("Tour or programme: choose"));
+  });
+  it("includes cruise and photo-specific details when they are supplied", () => {
+    const message = englishSalesInquiryMessage({
+      ...enquiry,
+      details: [
+        ["Cruise ship name", "Atlantic Star"],
+        ["All aboard time", "17:30"],
+        ["Photographer", "I only need the route and Pavel’s accompaniment"],
+      ],
+    });
+    assert.ok(message.includes("Cruise ship name: Atlantic Star"));
+    assert.ok(message.includes("All aboard time: 17:30"));
+    assert.ok(message.includes("Photographer: I only need the route and Pavel’s accompaniment"));
   });
 });

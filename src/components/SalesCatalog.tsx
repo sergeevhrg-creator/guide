@@ -8,6 +8,7 @@ import { salesPosters, updatedSalesPosters, salesPosterReplacementPending, type 
 import { salesCopy, salesDescriptions } from "@/lib/sales-copy";
 import { salesEditorialRu } from "@/lib/sales-editorial";
 import { salesEditorialEn } from "@/lib/sales-editorial-en";
+import { getTourPageSlug } from "@/lib/tour-pages";
 
 export const featuredTourIds = ["sunrise", "family-west", "funchal", "fanal"] as const;
 export const discussRoute: Record<Lang, string> = { ru: "Обсудить маршрут", en: "Discuss this route", be: "Абмеркаваць маршрут", uk: "Обговорити маршрут" };
@@ -15,7 +16,7 @@ export const helpChooseRoute: Record<Lang, string> = { ru: "Нужна помо�
 const perHour = (lang: Lang) => ({ ru: "час", be: "гадзіну", uk: "годину", en: "hour" })[lang];
 
 export function SalesTourCard({ tour, onDetails, onDiscuss }: { tour: SalesTour; onDetails: () => void; onDiscuss: (title: string) => void }) {
- const { lang } = useLang(); const t = mosaicContent[lang];
+ const { lang } = useLang(); const t = mosaicContent[lang]; const pageSlug = getTourPageSlug(tour.id);
  return <article data-tour={tour.id} className="flex h-full min-w-0 flex-col overflow-hidden rounded-md border border-border bg-card">
   <TourArt tour={tour}/><div className="flex flex-1 flex-col p-5 sm:p-6">
   <h3 className="font-display text-xl font-extrabold leading-snug text-mosaic-deep">{tourTitle(tour, lang)}</h3>
@@ -25,7 +26,7 @@ export function SalesTourCard({ tour, onDetails, onDiscuss }: { tour: SalesTour;
   <p className="mt-4 text-sm font-semibold">€35/{perHour(lang)}</p><strong className="mt-2 text-lg text-mosaic-deep">€{tourPrice(tour)} · {salesCopy.car[lang]}</strong>
   <p className="mt-3 text-xs leading-5 text-muted-foreground">{tour.id === "photo-tour" ? (lang === "en" ? `${photographerSeparate.en} ${separateCosts.en}` : photographerSeparate[lang]) : separateCosts[lang]}</p>
   {cruiseNotes[tour.id] && <p className="mt-2 text-xs leading-5 text-muted-foreground">{cruiseNotes[tour.id]?.[lang]}</p>}
-  <div className="mt-auto flex flex-wrap gap-2 pt-5"><Button variant="outline" onClick={onDetails}>{t.details}<ChevronRight/></Button><Button className="bg-mosaic-deep hover:bg-mosaic-ocean" onClick={() => onDiscuss(tourTitle(tour, lang))}>{discussRoute[lang]}<MessageCircle/></Button></div>
+  <div className="mt-auto flex flex-wrap gap-2 pt-5">{pageSlug && (lang === "ru" || lang === "en") ? <Button asChild variant="outline"><a href={`/tours/${pageSlug}?lang=${lang}`}>{t.details}<ChevronRight/></a></Button> : <Button variant="outline" onClick={onDetails}>{t.details}<ChevronRight/></Button>}<Button className="bg-mosaic-deep hover:bg-mosaic-ocean" onClick={() => onDiscuss(tourTitle(tour, lang))}>{discussRoute[lang]}<MessageCircle/></Button></div>
   </div></article>;
 }
 

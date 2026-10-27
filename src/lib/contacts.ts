@@ -4,7 +4,6 @@ export const CONTACTS = {
   whatsappUrl: "https://wa.me/351963450111",
   telegramHandle: "+351 963 450 111",
   telegramUrl: "https://t.me/+351963450111",
-  responseTime: "TODO_CONFIRM_REAL_RESPONSE_TIME",
 } as const;
 
 export const QUICK_INQUIRY = {
