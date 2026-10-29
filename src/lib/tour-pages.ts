@@ -1,6 +1,7 @@
 import type { ImageId } from "@/lib/image-credits";
 
-export type TourPageLang = "en" | "ru";
+export type TourPageLang = "en" | "be" | "uk" | "ru";
+type PrimaryTourPageLang = Extract<TourPageLang, "en" | "ru">;
 
 export type TourPageId =
   | "sunrise"
@@ -25,9 +26,9 @@ export type TourPageConfig = {
   slug: string;
   imageId: ImageId;
   kind?: "standard" | "cruise" | "photo";
-  h1: Record<TourPageLang, string>;
-  seoTitle: Record<TourPageLang, string>;
-  keywords: Record<TourPageLang, string>;
+  h1: Record<PrimaryTourPageLang, string>;
+  seoTitle: Record<PrimaryTourPageLang, string>;
+  keywords: Record<PrimaryTourPageLang, string>;
   durationLabel?: Record<TourPageLang, string>;
 };
 
@@ -270,7 +271,12 @@ export const tourPages = [
       en: "Madeira shore excursion, Funchal cruise port tour, private Madeira cruise tour",
       ru: "экскурсия из порта Фуншал, круизная экскурсия Мадейра, экскурсия для пассажиров лайнера",
     },
-    durationLabel: { en: "5–8 hours", ru: "5–8 часов" },
+    durationLabel: {
+      en: "5–8 hours",
+      be: "5–8 гадзін",
+      uk: "5–8 годин",
+      ru: "5–8 часов",
+    },
   },
   {
     tourId: "cruise-two",
@@ -289,7 +295,12 @@ export const tourPages = [
       en: "two day Madeira shore excursion, Madeira cruise tour, private Madeira cruise excursion",
       ru: "Мадейра за два дня, круизная экскурсия Мадейра, экскурсия из порта Фуншал",
     },
-    durationLabel: { en: "2 days × 7 hours", ru: "2 дня по 7 часов" },
+    durationLabel: {
+      en: "2 days × 7 hours",
+      be: "2 дні па 7 гадзін",
+      uk: "2 дні по 7 годин",
+      ru: "2 дня по 7 часов",
+    },
   },
   {
     tourId: "photo-tour",

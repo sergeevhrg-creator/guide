@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { ArrowRight, ChevronRight, MessageCircle, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ChevronRight, Menu, MessageCircle, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { MadeiraHeroMotion } from "@/components/MadeiraHeroMotion";
@@ -82,15 +82,38 @@ function HomePage() {
  useEffect(() => { if (search.lang) setLang(search.lang); }, [search.lang, setLang]);
  const [selectedTour, setSelectedTour] = useState<SalesTour | null>(null);
  const [selection, setSelection] = useState("");
+ const [mobileNavOpen, setMobileNavOpen] = useState(false);
+ const mobileNavButtonRef = useRef<HTMLButtonElement>(null);
+ const mobileNavContainerRef = useRef<HTMLDivElement>(null);
+ useEffect(() => {
+   if (!mobileNavOpen) return;
+   const closeOnEscape = (event: KeyboardEvent) => {
+     if (event.key === "Escape") {
+       setMobileNavOpen(false);
+       mobileNavButtonRef.current?.focus();
+     }
+   };
+   const closeOnPointerDown = (event: PointerEvent) => {
+     if (!mobileNavContainerRef.current?.contains(event.target as Node)) setMobileNavOpen(false);
+   };
+   document.addEventListener("keydown", closeOnEscape);
+   document.addEventListener("pointerdown", closeOnPointerDown);
+   return () => {
+     document.removeEventListener("keydown", closeOnEscape);
+     document.removeEventListener("pointerdown", closeOnPointerDown);
+   };
+ }, [mobileNavOpen]);
  const featured = featuredTourIds.map(id => salesTours.find(x => x.id === id)).filter((x): x is SalesTour => x !== undefined);
  const programs = [t.products[2], t.products[1]].filter(p => p !== undefined);
  function openOrder(title?: string) { setSelectedTour(null); setSelection(title ?? helpChooseRoute[lang]); window.setTimeout(() => { document.getElementById("contact")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); }, 50); }
  const pavelParagraphs = (lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n");
  const pavelCta = { ru: "Подобрать экскурсию с Павлом", en: "Plan a tour with Pavel", be: "Падабраць экскурсію з Паўлам", uk: "Підібрати екскурсію з Павлом" }[lang];
  const pavelMore = { ru: "Подробнее о Павле", en: "More about Pavel", be: "Больш пра Паўла", uk: "Докладніше про Павла" }[lang];
+ const mobileMenuLabel = { ru: "Меню", en: "Menu", be: "Меню", uk: "Меню" }[lang];
+ const mobileMenuCloseLabel = { ru: "Закрыть меню", en: "Close menu", be: "Закрыць меню", uk: "Закрити меню" }[lang];
  return <div className="min-h-screen bg-background">
  <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md"><div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:flex sm:px-6 lg:px-8">
- <a href="#top" className="min-w-0"><MosaicLogo/></a><nav className="ml-auto hidden gap-5 text-sm font-bold lg:flex" aria-label="Main navigation"><a href="#pavel">{t.nav[3]}</a><a href="#tours">{t.nav[0]}</a><a href="#products">{t.nav[1]}</a><Link to="/madeira-guide" search={{ lang }}>{t.nav[2]}</Link></nav><LanguageSwitcher/><Button asChild size="sm" className="hidden bg-mosaic-leaf hover:bg-mosaic-deep sm:inline-flex"><a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer"><MessageCircle/>WhatsApp</a></Button>
+ <a href="#top" className="min-w-0"><MosaicLogo/></a><nav className="ml-auto hidden gap-5 text-sm font-bold lg:flex" aria-label="Main navigation"><a href="#pavel">{t.nav[3]}</a><a href="#tours">{t.nav[0]}</a><a href="#products">{t.nav[1]}</a><Link to="/madeira-guide" search={{ lang }}>{t.nav[2]}</Link></nav><div ref={mobileNavContainerRef} className="relative ml-auto flex items-center gap-2 lg:ml-0"><LanguageSwitcher/><Button ref={mobileNavButtonRef} type="button" size="icon" variant="outline" className="shrink-0 lg:hidden" aria-label={mobileNavOpen ? mobileMenuCloseLabel : mobileMenuLabel} aria-expanded={mobileNavOpen} aria-controls="mobile-main-navigation" onClick={() => setMobileNavOpen(open => !open)}>{mobileNavOpen ? <X aria-hidden/> : <Menu aria-hidden/>}</Button><Button asChild size="sm" className="hidden bg-mosaic-leaf hover:bg-mosaic-deep sm:inline-flex"><a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer"><MessageCircle/>WhatsApp</a></Button>{mobileNavOpen && <nav id="mobile-main-navigation" aria-label={mobileMenuLabel} className="absolute right-0 top-[calc(100%+0.75rem)] z-50 grid w-[min(20rem,calc(100vw-2rem))] gap-1 rounded-xl border border-border bg-background p-2 text-sm font-bold shadow-xl lg:hidden"><a href="#pavel" onClick={() => setMobileNavOpen(false)} className="rounded-lg px-4 py-3 hover:bg-mosaic-mist focus-visible:bg-mosaic-mist">{t.nav[3]}</a><a href="#tours" onClick={() => setMobileNavOpen(false)} className="rounded-lg px-4 py-3 hover:bg-mosaic-mist focus-visible:bg-mosaic-mist">{t.nav[0]}</a><a href="#products" onClick={() => setMobileNavOpen(false)} className="rounded-lg px-4 py-3 hover:bg-mosaic-mist focus-visible:bg-mosaic-mist">{t.nav[1]}</a><Link to="/madeira-guide" search={{ lang }} onClick={() => setMobileNavOpen(false)} className="rounded-lg px-4 py-3 hover:bg-mosaic-mist focus-visible:bg-mosaic-mist">{t.nav[2]}</Link></nav>}</div>
  </div></header><main>
         <section
           id="top" data-hero
@@ -162,7 +185,7 @@ function HomePage() {
                 <img
                   src={pavelImages.portrait}
                   alt={{ en: "Pavel Sergeev in Madeira", be: "Павел Сяргееў на Мадэйры", uk: "Павло Сергєєв на Мадейрі", ru: "Павел Сергеев на Мадейре" }[lang]}
-                  className="aspect-[4/3] w-full rounded-xl object-cover"
+                  className="block h-auto w-full rounded-xl object-contain"
                   loading="lazy"
                   width="1280"
                   height="960"
@@ -207,6 +230,22 @@ function HomePage() {
         </section>
 
 <section id="tours" className="scroll-mt-40 bg-mosaic-mist py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><SectionHeading label={t.catalogLabel} title={t.catalogTitle}/><p className="mt-5 max-w-3xl leading-7 text-muted-foreground">{t.catalogIntro}</p><div data-sales-grid className="mt-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 auto-rows-fr">{featured.map(tour => <SalesTourCard key={tour.id} tour={tour} onDetails={() => setSelectedTour(tour)} onDiscuss={openOrder}/>)}</div><div className="mt-10 flex justify-center"><Button asChild size="lg" className="bg-mosaic-deep font-extrabold hover:bg-mosaic-ocean"><Link to="/tours" search={{ lang }}>{allToursLabel[lang]}<ArrowRight/></Link></Button></div><p className="mt-8 max-w-4xl text-sm leading-7 text-muted-foreground">{salesCopy.extras[lang]}</p></div></section>
+ <section id="guide" className="scroll-mt-24 bg-background py-16 sm:py-24">
+   <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+     <div className="lg:col-span-5">
+       <SectionHeading label={t.guideLabel} title={t.guideTitle}/>
+       <p className="mt-5 max-w-xl leading-7 text-muted-foreground">{t.guideText}</p>
+       <Button asChild size="lg" className="mt-7 bg-mosaic-deep font-extrabold hover:bg-mosaic-ocean">
+         <Link to="/madeira-guide" search={{ lang }}>{t.guideLink}<ArrowRight/></Link>
+       </Button>
+     </div>
+     <div className="grid grid-cols-2 gap-3 lg:col-span-7" aria-label={t.guideTitle}>
+       <img src={imageCredits["seixal"].src} alt={imageCredits["seixal"].alt[lang]} loading="lazy" className="col-span-2 aspect-[16/7] w-full rounded-2xl object-cover" />
+       <img src={imageCredits["food"].src} alt={imageCredits["food"].alt[lang]} loading="lazy" className="aspect-[4/3] w-full rounded-2xl object-cover" />
+       <img src={imageCredits["fireworks"].src} alt={imageCredits["fireworks"].alt[lang]} loading="lazy" className="aspect-[4/3] w-full rounded-2xl object-cover" />
+     </div>
+   </div>
+ </section>
  <section id="products" className="scroll-mt-40 bg-background py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><SectionHeading label="7 DAYS" title={salesCopy.programs[lang]}/><div className="mt-10 grid gap-6 md:grid-cols-2">{programs.map((p,i) => <article key={p.title} className="flex min-w-0 flex-col overflow-hidden rounded-md border border-border bg-card"><img src={lang === "ru" ? (i === 0 ? salesPosters.retreat : salesPosters.family) : imageCredits[i === 0 ? "fanal" : "seixal"].src} alt={lang === "ru" ? `${p.title} — рекламная афиша` : p.title} loading="lazy" className={lang === "ru" ? "aspect-[4/5] w-full object-contain" : "aspect-[7/5] w-full object-cover"}/><div className="flex flex-1 flex-col p-6"><h3 className="font-display text-2xl font-extrabold text-mosaic-deep">{p.title}</h3><p className="mt-4 leading-7 text-muted-foreground">{p.body}</p><strong className="mt-5 text-mosaic-deep">{salesCopy.request[lang]}</strong><div className="mt-auto flex flex-wrap gap-3 pt-6"><Button asChild variant="outline"><Link to={i === 0 ? "/week-of-silence" : "/return-to-what-matters"} search={{ lang }}>{t.details}<ChevronRight/></Link></Button><Button onClick={() => openOrder(p.title)} className="bg-mosaic-deep hover:bg-mosaic-ocean">{salesCopy.discuss[lang]}</Button></div></div></article>)}</div></div></section>
  <section id="contact" className="scroll-mt-40 bg-mosaic-mist px-4 py-16 sm:px-6 sm:py-24"><SalesInquiryForm key={lang} products={[...salesTours.map(t => tourTitle(t, lang)), ...programs.map(p => p.title)]} selected={selection} onSelect={setSelection}/></section>
  </main><footer className="bg-mosaic-deep px-4 pb-24 pt-10 text-primary-foreground sm:pb-10"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row"><MosaicLogo compact onDark/><p className="text-center text-sm leading-6 text-primary-foreground/75 sm:text-right">{t.footer}<br/>{t.footerNote}<br/><PhotoCreditsLink/></p></div></footer>

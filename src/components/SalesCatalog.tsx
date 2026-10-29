@@ -5,10 +5,12 @@ import { useLang, type Lang } from "@/lib/i18n/lang";
 import { imageCredits, type ImageId } from "@/lib/image-credits";
 import { mosaicContent } from "@/lib/mosaic-content";
 import { salesPosters, updatedSalesPosters, salesPosterReplacementPending, type SalesTour } from "@/lib/sales";
-import { salesCopy, salesDescriptions } from "@/lib/sales-copy";
+import { salesCopy } from "@/lib/sales-copy";
+import { salesDescriptions } from "@/lib/sales-descriptions";
 import { salesEditorialRu } from "@/lib/sales-editorial";
 import { salesEditorialEn } from "@/lib/sales-editorial-en";
 import { getTourPageSlug } from "@/lib/tour-pages";
+import photoTourCover from "@/assets/sales/31-photo-tour-madeira-textless-v1.webp";
 
 export const featuredTourIds = ["sunrise", "family-west", "funchal", "fanal"] as const;
 export const discussRoute: Record<Lang, string> = { ru: "Обсудить маршрут", en: "Discuss this route", be: "Абмеркаваць маршрут", uk: "Обговорити маршрут" };
@@ -26,7 +28,7 @@ export function SalesTourCard({ tour, onDetails, onDiscuss }: { tour: SalesTour;
   <p className="mt-4 text-sm font-semibold">€35/{perHour(lang)}</p><strong className="mt-2 text-lg text-mosaic-deep">€{tourPrice(tour)} · {salesCopy.car[lang]}</strong>
   <p className="mt-3 text-xs leading-5 text-muted-foreground">{tour.id === "photo-tour" ? (lang === "en" ? `${photographerSeparate.en} ${separateCosts.en}` : photographerSeparate[lang]) : separateCosts[lang]}</p>
   {cruiseNotes[tour.id] && <p className="mt-2 text-xs leading-5 text-muted-foreground">{cruiseNotes[tour.id]?.[lang]}</p>}
-  <div className="mt-auto flex flex-wrap gap-2 pt-5">{pageSlug && (lang === "ru" || lang === "en") ? <Button asChild variant="outline"><a href={`/tours/${pageSlug}?lang=${lang}`}>{t.details}<ChevronRight/></a></Button> : <Button variant="outline" onClick={onDetails}>{t.details}<ChevronRight/></Button>}<Button className="bg-mosaic-deep hover:bg-mosaic-ocean" onClick={() => onDiscuss(tourTitle(tour, lang))}>{discussRoute[lang]}<MessageCircle/></Button></div>
+  <div className="mt-auto flex flex-wrap gap-2 pt-5">{pageSlug ? <Button asChild variant="outline"><a href={`/tours/${pageSlug}?lang=${lang}`}>{t.details}<ChevronRight/></a></Button> : <Button variant="outline" onClick={onDetails}>{t.details}<ChevronRight/></Button>}<Button className="bg-mosaic-deep hover:bg-mosaic-ocean" onClick={() => onDiscuss(tourTitle(tour, lang))}>{discussRoute[lang]}<MessageCircle/></Button></div>
   </div></article>;
 }
 
@@ -36,6 +38,35 @@ export function TourDetailsDialog({ tour, onClose, onDiscuss }: { tour: SalesTou
 }
 
 const neutralPhotos: Record<string, ImageId> = { sunrise: "pico-arieiro", balcoes: "balcoes", "family-west": "porto-moniz", "east-north": "sao-lourenco", funchal: "food", "rum-surf": "engenhos", "screen-free": "levada", wine: "seixal", food: "food", curral: "pico-arieiro", fanal: "fanal", camara: "home-coast", blandys: "food", "cruise-one": "home-coast", "cruise-two": "porto-moniz", "photo-tour": "sao-lourenco" };
+const photoTourArtCopy: Record<
+ Lang,
+ { badge: string; title: string; places: string; alt: string }
+> = {
+ ru: {
+  badge: "ФОТОМАРШРУТ",
+  title: "Фотосессия на Мадейре",
+  places: "Океан · горы · лес",
+  alt: "Иллюстрация фотосессии на океанской смотровой Мадейры",
+ },
+ en: {
+  badge: "PHOTO TOUR",
+  title: "Madeira photo tour",
+  places: "Ocean · mountains · forest",
+  alt: "Illustration of a photo session at a Madeira Atlantic viewpoint",
+ },
+ be: {
+  badge: "ФОТАМАРШРУТ",
+  title: "Фотасесія на Мадэйры",
+  places: "Акіян · горы · лес",
+  alt: "Ілюстрацыя фотасесіі на акіянскай агляднай пляцоўцы Мадэйры",
+ },
+ uk: {
+  badge: "ФОТОМАРШРУТ",
+  title: "Фотосесія на Мадейрі",
+  places: "Океан · гори · ліс",
+  alt: "Ілюстрація фотосесії на океанському оглядовому майданчику Мадейри",
+ },
+};
 export const introductionTitle = { ru: "Давайте знакомиться — меня зовут Павел", en: "Let’s meet — I’m Pavel", be: "Давайце знаёміцца — мяне завуць Павел", uk: "Познайоммося — мене звати Павло" };
 export const introduction = {
  en: "Hi, I’m Pavel Sergeev. I’m from Belarus and now live in Madeira, exploring the island with my wife Yulia and our son Nikolai. I personally host small outings in Russian, English and Belarusian.\n\nI’m an Orthodox priest and have worked in recruitment for over 12 years. Both have taught me to listen carefully and create an atmosphere where you can relax rather than keep up with a large group.\n\nMy background in orienteering and tourism helps me read a route, match your pace and plan an alternative. Tell me whether you prefer mountains, ocean, forest, old towns or wine; I’ll help you choose a day that feels right.",
@@ -70,7 +101,20 @@ function firstPersonDetail(tour: SalesTour, lang: Lang) {
  if (lang === "en") return [salesEditorialEn[tour.id]?.full, salesCopy.extras.en].filter(Boolean).join("\n\n");
  return [{ en: "", be: "Я падрыхтую гэтую паездку паводле вашых інтарэсаў і тэмпу.", uk: "Я підготую цю поїздку за вашими інтересами й темпом.", ru: "" }[lang], salesDescriptions[tour.id]?.[lang] ?? newTourSummary[tour.id]?.[lang], salesCopy.included[lang], salesCopy.checks[lang], tour.id === "photo-tour" ? photographerSeparate[lang] : salesCopy.extras[lang]].filter(Boolean).join("\n\n");
 }
+function PhotoTourArt({ lang }: { lang: Lang }) {
+ const copy = photoTourArtCopy[lang];
+ return <div className="relative isolate aspect-[4/5] w-full overflow-hidden bg-mosaic-deep">
+  <img src={photoTourCover} alt={copy.alt} width={960} height={1200} loading="lazy" className="absolute inset-0 h-full w-full object-cover"/>
+  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-mosaic-deep/95 via-mosaic-deep/15 to-transparent"/>
+  <span aria-hidden="true" className="absolute left-4 top-4 rounded-full border border-white/30 bg-mosaic-deep/75 px-3 py-1 text-xs font-extrabold tracking-[0.12em] text-white backdrop-blur-sm sm:left-5 sm:top-5">{copy.badge}</span>
+  <div aria-hidden="true" className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-6">
+   <p className="font-display text-2xl font-extrabold leading-tight sm:text-3xl">{copy.title}</p>
+   <p className="mt-2 text-sm font-bold text-white/85">{copy.places}</p>
+  </div>
+ </div>;
+}
 function TourArt({tour}: {tour: SalesTour}) { const {lang} = useLang(); const photo = imageCredits[neutralPhotos[tour.id] ?? "home-coast"];
+ if (tour.id === "photo-tour") return <PhotoTourArt lang={lang}/>;
  const updated = updatedSalesPosters[tour.id];
  if (lang === "ru" && updated) return <img src={updated} alt={updatedPosterAlts[tour.id] ?? `${tourTitle(tour, lang)} — рекламная афиша`} width={768} height={960} loading="lazy" className="aspect-[4/5] w-full object-contain"/>;
  if (lang === "ru" && tour.poster) return <div role="img" aria-label={`${tourTitle(tour, lang)} — рекламная афиша`} data-artwork-replacement={salesPosterReplacementPending.includes(tour.id) ? "pending" : undefined} className={`aspect-[4/5] w-full bg-no-repeat ${tour.poster === "d" ? "bg-cover" : "bg-[length:200%_200%]"}`} style={{backgroundImage: `url(${salesPosters[tour.poster]})`, backgroundPosition: tour.position}}/>;

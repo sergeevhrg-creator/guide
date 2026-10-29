@@ -1,9 +1,11 @@
 import type { Lang } from "@/lib/i18n/lang";
+import type { ImageId } from "@/lib/image-credits";
 
 export type LocalizedText = Record<Lang, string>;
 export type GuideSource = { url: string; checkedOn: string };
 export interface GuideCard {
   id: string;
+  imageId?: ImageId;
   name: string | LocalizedText;
   area: LocalizedText;
   description: LocalizedText;
@@ -21,8 +23,16 @@ export interface GuideTab {
 }
 const l = (en: string, be: string, uk: string, ru: string): LocalizedText => ({ en, be, uk, ru });
 const checkedOn = "2026-09-16";
-const card = (id: string, name: string, area: string, url: string, kind: string): GuideCard => ({
+const card = (
+  id: string,
+  name: string,
+  area: string,
+  url: string,
+  kind: string,
+  imageId?: ImageId,
+): GuideCard => ({
   id,
+  imageId,
   name,
   area: l(area, area, area, area),
   description: l(
@@ -70,7 +80,13 @@ export const guideTabs: GuideTab[] = [
     cards: [
       {
         id: "beaches-1",
-        name: "Natural Pools of Porto Moniz",
+        imageId: "porto-moniz",
+        name: l(
+          "Natural Pools of Porto Moniz",
+          "Прыродныя басейны Порту-Моніш",
+          "Природні басейни Порту-Моніш",
+          "Природные бассейны Порту-Мониш",
+        ),
         area: l("Porto Moniz", "Порту-Моніш", "Порту-Моніш", "Порту-Мониш"),
         description: l(
           "Volcanic lava pools formed over thousands of years and engineered with safe ocean-fed saltwater circulation, broad solariums, and direct Atlantic views on Madeira's rugged northwest coast.",
@@ -103,7 +119,13 @@ export const guideTabs: GuideTab[] = [
       },
       {
         id: "beaches-2",
-        name: "Seixal Natural Pools",
+        imageId: "seixal",
+        name: l(
+          "Seixal Natural Pools",
+          "Прыродныя басейны Сейшала",
+          "Природні басейни Сейшала",
+          "Природные бассейны Сейшала",
+        ),
         area: l(
           "Seixal, Porto Moniz",
           "Сейшал, Порту-Моніш",
@@ -179,7 +201,13 @@ export const guideTabs: GuideTab[] = [
       },
       {
         id: "beaches-4",
-        name: "Machico Bay Beach",
+        imageId: "machico",
+        name: l(
+          "Machico Bay Beach",
+          "Пляж у бухце Машыку",
+          "Пляж у бухті Машику",
+          "Пляж в бухте Машику",
+        ),
         area: l("Praia de Machico", "Прайя-дэ-Машыку", "Прая-де-Машіку", "Прайя-де-Машику"),
         description: l(
           "A broad golden-sand beach protected by double sea-breakwaters inside Machico Bay, created with fine Moroccan sand for calm year-round Atlantic swimming.",
@@ -491,6 +519,7 @@ export const guideTabs: GuideTab[] = [
       },
       {
         id: "levadas-3",
+        imageId: "pico-arieiro",
         name: "PR 1 Vereda do Areeiro",
         area: l(
           "Pico do Areeiro to Pico Ruivo, Central Massif",
@@ -567,6 +596,7 @@ export const guideTabs: GuideTab[] = [
       },
       {
         id: "levadas-5",
+        imageId: "sao-lourenco",
         name: "PR 8 Vereda da Ponta de São Lourenço",
         area: l(
           "Baía d'Abra, Caniçal, Machico",
@@ -681,6 +711,7 @@ export const guideTabs: GuideTab[] = [
       },
       {
         id: "levadas-8",
+        imageId: "balcoes",
         name: "PR 11 Vereda dos Balcões",
         area: l(
           "Ribeiro Frio, Santana",
@@ -775,6 +806,7 @@ export const guideTabs: GuideTab[] = [
 
       {
         id: "mountains-1",
+        imageId: "pico-arieiro",
         name: "Pico do Arieiro",
         area: l("Central Massif", "Цэнтральны масіў", "Центральний масив", "Центральный массив"),
         description: l(
@@ -1488,6 +1520,7 @@ export const guideTabs: GuideTab[] = [
         "Funchal",
         "https://visitmadeira.com/en/what-to-do/food-and-wine-enthusiasts/",
         "Poncha, dishes & markets",
+        "food",
       ),
       card(
         "flavours-2",
@@ -1568,6 +1601,7 @@ export const guideTabs: GuideTab[] = [
         "Funchal",
         "https://visitmadeira.com/en/whats-on/events-programme/",
         "Festivals & calendar",
+        "fireworks",
       ),
       card(
         "events-2",

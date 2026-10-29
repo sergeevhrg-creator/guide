@@ -80,7 +80,7 @@ export function LanguageSwitcher({ className = "", tone = "light" }: { className
             aria-pressed={active}
             title={langLabels[code]}
             onClick={() => setLang(code)}
-            className={`rounded px-2.5 py-1.5 text-xs font-extrabold transition sm:text-sm ${active ? activeClass : idleClass}`}
+            className={`rounded px-1.5 py-1.5 text-xs font-extrabold transition sm:px-2.5 sm:text-sm ${active ? activeClass : idleClass}`}
           >
             {langShort[code]}
           </button>

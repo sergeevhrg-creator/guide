@@ -119,11 +119,15 @@ function GuideCardView({
   const page = pageStrings[lang];
   return (
     <article className="flex min-w-0 flex-col overflow-hidden rounded-md bg-card shadow-[0_12px_34px_-24px_var(--shadow-color)]">
-      <div className="grid aspect-[16/7] place-items-center bg-mosaic-mist" aria-hidden>
-        <span className="grid h-12 w-12 place-items-center rounded-full bg-mosaic-ocean/10 text-mosaic-ocean">
-          <Image className="h-5 w-5" />
-        </span>
-      </div>
+      {card.imageId ? (
+        <LocationPhotoSlot imageId={card.imageId} className="aspect-[16/7]" />
+      ) : (
+        <div className="grid aspect-[16/7] place-items-center bg-mosaic-mist" aria-hidden>
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-mosaic-ocean/10 text-mosaic-ocean">
+            <Image className="h-5 w-5" />
+          </span>
+        </div>
+      )}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="font-display text-lg font-extrabold leading-snug text-mosaic-deep">
           {typeof card.name === "string" ? card.name : card.name[lang]}
