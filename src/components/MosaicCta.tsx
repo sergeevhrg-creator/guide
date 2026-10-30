@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Instagram, MessageCircle, Phone, Sparkles, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { socialLinks, type MosaicLang } from "@/lib/mosaic-content";
 
 export type CtaScenario = "route" | "tour" | "instagram" | "retreat" | "family";
@@ -239,19 +240,27 @@ export function MosaicCta({
           <p className="text-sm font-bold leading-6">{t.tour.text}</p>
           <div className="mt-4 grid grid-cols-2 gap-2">
             <Button
-              onClick={() => openForm("tour", "cta_whatsapp")}
-              className="bg-mosaic-leaf font-bold hover:bg-mosaic-flower hover:text-mosaic-deep"
+              asChild
+              className="h-auto min-h-11 whitespace-normal bg-mosaic-leaf font-bold hover:bg-mosaic-flower hover:text-mosaic-deep"
             >
-              <MessageCircle />
-              {t.tour.whatsapp}
+              <a
+                href={contactUrl("whatsapp", QUICK_INQUIRY[lang])}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle />
+                {t.tour.whatsapp}
+              </a>
             </Button>
             <Button
-              onClick={() => openForm("tour", "cta_call")}
+              asChild
               variant="outline"
-              className="border-primary-foreground/60 bg-transparent font-bold text-primary-foreground hover:bg-primary-foreground hover:text-mosaic-deep"
+              className="h-auto min-h-11 whitespace-normal border-primary-foreground/60 bg-transparent font-bold text-primary-foreground hover:bg-primary-foreground hover:text-mosaic-deep"
             >
-              <Phone />
-              {t.tour.call}
+              <a href={CONTACTS.phoneUrl} aria-label={`${t.tour.call}: ${CONTACTS.phoneNumber}`}>
+                <Phone />
+                {t.tour.call}
+              </a>
             </Button>
           </div>
           <p className="mt-3 text-xs leading-5 text-primary-foreground/75">{t.tour.note}</p>

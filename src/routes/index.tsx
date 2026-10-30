@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ChevronRight, Menu, MessageCircle, Send, X } from "lucide-react";
+import { ArrowRight, ChevronRight, Menu, MessageCircle, Phone, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { MadeiraHeroMotion } from "@/components/MadeiraHeroMotion";
@@ -108,6 +108,7 @@ function HomePage() {
  function openOrder(title?: string) { setSelectedTour(null); setSelection(title ?? helpChooseRoute[lang]); window.setTimeout(() => { document.getElementById("contact")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); }, 50); }
  const pavelParagraphs = (lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n");
  const pavelCta = { ru: "Подобрать экскурсию с Павлом", en: "Plan a tour with Pavel", be: "Падабраць экскурсію з Паўлам", uk: "Підібрати екскурсію з Павлом" }[lang];
+ const pavelCall = { ru: "Позвонить", en: "Call", be: "Патэлефанаваць", uk: "Зателефонувати" }[lang];
  const pavelMore = { ru: "Подробнее о Павле", en: "More about Pavel", be: "Больш пра Паўла", uk: "Докладніше про Павла" }[lang];
  const mobileMenuLabel = { ru: "Меню", en: "Menu", be: "Меню", uk: "Меню" }[lang];
  const mobileMenuCloseLabel = { ru: "Закрыть меню", en: "Close menu", be: "Закрыць меню", uk: "Закрити меню" }[lang];
@@ -212,12 +213,13 @@ function HomePage() {
                 ))}
               </div>
               <div className="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-                <Button onClick={() => openOrder()} className="bg-mosaic-deep font-bold hover:bg-mosaic-ocean">
+                <Button onClick={() => openOrder()} className="h-auto min-h-11 whitespace-normal bg-mosaic-deep py-3 text-center font-bold hover:bg-mosaic-ocean">
                   {pavelCta}<ArrowRight />
                 </Button>
                 <div className="flex flex-wrap gap-3">
-                  <Button asChild variant="outline" size="sm" className="border-mosaic-deep/25 font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp</a></Button>
-                  <Button asChild variant="ghost" size="sm" className="font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={contactUrl("telegram", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><Send />Telegram</a></Button>
+                  <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal border-mosaic-deep/25 py-3 text-center font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp</a></Button>
+                  <Button asChild variant="ghost" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={contactUrl("telegram", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><Send />Telegram</a></Button>
+                  <Button asChild variant="ghost" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold text-mosaic-deep hover:bg-mosaic-mist"><a href={CONTACTS.phoneUrl} aria-label={`${pavelCall}: ${CONTACTS.phoneNumber}`}><Phone />{pavelCall}</a></Button>
                 </div>
               </div>
               {pavelParagraphs.length > 2 && <details className="group mt-6 rounded-xl border border-border bg-card p-4">

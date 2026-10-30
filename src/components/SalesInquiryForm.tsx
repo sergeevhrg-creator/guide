@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
-import { MessageCircle, Send } from "lucide-react";
+import { MessageCircle, Phone, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACTS, contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
@@ -19,6 +19,7 @@ const copy = {
     product: "Tour or programme",
     comment: "What would you especially like to see?",
     submit: "Open messenger",
+    call: "Call Pavel",
     note: "A ready-to-send message opens in your chosen messenger. Send it yourself to start the conversation; dates and availability are not yet confirmed.",
     empty: "I need help choosing a route",
     error: "Please complete the required fields.",
@@ -33,6 +34,7 @@ const copy = {
     product: "Экскурсія ці праграма",
     comment: "Што вам асабліва хочацца ўбачыць?",
     submit: "Адкрыць мэсенджар",
+    call: "Патэлефанаваць Паўлу",
     note: "У абраным мэсенджары адкрыецца гатовае паведамленне. Дашліце яго самі, каб пачаць размову; даты і даступнасць яшчэ не пацверджаны.",
     empty: "Патрэбна дапамога з выбарам маршруту",
     error: "Запоўніце абавязковыя палі.",
@@ -47,6 +49,7 @@ const copy = {
     product: "Екскурсія або програма",
     comment: "Що вам особливо хочеться побачити?",
     submit: "Відкрити месенджер",
+    call: "Зателефонувати Павлу",
     note: "В обраному месенджері відкриється готове повідомлення. Надішліть його самі, щоб почати розмову; дати й доступність ще не підтверджено.",
     empty: "Потрібна допомога з вибором маршруту",
     error: "Заповніть обов’язкові поля.",
@@ -61,6 +64,7 @@ const copy = {
     product: "Экскурсия или программа",
     comment: "Что вам особенно хочется увидеть?",
     submit: "Открыть мессенджер",
+    call: "Позвонить Павлу",
     note: "В выбранном мессенджере откроется готовое сообщение. Отправьте его сами, чтобы начать разговор; даты и доступность ещё не подтверждены.",
     empty: "Нужна помощь с выбором маршрута",
     error: "Заполните обязательные поля.",
@@ -323,14 +327,20 @@ export function SalesInquiryForm({
           </p>
         )}
         <div className="flex flex-wrap gap-3 sm:col-span-2">
-          <Button type="submit" size="lg" className="bg-mosaic-leaf font-bold hover:bg-mosaic-deep">
+          <Button type="submit" size="lg" className="h-auto min-h-11 whitespace-normal py-3 text-center bg-mosaic-leaf font-bold hover:bg-mosaic-deep">
             <MessageCircle />
             {t.submit}
           </Button>
-          <Button asChild size="lg" variant="outline">
+          <Button asChild size="lg" variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center">
             <a href={CONTACTS.telegramUrl} target="_blank" rel="noopener noreferrer">
               <Send />
               Telegram {CONTACTS.telegramHandle}
+            </a>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center">
+            <a href={CONTACTS.phoneUrl} aria-label={`${t.call}: ${CONTACTS.phoneNumber}`}>
+              <Phone />
+              {t.call} · {CONTACTS.phoneNumber}
             </a>
           </Button>
         </div>

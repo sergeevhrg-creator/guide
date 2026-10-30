@@ -1,5 +1,6 @@
 export const CONTACTS = {
   phoneNumber: "+351 963 450 111",
+  phoneUrl: "tel:+351963450111",
   whatsappNumber: "+351 963 450 111",
   whatsappUrl: "https://wa.me/351963450111",
   telegramHandle: "+351 963 450 111",
