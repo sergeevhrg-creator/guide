@@ -24,7 +24,7 @@ import { salesEditorialRu } from "@/lib/sales-editorial";
 import { salesCopy } from "@/lib/sales-copy";
 import { salesDescriptions } from "@/lib/sales-descriptions";
 import { salesTours } from "@/lib/sales";
-import { displayTourPrice } from "@/lib/tour-pricing";
+import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
 import type { TourPageConfig } from "@/lib/tour-pages";
 
@@ -56,10 +56,10 @@ const pageCopy = {
     guests: "1–4 guests",
     wholeCar: "per whole car",
     details: "What your day can feel like",
-    important: "Before we confirm",
+    important: "Planned personally for you",
     transport: "Travel with Pavel",
     transportText:
-      "For a private outing of up to four guests, Pavel welcomes you in his sky-blue Volkswagen T-Cross. If your group needs more space, he can help arrange comfortable professional transport with a licensed partner; every detail is agreed in advance.",
+      "For a private outing of up to four guests, Pavel welcomes you in his sky-blue Volkswagen T-Cross.",
     whatsapp: "Discuss on WhatsApp",
     telegram: "Discuss on Telegram",
     other: "Other private tours",
@@ -79,10 +79,10 @@ const pageCopy = {
     guests: "1–4 гостя",
     wholeCar: "за всю машину",
     details: "Как пройдёт ваш день",
-    important: "Что согласуем заранее",
+    important: "Подберём маршрут для вас",
     transport: "Поездка с Павлом",
     transportText:
-      "Для камерной поездки до четырёх гостей Павел приглашает вас в свой небесно-голубой Volkswagen T-Cross. Если вашей компании нужен более просторный формат, он поможет организовать комфортный профессиональный транспорт с лицензированным партнёром — все детали согласуем заранее.",
+      "Для камерной поездки до четырёх гостей Павел приглашает вас в свой небесно-голубой Volkswagen T-Cross.",
     whatsapp: "Обсудить в WhatsApp",
     telegram: "Обсудить в Telegram",
     other: "Другие индивидуальные экскурсии",
@@ -102,10 +102,10 @@ const pageCopy = {
     guests: "1–4 госці",
     wholeCar: "за ўсю машыну",
     details: "Як пройдзе ваш дзень",
-    important: "Што ўзгоднім загадзя",
+    important: "Падбяром маршрут для вас",
     transport: "Паездка з Паўлам",
     transportText:
-      "Для камернай паездкі да чатырох гасцей Павел запрашае вас у свой нябесна-блакітны Volkswagen T-Cross. Калі вашай кампаніі патрэбны больш прасторны фармат, ён дапаможа арганізаваць камфортны прафесійны транспарт з ліцэнзаваным партнёрам — усе дэталі ўзгоднім загадзя.",
+      "Для камернай паездкі да чатырох гасцей Павел запрашае вас у свой нябесна-блакітны Volkswagen T-Cross.",
     whatsapp: "Абмеркаваць у WhatsApp",
     telegram: "Абмеркаваць у Telegram",
     other: "Іншыя індывідуальныя экскурсіі",
@@ -125,10 +125,10 @@ const pageCopy = {
     guests: "1–4 гості",
     wholeCar: "за всю машину",
     details: "Як мине ваш день",
-    important: "Що погодимо заздалегідь",
+    important: "Підберемо маршрут для вас",
     transport: "Поїздка з Павлом",
     transportText:
-      "Для камерної поїздки до чотирьох гостей Павло запрошує вас у свій небесно-блакитний Volkswagen T-Cross. Якщо вашій компанії потрібен просторіший формат, він допоможе організувати комфортний професійний транспорт із ліцензованим партнером — усі деталі погодимо заздалегідь.",
+      "Для камерної поїздки до чотирьох гостей Павло запрошує вас у свій небесно-блакитний Volkswagen T-Cross.",
     whatsapp: "Обговорити у WhatsApp",
     telegram: "Обговорити у Telegram",
     other: "Інші індивідуальні екскурсії",
@@ -169,14 +169,12 @@ function getEditorial(tourId: TourPageConfig["tourId"], lang: TourPageLang) {
   const short = salesDescriptions[tourId]?.[lang] ?? tour.route[lang];
   const intro =
     lang === "be"
-      ? "Я падрыхтую гэтую паездку паводле вашых інтарэсаў і тэмпу."
-      : "Я підготую цю поїздку за вашими інтересами й темпом.";
+      ? "Я падрыхтую гэтую паездку з улікам таго, што вы хочаце ўбачыць."
+      : "Я підготую цю поїздку з урахуванням того, що ви хочете побачити.";
   return {
     title: tour.title[lang],
     short,
-    full: [intro, short, salesCopy.included[lang], salesCopy.checks[lang], salesCopy.extras[lang]].join(
-      "\n\n",
-    ),
+    full: [intro, short].join("\n\n"),
   };
 }
 
@@ -260,14 +258,6 @@ export const Route = createFileRoute("/tours_/$slug")({
   component: TourPage,
 });
 
-function cleanEditorialParagraphs(full: string, lang: TourPageLang) {
-  const paragraphs = full.split("\n\n").filter(Boolean);
-  if (lang !== "ru") return paragraphs;
-
-  const pricePrefix = /^\d+(?:–\d+)? часов · €35\/час · €[\d–]+ за всю машину · до 4 гостей\.?\s*/;
-  return paragraphs.map((paragraph) => paragraph.replace(pricePrefix, "").trim()).filter(Boolean);
-}
-
 function TourPage() {
   const { slug } = Route.useParams();
   const search = Route.useSearch();
@@ -317,7 +307,7 @@ function TourPage() {
   const editorial = getEditorial(page.tourId, lang);
   const pageTitle = getPageTitle(page, lang);
   const image = getTourPageImage(page);
-  const paragraphs = cleanEditorialParagraphs(editorial.full, lang);
+  const paragraphs = publicTourParagraphs(editorial.full, lang);
   const canonical = `https://guide.orthodoxmadeira.com/tours/${page.slug}?lang=${lang}`;
   const absoluteImage = `https://guide.orthodoxmadeira.com${image.src}`;
   const eyebrow =
@@ -381,7 +371,10 @@ function TourPage() {
           <a href={`/?lang=${lang}`} className="min-w-0" aria-label="Madeira Mosaic home">
             <MosaicLogo />
           </a>
-          <nav className="ml-auto flex flex-wrap items-center justify-end gap-1" aria-label="Language">
+          <nav
+            className="ml-auto flex flex-wrap items-center justify-end gap-1"
+            aria-label="Language"
+          >
             {tourPageLanguages.map((code) => (
               <a
                 key={code}
@@ -506,14 +499,21 @@ function TourPage() {
               <p className="mt-4 text-sm leading-6 text-muted-foreground">
                 {salesCopy.checks[lang]}
               </p>
-              <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                {salesCopy.extras[lang]}
+              <p data-child-seat className="mt-4 font-bold leading-6 text-mosaic-leaf">
+                {salesCopy.childSeat[lang]}
               </p>
               <Button
                 onClick={scrollToForm}
                 className="mt-6 h-auto min-h-11 w-full whitespace-normal bg-mosaic-deep font-bold hover:bg-mosaic-ocean"
               >
-                {{ en: "Send an inquiry", be: "Адправіць заяўку", uk: "Надіслати заявку", ru: "Отправить заявку" }[lang]}
+                {
+                  {
+                    en: "Send an inquiry",
+                    be: "Адправіць заяўку",
+                    uk: "Надіслати заявку",
+                    ru: "Отправить заявку",
+                  }[lang]
+                }
               </Button>
             </aside>
           </div>

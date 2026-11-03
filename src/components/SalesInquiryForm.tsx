@@ -20,7 +20,7 @@ const copy = {
     comment: "What would you especially like to see?",
     submit: "Open messenger",
     call: "Call Pavel",
-    note: "A ready-to-send message opens in your chosen messenger. Send it yourself to start the conversation; dates and availability are not yet confirmed.",
+    note: "A ready-to-send message to Pavel will open in your chosen messenger. Tap Send, and Pavel will reply personally to plan the details.",
     empty: "I need help choosing a route",
     error: "Please complete the required fields.",
   },
@@ -35,7 +35,7 @@ const copy = {
     comment: "Што вам асабліва хочацца ўбачыць?",
     submit: "Адкрыць мэсенджар",
     call: "Патэлефанаваць Паўлу",
-    note: "У абраным мэсенджары адкрыецца гатовае паведамленне. Дашліце яго самі, каб пачаць размову; даты і даступнасць яшчэ не пацверджаны.",
+    note: "У абраным мэсенджары адкрыецца гатовае паведамленне Паўлу. Націсніце «Адправіць» — Павел адкажа асабіста і дапаможа ўзгадніць дэталі.",
     empty: "Патрэбна дапамога з выбарам маршруту",
     error: "Запоўніце абавязковыя палі.",
   },
@@ -50,7 +50,7 @@ const copy = {
     comment: "Що вам особливо хочеться побачити?",
     submit: "Відкрити месенджер",
     call: "Зателефонувати Павлу",
-    note: "В обраному месенджері відкриється готове повідомлення. Надішліть його самі, щоб почати розмову; дати й доступність ще не підтверджено.",
+    note: "У вибраному месенджері відкриється готове повідомлення Павлу. Натисніть «Надіслати» — Павло відповість особисто й допоможе узгодити деталі.",
     empty: "Потрібна допомога з вибором маршруту",
     error: "Заповніть обов’язкові поля.",
   },
@@ -65,7 +65,7 @@ const copy = {
     comment: "Что вам особенно хочется увидеть?",
     submit: "Открыть мессенджер",
     call: "Позвонить Павлу",
-    note: "В выбранном мессенджере откроется готовое сообщение. Отправьте его сами, чтобы начать разговор; даты и доступность ещё не подтверждены.",
+    note: "В выбранном мессенджере откроется готовое сообщение Павлу. Нажмите «Отправить» — Павел ответит лично и поможет согласовать детали поездки.",
     empty: "Нужна помощь с выбором маршрута",
     error: "Заполните обязательные поля.",
   },
@@ -85,7 +85,7 @@ const specialCopy = {
     contact: "I need a contact for an available photographer",
     routeOnly: "I only need the route and Pavel’s accompaniment",
     photoNote:
-      "A professional photographer is booked and paid separately. Availability, deliverables and the result are agreed directly with the photographer.",
+      "Tell Pavel whether you already have a photographer or would like help finding one to suit your style and plans.",
   },
   be: {
     vessel: "Назва круізнага судна",
@@ -100,7 +100,7 @@ const specialCopy = {
     contact: "Патрэбны кантакт даступнага фатографа",
     routeOnly: "Патрэбны толькі маршрут і суправаджэнне Паўла",
     photoNote:
-      "Прафесійны фатограф браніруецца і аплачваецца асобна; даступнасць і вынік узгадняюцца з фатографам.",
+      "Раскажыце Паўлу, ці ёсць у вас свой фатограф або ці патрэбна дапамога з падборам спецыяліста пад ваш стыль і планы.",
   },
   uk: {
     vessel: "Назва круїзного судна",
@@ -115,7 +115,7 @@ const specialCopy = {
     contact: "Потрібен контакт доступного фотографа",
     routeOnly: "Потрібен лише маршрут і супровід Павла",
     photoNote:
-      "Професійний фотограф бронюється й оплачується окремо; доступність і результат узгоджуються з фотографом.",
+      "Розкажіть Павлу, чи є у вас свій фотограф або чи потрібна допомога з підбором спеціаліста під ваш стиль і плани.",
   },
   ru: {
     vessel: "Название круизного лайнера",
@@ -130,7 +130,7 @@ const specialCopy = {
     contact: "Нужен контакт доступного фотографа",
     routeOnly: "Нужен только маршрут и сопровождение Павла",
     photoNote:
-      "Профессиональный фотограф бронируется и оплачивается отдельно. Доступность, результат и формат съёмки согласуются напрямую с фотографом.",
+      "Расскажите Павлу, есть ли у вас свой фотограф или нужна помощь с подбором специалиста под ваш стиль и планы.",
   },
 };
 
@@ -327,17 +327,31 @@ export function SalesInquiryForm({
           </p>
         )}
         <div className="flex flex-wrap gap-3 sm:col-span-2">
-          <Button type="submit" size="lg" className="h-auto min-h-11 whitespace-normal py-3 text-center bg-mosaic-leaf font-bold hover:bg-mosaic-deep">
+          <Button
+            type="submit"
+            size="lg"
+            className="h-auto min-h-11 whitespace-normal py-3 text-center bg-mosaic-leaf font-bold hover:bg-mosaic-deep"
+          >
             <MessageCircle />
             {t.submit}
           </Button>
-          <Button asChild size="lg" variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center">
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="h-auto min-h-11 whitespace-normal py-3 text-center"
+          >
             <a href={CONTACTS.telegramUrl} target="_blank" rel="noopener noreferrer">
               <Send />
               Telegram {CONTACTS.telegramHandle}
             </a>
           </Button>
-          <Button asChild size="lg" variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center">
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="h-auto min-h-11 whitespace-normal py-3 text-center"
+          >
             <a href={CONTACTS.phoneUrl} aria-label={`${t.call}: ${CONTACTS.phoneNumber}`}>
               <Phone />
               {t.call} · {CONTACTS.phoneNumber}

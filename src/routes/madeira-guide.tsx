@@ -22,6 +22,7 @@ import { mosaicContent } from "@/lib/mosaic-content";
 import { guideTabs, type GuideCard } from "@/lib/guide-content";
 import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
+import { isIndexableGuideCategory } from "@/lib/guide-categories";
 import { localizedSeoLinks, validateLangSearch } from "@/lib/seo";
 
 const pageStrings = {
@@ -44,6 +45,7 @@ const pageStrings = {
     practical: "Practical notes",
     source: "Official source",
     checked: "Checked",
+    openSection: "Open this guide section",
   },
   be: {
     badge: "Даведнік",
@@ -64,6 +66,7 @@ const pageStrings = {
     practical: "Практычныя звесткі",
     source: "Афіцыйная крыніца",
     checked: "Праверана",
+    openSection: "Адкрыць гэты раздзел гіда",
   },
   uk: {
     badge: "Довідник",
@@ -84,6 +87,7 @@ const pageStrings = {
     practical: "Практичні відомості",
     source: "Офіційне джерело",
     checked: "Перевірено",
+    openSection: "Відкрити цей розділ гіда",
   },
   ru: {
     badge: "Справочник",
@@ -104,6 +108,7 @@ const pageStrings = {
     practical: "Практические сведения",
     source: "Официальный источник",
     checked: "Проверено",
+    openSection: "Открыть этот раздел гида",
   },
 } as const;
 
@@ -340,6 +345,13 @@ function MadeiraGuidePage() {
                         />
                         <span>{page.scheduledNote}</span>
                       </div>
+                    ) : null}
+                    {isIndexableGuideCategory(tab.id) ? (
+                      <Button asChild variant="outline" className="mt-5 h-auto min-h-11 whitespace-normal py-3 font-bold">
+                        <a href={`/madeira-guide/${tab.id}?lang=${lang}`}>
+                          {page.openSection}
+                        </a>
+                      </Button>
                     ) : null}
                   </div>
                   <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

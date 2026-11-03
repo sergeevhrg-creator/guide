@@ -15,7 +15,7 @@ import type { Lang } from "@/lib/i18n/lang";
 import { tourEditorial } from "@/lib/tour-editorial";
 export { getPartnerActivities } from "@/lib/partner-content";
 import { tourImageIds } from "@/lib/image-credits";
-import { displayTourPrice, tourPricing } from "@/lib/tour-pricing";
+import { displayTourPrice } from "@/lib/tour-pricing";
 
 export type MosaicLang = Lang;
 
@@ -273,7 +273,8 @@ export const tours: Tour[] = [
         title: "Funchal waterfront & festival lights",
         outcome:
           "You see Funchal turn on: illuminated streets, music from the squares and the whole bay glowing beneath you.",
-        route: "Funchal centre · Funchal waterfront · bay viewpoint (subject to official programme)",
+        route:
+          "Funchal centre · Funchal waterfront · bay viewpoint (subject to official programme)",
         duration: "3–4 hours, evening",
         format: "Private · up to 4 guests",
         price: "Price on request",
@@ -321,7 +322,8 @@ export const tours: Tour[] = [
         title: "Porto da Cruz & Engenhos do Norte",
         outcome:
           "You smell warm sugar cane at a working mill, then stand in Atlantic surf with black cliffs behind you.",
-        route: "Porto da Cruz · Engenhos do Norte (visit subject to opening) · coast; surf lesson separately by partner",
+        route:
+          "Porto da Cruz · Engenhos do Norte (visit subject to opening) · coast; surf lesson separately by partner",
         duration: "6 hours",
         format: "Private hosting + licensed surf partner",
         price: "Price on request",
@@ -331,7 +333,8 @@ export const tours: Tour[] = [
         title: "Порту-да-Круш і Engenhos do Norte",
         outcome:
           "Вы адчуваеце пах цёплага цукровага трыснягу на дзеючай фабрыцы, а потым стаіце ў атлантычнай хвалі пад чорнымі скаламі.",
-        route: "Порту-да-Круш · Engenhos do Norte (візіт пры адкрыцці) · узбярэжжа; сёрфінг асобна ў партнёра",
+        route:
+          "Порту-да-Круш · Engenhos do Norte (візіт пры адкрыцці) · узбярэжжа; сёрфінг асобна ў партнёра",
         duration: "6 гадзін",
         format: "Прыватнае суправаджэнне + ліцэнзаваны партнёр па сёрфінгу",
         price: "Кошт па запыце",
@@ -341,7 +344,8 @@ export const tours: Tour[] = [
         title: "Порту-да-Круш та Engenhos do Norte",
         outcome:
           "Ви відчуваєте запах теплої цукрової тростини на діючій фабриці, а потім стоїте в атлантичній хвилі під чорними скелями.",
-        route: "Порту-да-Круш · Engenhos do Norte (візит за доступності) · узбережжя; серфінг окремо в партнера",
+        route:
+          "Порту-да-Круш · Engenhos do Norte (візит за доступності) · узбережжя; серфінг окремо в партнера",
         duration: "6 годин",
         format: "Приватний супровід + ліцензований партнер із серфінгу",
         price: "Вартість за запитом",
@@ -351,7 +355,8 @@ export const tours: Tour[] = [
         title: "Порту-да-Круш и Engenhos do Norte",
         outcome:
           "Вы чувствуете запах тёплого сахарного тростника на действующей фабрике, а потом стоите в атлантической волне под чёрными скалами.",
-        route: "Порту-да-Круш · Engenhos do Norte (посещение при доступности) · побережье; сёрфинг отдельно у партнёра",
+        route:
+          "Порту-да-Круш · Engenhos do Norte (посещение при доступности) · побережье; сёрфинг отдельно у партнёра",
         duration: "6 часов",
         format: "Частное сопровождение + лицензированный партнёр по сёрфингу",
         price: "Цена по запросу",
@@ -510,7 +515,8 @@ export const tours: Tour[] = [
         title: "Wine tour: Quinta do Barbusano, São Vicente & Seixal",
         outcome:
           "You stand in a vineyard above the Atlantic and understand why this wine tastes of wind, volcanic soil and patience.",
-        route: "São Vicente · Quinta do Barbusano vineyard (by confirmation) · north coast · Seixal",
+        route:
+          "São Vicente · Quinta do Barbusano vineyard (by confirmation) · north coast · Seixal",
         duration: "6–7 hours",
         format: "Private · up to 4 guests",
         price: "Price on request",
@@ -520,7 +526,8 @@ export const tours: Tour[] = [
         title: "Вінны тур: Quinta do Barbusano, São Vicente і Seixal",
         outcome:
           "Вы стаіце ў вінаградніку над Атлантыкай і разумееце, чаму гэтае віно мае смак ветру, вулканічнай глебы і цярпення.",
-        route: "São Vicente · вінаграднікі Quinta do Barbusano (пры пацвярджэнні) · паўночны бераг · Seixal",
+        route:
+          "São Vicente · вінаграднікі Quinta do Barbusano (пры пацвярджэнні) · паўночны бераг · Seixal",
         duration: "6–7 гадзін",
         format: "Прыватна · да 4 гасцей",
         price: "Кошт па запыце",
@@ -530,7 +537,8 @@ export const tours: Tour[] = [
         title: "Винний тур: Quinta do Barbusano, São Vicente та Seixal",
         outcome:
           "Ви стоїте у винограднику над Атлантикою і розумієте, чому це вино має смак вітру, вулканічного ґрунту й терпіння.",
-        route: "São Vicente · виноградники Quinta do Barbusano (за підтвердженням) · північне узбережжя · Seixal",
+        route:
+          "São Vicente · виноградники Quinta do Barbusano (за підтвердженням) · північне узбережжя · Seixal",
         duration: "6–7 годин",
         format: "Приватно · до 4 гостей",
         price: "Вартість за запитом",
@@ -540,7 +548,8 @@ export const tours: Tour[] = [
         title: "Винный тур: Quinta do Barbusano, São Vicente и Seixal",
         outcome:
           "Вы стоите в винограднике над океаном и понимаете, почему это вино имеет вкус ветра, вулканической почвы и терпения.",
-        route: "São Vicente · виноградники Quinta do Barbusano (после подтверждения) · северное побережье · Seixal",
+        route:
+          "São Vicente · виноградники Quinta do Barbusano (после подтверждения) · северное побережье · Seixal",
         duration: "6–7 часов",
         format: "Индивидуально · до 4 гостей",
         price: "Цена по запросу",
@@ -604,7 +613,6 @@ export function getTours(lang: MosaicLang) {
     ...tour.text[lang],
     ...tourEditorial[tour.id as keyof typeof tourEditorial][lang],
     price: displayTourPrice(tour.id, lang),
-    pricing: tourPricing[tour.id],
     photo: tourImageIds[tour.id] ?? "home-coast",
   }));
 }
@@ -717,9 +725,9 @@ export const mosaicContent: Record<
     found: "tours found",
     reset: "Show all tours",
     catalogLabel: "Tour catalogue",
-    catalogTitle: "What will your Madeira feel like?",
+    catalogTitle: "Private Madeira tours",
     catalogIntro:
-      "Choose an experience — the route will be adapted to your day, pace and the weather.",
+      "Mountains, ocean, forest or Funchal — start with what you would most like to see. Pavel will reply personally and shape the route for your group.",
     details: "Details",
     outcomeLabel: "What you take home",
     routeLabel: "Route",
@@ -728,9 +736,10 @@ export const mosaicContent: Record<
     weather: "Weather & access",
     included: "Included",
     includedText:
-      "Route planning, Pavel's hosting and transport on private tours when stated in your confirmation.",
-    excluded: "Not included",
-    excludedText: "Meals, tickets, tastings and third-party services unless agreed separately.",
+      "Personal route planning, Pavel's hosting and a child seat free of charge when requested in advance.",
+    excluded: "Add to your day",
+    excludedText:
+      "Pavel can help you choose cafés, tastings and ticketed visits when you discuss the route.",
     inquiry: "Send inquiry",
     empty: "No tours in this category yet.",
     partnersLabel: "Partner activities",
@@ -812,9 +821,9 @@ export const mosaicContent: Record<
     found: "экскурсій знойдзена",
     reset: "Паказаць усе экскурсіі",
     catalogLabel: "Каталог экскурсій",
-    catalogTitle: "Якой будзе ваша Мадэйра?",
+    catalogTitle: "Індывідуальныя экскурсіі па Мадэйры",
     catalogIntro:
-      "Выберыце ўражанне — маршрут будзе прыстасаваны да вашага дня, тэмпу і надвор’я.",
+      "Горы, акіян, лес ці Фуншал — пачніце з таго, што хочацца ўбачыць больш за ўсё. Павел адкажа асабіста і дапаможа скласці маршрут для вашай кампаніі.",
     details: "Падрабязна",
     outcomeLabel: "Што застанецца з вамі",
     routeLabel: "Маршрут",
@@ -823,9 +832,10 @@ export const mosaicContent: Record<
     weather: "Надвор'е і доступ",
     included: "Уключана",
     includedText:
-      "Падрыхтоўка маршруту, суправаджэнне Паўла і транспарт у прыватных паездках, калі гэта пазначана ў пацвярджэнні.",
-    excluded: "Не ўключана",
-    excludedText: "Ежа, білеты, дэгустацыі і паслугі партнёраў, калі не ўзгоднена асобна.",
+      "Асабістая падрыхтоўка маршруту, суправаджэнне Паўла і бясплатнае дзіцячае крэсла па папярэднім запыце.",
+    excluded: "Дадаць да вашага дня",
+    excludedText:
+      "Павел дапаможа выбраць кавярні, дэгустацыі і месцы з білетамі падчас абмеркавання маршруту.",
     inquiry: "Адправіць запыт",
     empty: "У гэтай катэгорыі пакуль няма экскурсій.",
     partnersLabel: "Партнёрскія актыўнасці",
@@ -907,9 +917,9 @@ export const mosaicContent: Record<
     found: "екскурсій знайдено",
     reset: "Показати всі екскурсії",
     catalogLabel: "Каталог екскурсій",
-    catalogTitle: "Якою буде ваша Мадейра?",
+    catalogTitle: "Індивідуальні екскурсії Мадейрою",
     catalogIntro:
-      "Оберіть враження — маршрут буде пристосовано до вашого дня, темпу й погоди.",
+      "Гори, океан, ліс чи Фуншал — почніть із того, що хочеться побачити найбільше. Павло відповість особисто й допоможе скласти маршрут для вашої компанії.",
     details: "Докладніше",
     outcomeLabel: "Що залишиться з вами",
     routeLabel: "Маршрут",
@@ -918,9 +928,10 @@ export const mosaicContent: Record<
     weather: "Погода і доступ",
     included: "Включено",
     includedText:
-      "Підготовка маршруту, супровід Павла і транспорт у приватних поїздках, якщо це вказано в підтвердженні.",
-    excluded: "Не включено",
-    excludedText: "Їжа, квитки, дегустації та послуги партнерів, якщо не узгоджено окремо.",
+      "Особиста підготовка маршруту, супровід Павла та безплатне дитяче крісло за попереднім запитом.",
+    excluded: "Додати до вашого дня",
+    excludedText:
+      "Павло допоможе обрати кав’ярні, дегустації та місця з квитками під час обговорення маршруту.",
     inquiry: "Надіслати запит",
     empty: "У цій категорії поки немає екскурсій.",
     partnersLabel: "Партнерські активності",
@@ -1002,9 +1013,9 @@ export const mosaicContent: Record<
     found: "экскурсий найдено",
     reset: "Показать все экскурсии",
     catalogLabel: "Каталог экскурсий",
-    catalogTitle: "Какой будет ваша Мадейра?",
+    catalogTitle: "Индивидуальные экскурсии по Мадейре",
     catalogIntro:
-      "Выберите впечатление — маршрут будет адаптирован под ваш день, темп и погоду.",
+      "Горы, океан, лес или Фуншал — начните с того, что хочется увидеть больше всего. Павел ответит лично и поможет собрать маршрут для вашей компании.",
     details: "Подробнее",
     outcomeLabel: "Что останется с вами",
     routeLabel: "Маршрут",
@@ -1013,9 +1024,10 @@ export const mosaicContent: Record<
     weather: "Погода и доступ",
     included: "Включено",
     includedText:
-      "Подготовка маршрута, сопровождение Павла и транспорт в частных поездках, если это указано в подтверждении.",
-    excluded: "Не включено",
-    excludedText: "Питание, билеты, дегустации и услуги партнёров, если не согласовано отдельно.",
+      "Личная подготовка маршрута, сопровождение Павла и бесплатное детское кресло по предварительному запросу.",
+    excluded: "Добавить к вашему дню",
+    excludedText:
+      "Павел поможет выбрать кафе, дегустации и места с билетами при обсуждении маршрута.",
     inquiry: "Отправить запрос",
     empty: "В этой категории пока нет экскурсий.",
     partnersLabel: "Партнёрские активности",
