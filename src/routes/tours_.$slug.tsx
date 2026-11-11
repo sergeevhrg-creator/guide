@@ -62,6 +62,7 @@ const pageCopy = {
       "For a private outing of up to four guests, Pavel welcomes you in his sky-blue Volkswagen T-Cross.",
     whatsapp: "Discuss on WhatsApp",
     telegram: "Discuss on Telegram",
+    contact: "Contact Pavel",
     other: "Other private tours",
     viewTour: "View tour",
     notFound: "This tour page could not be found.",
@@ -85,6 +86,7 @@ const pageCopy = {
       "Для камерной поездки до четырёх гостей Павел приглашает вас в свой небесно-голубой Volkswagen T-Cross.",
     whatsapp: "Обсудить в WhatsApp",
     telegram: "Обсудить в Telegram",
+    contact: "Связаться с Павлом",
     other: "Другие индивидуальные экскурсии",
     viewTour: "Посмотреть экскурсию",
     notFound: "Такая страница экскурсии не найдена.",
@@ -108,6 +110,7 @@ const pageCopy = {
       "Для камернай паездкі да чатырох гасцей Павел запрашае вас у свой нябесна-блакітны Volkswagen T-Cross.",
     whatsapp: "Абмеркаваць у WhatsApp",
     telegram: "Абмеркаваць у Telegram",
+    contact: "Звязацца з Паўлам",
     other: "Іншыя індывідуальныя экскурсіі",
     viewTour: "Паглядзець экскурсію",
     notFound: "Такая старонка экскурсіі не знойдзена.",
@@ -131,6 +134,7 @@ const pageCopy = {
       "Для камерної поїздки до чотирьох гостей Павло запрошує вас у свій небесно-блакитний Volkswagen T-Cross.",
     whatsapp: "Обговорити у WhatsApp",
     telegram: "Обговорити у Telegram",
+    contact: "Зв’язатися з Павлом",
     other: "Інші індивідуальні екскурсії",
     viewTour: "Переглянути екскурсію",
     notFound: "Таку сторінку екскурсії не знайдено.",
@@ -325,9 +329,7 @@ function TourPage() {
         inLanguage: lang,
         areaServed: { "@type": "AdministrativeArea", name: "Madeira" },
         provider: {
-          "@type": "Organization",
-          name: "Madeira Mosaic",
-          url: "https://guide.orthodoxmadeira.com/",
+          "@id": "https://guide.orthodoxmadeira.com/#organization",
         },
       },
       {
@@ -391,6 +393,15 @@ function TourPage() {
               </a>
             ))}
           </nav>
+          <Button
+            asChild
+            size="icon"
+            className="h-11 w-11 shrink-0 touch-manipulation select-none bg-mosaic-leaf transition-transform duration-150 ease-out hover:bg-mosaic-deep active:scale-[0.97] sm:hidden"
+          >
+            <a href="#contact" aria-label={t.contact} title={t.contact}>
+              <MessageCircle aria-hidden />
+            </a>
+          </Button>
         </div>
       </header>
 

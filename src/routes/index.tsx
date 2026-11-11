@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
       ru: {
         title: "Индивидуальные экскурсии по Мадейре — Madeira Mosaic",
         description:
-          "Индивидуальные экскурсии по Мадейре на русском языке для 1–4 гостей: Пику-ду-Арейру, Фуншал, Фанал, Сейшал и Порту-Мониш.",
+          "Madeira Mosaic («Мадейра Мозаика») — индивидуальные экскурсии по Мадейре на русском языке для 1–4 гостей с Павлом.",
         keywords:
           "индивидуальные экскурсии на Мадейре, экскурсии на Мадейре на русском языке, частные экскурсии по Мадейре, экскурсия из порта Фуншал",
       },
@@ -72,6 +72,7 @@ export const Route = createFileRoute("/")({
         },
         { name: "keywords", content: seo.keywords },
         { property: "og:title", content: seo.title },
+        { property: "og:site_name", content: "Madeira Mosaic" },
         {
           property: "og:description",
           content: seo.description,
@@ -96,6 +97,13 @@ export const Route = createFileRoute("/")({
   },
   component: HomePage,
 });
+
+const contactPavelLabel = {
+  en: "Contact Pavel",
+  be: "Звязацца з Паўлам",
+  uk: "Зв’язатися з Павлом",
+  ru: "Связаться с Павлом",
+} as const;
 
 function HomePage() {
   const { lang, setLang } = useLang();
@@ -247,6 +255,14 @@ function HomePage() {
                 >
                   {t.nav[2]}
                 </Link>
+                <a
+                  href="#contact"
+                  onClick={() => setMobileNavOpen(false)}
+                  className="mt-1 flex min-h-11 touch-manipulation select-none items-center gap-2 rounded-lg bg-mosaic-leaf px-4 py-3 text-primary-foreground transition-transform duration-150 ease-out hover:bg-mosaic-deep focus-visible:bg-mosaic-deep active:scale-[0.97]"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden />
+                  {contactPavelLabel[lang]}
+                </a>
               </nav>
             )}
           </div>
@@ -274,6 +290,11 @@ function HomePage() {
               <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-primary-foreground/90 sm:text-xl">
                 {t.heroText}
               </p>
+              {lang === "ru" && (
+                <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-primary-foreground/80">
+                  Madeira Mosaic («Мадейра Мозаика») — индивидуальные экскурсии по острову с Павлом.
+                </p>
+              )}
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Button
                   asChild

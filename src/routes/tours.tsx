@@ -61,6 +61,7 @@ export const Route = createFileRoute("/tours")({
         { name: "description", content: seo.description },
         { name: "keywords", content: seo.keywords },
         { property: "og:title", content: seo.title },
+        { property: "og:site_name", content: "Madeira Mosaic" },
         { property: "og:description", content: seo.description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: canonical },
@@ -106,6 +107,12 @@ const heading = {
   uk: "Усі екскурсії Мадейрою",
 };
 const back = { ru: "На главную", en: "Home", be: "На галоўную", uk: "На головну" };
+const contactPavelLabel = {
+  ru: "Связаться с Павлом",
+  en: "Contact Pavel",
+  be: "Звязацца з Паўлам",
+  uk: "Зв’язатися з Павлом",
+} as const;
 
 function ToursPage() {
   const { lang, setLang } = useLang();
@@ -135,6 +142,19 @@ function ToursPage() {
           </Link>
           <div className="ml-auto flex items-center gap-3">
             <LanguageSwitcher />
+            <Button
+              asChild
+              size="icon"
+              className="h-11 w-11 shrink-0 touch-manipulation select-none bg-mosaic-leaf transition-transform duration-150 ease-out hover:bg-mosaic-deep active:scale-[0.97] sm:hidden"
+            >
+              <a
+                href="#contact"
+                aria-label={contactPavelLabel[lang]}
+                title={contactPavelLabel[lang]}
+              >
+                <MessageCircle aria-hidden />
+              </a>
+            </Button>
             <Button
               asChild
               size="sm"

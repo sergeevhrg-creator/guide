@@ -43,7 +43,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error instanceof Error ? error : new Error(String(error)), { boundary: "tanstack_root_error_component" });
+    reportLovableError(error instanceof Error ? error : new Error(String(error)), {
+      boundary: "tanstack_root_error_component",
+    });
   }, [error]);
 
   return (
@@ -81,17 +83,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content",
+      },
       { title: "Madeira Mosaic — Private Tours" },
-      { name: "description", content: "Private Madeira tours, island experiences and a practical guide." },
+      {
+        name: "description",
+        content: "Private Madeira tours, island experiences and a practical guide.",
+      },
       { name: "author", content: "Pavel Sergeev" },
       { property: "og:title", content: "Madeira Mosaic" },
-      { property: "og:description", content: "Private Madeira tours, island experiences and a practical guide." },
+      { property: "og:site_name", content: "Madeira Mosaic" },
+      {
+        property: "og:description",
+        content: "Private Madeira tours, island experiences and a practical guide.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "https://guide.orthodoxmadeira.com/assets/home-coast.webp" },
       { property: "og:image:alt", content: "Madeira coast and Atlantic Ocean" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://guide.orthodoxmadeira.com/assets/home-coast.webp" },
+      {
+        name: "twitter:image",
+        content: "https://guide.orthodoxmadeira.com/assets/home-coast.webp",
+      },
     ],
     links: [
       {
@@ -100,7 +116,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
-
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -120,10 +135,27 @@ function RootShell({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Madeira Mosaic",
-              url: "https://guide.orthodoxmadeira.com/",
-              inLanguage: ["en", "ru", "uk", "be"],
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://guide.orthodoxmadeira.com/#website",
+                  name: "Madeira Mosaic",
+                  alternateName: ["Мадейра Мозаика", "guide.orthodoxmadeira.com"],
+                  url: "https://guide.orthodoxmadeira.com/",
+                  inLanguage: ["en", "ru", "uk", "be"],
+                  publisher: {
+                    "@id": "https://guide.orthodoxmadeira.com/#organization",
+                  },
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://guide.orthodoxmadeira.com/#organization",
+                  name: "Madeira Mosaic",
+                  alternateName: "Мадейра Мозаика",
+                  url: "https://guide.orthodoxmadeira.com/",
+                  logo: "https://guide.orthodoxmadeira.com/assets/madeira-mosaic-logo-transparent-v2.png",
+                },
+              ],
             }),
           }}
         />
