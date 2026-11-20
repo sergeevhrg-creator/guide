@@ -89,11 +89,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content",
       },
       { title: "Madeira Mosaic — Private Tours" },
+      { name: "application-name", content: "Madeira Mosaic" },
       {
         name: "description",
         content: "Private Madeira tours, island experiences and a practical guide.",
       },
       { name: "author", content: "Pavel Sergeev" },
+      { name: "google", content: "notranslate" },
       { property: "og:title", content: "Madeira Mosaic" },
       { property: "og:site_name", content: "Madeira Mosaic" },
       {
@@ -127,7 +129,7 @@ function RootShell({ children }: { children: ReactNode }) {
   const search = useRouterState({ select: (state) => state.location.searchStr });
   const lang = langFromSearch(search);
   return (
-    <html lang={lang}>
+    <html lang={lang} translate="no" className="notranslate">
       <head>
         <HeadContent />
         <script
@@ -154,6 +156,13 @@ function RootShell({ children }: { children: ReactNode }) {
                   alternateName: "Мадейра Мозаика",
                   url: "https://guide.orthodoxmadeira.com/",
                   logo: "https://guide.orthodoxmadeira.com/assets/madeira-mosaic-logo-transparent-v2.png",
+                  areaServed: "Madeira, Portugal",
+                  contactPoint: {
+                    "@type": "ContactPoint",
+                    telephone: "+351963450111",
+                    contactType: "customer service",
+                    availableLanguage: ["English", "Russian", "Belarusian"],
+                  },
                 },
               ],
             }),

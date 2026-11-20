@@ -22,7 +22,7 @@ export function englishSalesInquiryMessage(data: EnglishSalesInquiry): string {
       .filter(([, value]) => value.trim().length > 0)
       .map(([label, value]) => `${label}: ${value.trim()}`),
     `What I’d especially like to see: ${data.comment || "—"}`,
-    "Please confirm the date, meeting point and transport arrangements with me.",
+    "Please let me know which route and timing you would recommend.",
     "Language: EN",
   ].join("\n");
 }

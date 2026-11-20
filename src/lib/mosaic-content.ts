@@ -678,8 +678,8 @@ export const mosaicContent: Record<
 > = {
   en: {
     nav: ["Tours", "Journeys", "Guide", "About Pavel"],
-    heroSub: "Private itinerary · 1–4 guests",
-    heroTitle: "Private Madeira tours in English",
+    heroSub: "English-speaking local host · private itinerary",
+    heroTitle: "Private Madeira tours for 1–4 guests",
     heroText:
       "Pico do Areeiro at sunrise, Funchal, Fanal, Seixal and Porto Moniz. Pavel will help you choose a route for your group and personally confirm the trip details.",
     toursCta: "Choose your tour",
@@ -699,7 +699,7 @@ export const mosaicContent: Record<
       },
       {
         title: "Spiritual retreat: Week of Silence",
-        body: "A separate, quiet week with a clear structure of silence. Never mixed with sightseeing tours.",
+        body: "A quiet seven-day programme with a clear rhythm, time outdoors and space for personal reflection.",
         link: "Open the retreat",
       },
       {
@@ -761,8 +761,8 @@ export const mosaicContent: Record<
     aboutPoints: ["RU · EN · BE", "Up to 4 guests", "Weather-led routes"],
     formTitle: "Request a route",
     formText:
-      "No payment and no automatic booking. Pavel personally confirms dates, group and details.",
-    formBadge: "Inquiry prototype",
+      "Share what you would like to see. Pavel will reply personally and help shape the route.",
+    formBadge: "Route enquiry",
     name: "Your name",
     contact: "Email, WhatsApp or Telegram",
     note: "Which tour and dates interest you?",
@@ -770,7 +770,7 @@ export const mosaicContent: Record<
     success: "Inquiry noted in the prototype",
     successBody: "Nothing was sent: this is a visual form only.",
     footer: "Madeira Mosaic · Private tours and journeys across Madeira",
-    footerNote: "Inquiry only · No online payments",
+    footerNote: "Pavel replies personally",
   },
   be: {
     nav: ["Экскурсіі", "Падарожжы", "Гід", "Пра Паўла"],
@@ -795,7 +795,7 @@ export const mosaicContent: Record<
       },
       {
         title: "Духоўны рэтрыт «Тыдзень цішыні»",
-        body: "Асобны ціхі тыдзень з выразнай структурай цішыні. Ніколі не змешваецца з экскурсіямі.",
+        body: "Ціхая сямідзённая праграма з ясным рытмам, прагулкамі і часам для асабістых разважанняў.",
         link: "Адкрыць рэтрыт",
       },
       {
@@ -856,9 +856,8 @@ export const mosaicContent: Record<
     ],
     aboutPoints: ["RU · EN · BE", "Да 4 гасцей", "Маршрут па надвор'і"],
     formTitle: "Запытаць маршрут",
-    formText:
-      "Без аплаты і без аўтаматычнага браніравання. Павел асабіста ўдакладніць даты, склад групы і дэталі.",
-    formBadge: "Inquiry prototype",
+    formText: "Раскажыце, што хочаце ўбачыць. Павел адкажа асабіста і дапаможа скласці маршрут.",
+    formBadge: "Запыт маршруту",
     name: "Ваша імя",
     contact: "Email, WhatsApp ці Telegram",
     note: "Якая экскурсія і якія даты вас цікавяць?",
@@ -866,7 +865,7 @@ export const mosaicContent: Record<
     success: "Запыт прыняты ў прататыпе",
     successBody: "Нічога не адпраўлена: гэта візуальная версія формы.",
     footer: "Madeira Mosaic · Прыватныя экскурсіі і падарожжы па Мадэйры",
-    footerNote: "Толькі запыт · Без анлайн-аплаты",
+    footerNote: "Павел адказвае асабіста",
   },
   uk: {
     nav: ["Екскурсії", "Подорожі", "Гід", "Про Павла"],
@@ -891,7 +890,7 @@ export const mosaicContent: Record<
       },
       {
         title: "Духовний ретрит «Тиждень тиші»",
-        body: "Окремий тихий тиждень із чіткою структурою тиші. Ніколи не змішується з екскурсіями.",
+        body: "Тиха семиденна програма з ясним ритмом, прогулянками й часом для особистих роздумів.",
         link: "Відкрити ретрит",
       },
       {
@@ -953,8 +952,8 @@ export const mosaicContent: Record<
     aboutPoints: ["RU · EN · BE", "До 4 гостей", "Маршрут за погодою"],
     formTitle: "Запитати маршрут",
     formText:
-      "Без оплати і без автоматичного бронювання. Павло особисто уточнить дати, склад групи та деталі.",
-    formBadge: "Inquiry prototype",
+      "Розкажіть, що хочете побачити. Павло відповість особисто й допоможе скласти маршрут.",
+    formBadge: "Запит маршруту",
     name: "Ваше ім'я",
     contact: "Email, WhatsApp або Telegram",
     note: "Яка екскурсія і які дати вас цікавлять?",
@@ -962,7 +961,7 @@ export const mosaicContent: Record<
     success: "Запит прийнято в прототипі",
     successBody: "Нічого не надіслано: це візуальна версія форми.",
     footer: "Madeira Mosaic · Приватні екскурсії та подорожі Мадейрою",
-    footerNote: "Тільки запит · Без онлайн-оплати",
+    footerNote: "Павло відповідає особисто",
   },
   ru: {
     nav: ["Экскурсии", "Путешествия", "Гид", "О Павле"],
@@ -987,7 +986,7 @@ export const mosaicContent: Record<
       },
       {
         title: "Духовный ретрит «Неделя тишины»",
-        body: "Отдельная тихая неделя с ясной структурой тишины. Никогда не смешивается с экскурсиями.",
+        body: "Тихая семидневная программа с ясным ритмом, прогулками и временем для личного размышления.",
         link: "Открыть ретрит",
       },
       {
@@ -1048,9 +1047,8 @@ export const mosaicContent: Record<
     ],
     aboutPoints: ["RU · EN · BE", "До 4 гостей", "Маршрут по погоде"],
     formTitle: "Запросить маршрут",
-    formText:
-      "Без оплаты и без автоматического бронирования. Павел лично уточнит даты, состав группы и детали.",
-    formBadge: "Inquiry prototype",
+    formText: "Расскажите, что хотите увидеть. Павел ответит лично и поможет составить маршрут.",
+    formBadge: "Запрос маршрута",
     name: "Ваше имя",
     contact: "Email, WhatsApp или Telegram",
     note: "Какая экскурсия и какие даты вас интересуют?",
@@ -1058,6 +1056,6 @@ export const mosaicContent: Record<
     success: "Запрос принят в прототипе",
     successBody: "Ничего не отправлено: это визуальная версия формы.",
     footer: "Madeira Mosaic · Приватные экскурсии и путешествия по Мадейре",
-    footerNote: "Только запрос · Без онлайн-оплаты",
+    footerNote: "Павел отвечает лично",
   },
 };

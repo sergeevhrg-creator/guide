@@ -20,6 +20,7 @@ dist-ssr
 .wrangler/
 .dev.vars
 .playwright-cli/
+output/
 
 # Editor directories and files
 .vscode/*

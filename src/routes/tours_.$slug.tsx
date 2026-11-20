@@ -17,6 +17,7 @@ import { SalesInquiryForm } from "@/components/SalesInquiryForm";
 import { Button } from "@/components/ui/button";
 import photoTourCover from "@/assets/sales/31-photo-tour-madeira-textless-v1.webp";
 import { contactUrl } from "@/lib/contacts";
+import { generatedTourCovers } from "@/lib/generated-tour-covers";
 import { imageCredits } from "@/lib/image-credits";
 import { useLang } from "@/lib/i18n/lang";
 import { salesEditorialEn } from "@/lib/sales-editorial-en";
@@ -37,10 +38,14 @@ const photoTourPageAlt: Record<TourPageLang, string> = {
 
 function getTourPageImage(page: TourPageConfig) {
   if (page.tourId === "photo-tour") {
-    return { src: photoTourCover, alt: photoTourPageAlt };
+    return { src: photoTourCover, alt: photoTourPageAlt, portrait: true };
+  }
+  const generatedCover = generatedTourCovers[page.tourId];
+  if (generatedCover) {
+    return { src: generatedCover.src, alt: generatedCover.alt, portrait: true };
   }
   const image = imageCredits[page.imageId];
-  return { src: image.src, alt: image.alt };
+  return { src: image.src, alt: image.alt, portrait: false };
 }
 
 const pageCopy = {
@@ -67,6 +72,7 @@ const pageCopy = {
     viewTour: "View tour",
     notFound: "This tour page could not be found.",
     catalogue: "Return to the tour catalogue",
+    footer: "Madeira Mosaic · Private tours in Madeira",
   },
   ru: {
     back: "Все экскурсии",
@@ -91,6 +97,7 @@ const pageCopy = {
     viewTour: "Посмотреть экскурсию",
     notFound: "Такая страница экскурсии не найдена.",
     catalogue: "Вернуться в каталог экскурсий",
+    footer: "Madeira Mosaic · Индивидуальные экскурсии по Мадейре",
   },
   be: {
     back: "Усе экскурсіі",
@@ -115,6 +122,7 @@ const pageCopy = {
     viewTour: "Паглядзець экскурсію",
     notFound: "Такая старонка экскурсіі не знойдзена.",
     catalogue: "Вярнуцца ў каталог экскурсій",
+    footer: "Madeira Mosaic · Індывідуальныя экскурсіі па Мадэйры",
   },
   uk: {
     back: "Усі екскурсії",
@@ -139,6 +147,7 @@ const pageCopy = {
     viewTour: "Переглянути екскурсію",
     notFound: "Таку сторінку екскурсії не знайдено.",
     catalogue: "Повернутися до каталогу екскурсій",
+    footer: "Madeira Mosaic · Індивідуальні екскурсії Мадейрою",
   },
 } as const;
 
@@ -419,11 +428,11 @@ function TourPage() {
               <img
                 src={image.src}
                 alt={image.alt[lang]}
-                width={page.tourId === "photo-tour" ? 960 : 1280}
-                height={page.tourId === "photo-tour" ? 1200 : 960}
+                width={image.portrait ? 960 : 1280}
+                height={image.portrait ? 1200 : 960}
                 fetchPriority="high"
                 className={
-                  page.tourId === "photo-tour"
+                  image.portrait
                     ? "aspect-[4/5] max-h-[42rem] w-full max-w-[33.6rem] justify-self-center rounded-xl object-contain shadow-sm"
                     : "aspect-[4/3] w-full rounded-xl object-cover shadow-sm"
                 }
@@ -594,7 +603,7 @@ function TourPage() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row">
           <MosaicLogo compact onDark />
           <p className="text-center text-sm leading-6 text-primary-foreground/75 sm:text-right">
-            Madeira Mosaic · Private tours in Madeira
+            {t.footer}
             <br />
             <PhotoCreditsLink />
           </p>

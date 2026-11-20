@@ -105,6 +105,20 @@ const contactPavelLabel = {
   ru: "Связаться с Павлом",
 } as const;
 
+const brandDescriptor = {
+  en: "Madeira Mosaic — private Madeira tours with Pavel.",
+  be: "Madeira Mosaic («Мадэйра Мазаіка») — прыватныя экскурсіі па востраве з Паўлам.",
+  uk: "Madeira Mosaic («Мадейра Мозаїка») — приватні екскурсії островом із Павлом.",
+  ru: "Madeira Mosaic («Мадейра Мозаика») — индивидуальные экскурсии по острову с Павлом.",
+} as const;
+
+const sevenDayLabel = {
+  en: "7 DAYS",
+  be: "7 ДЗЁН",
+  uk: "7 ДНІВ",
+  ru: "7 ДНЕЙ",
+} as const;
+
 function HomePage() {
   const { lang, setLang } = useLang();
   const t = mosaicContent[lang];
@@ -220,6 +234,22 @@ function HomePage() {
                 WhatsApp
               </a>
             </Button>
+            <Button
+              asChild
+              size="icon"
+              variant="outline"
+              className="hidden h-9 w-9 shrink-0 border-mosaic-deep/20 text-mosaic-deep hover:bg-mosaic-mist sm:inline-flex"
+            >
+              <a
+                href={contactUrl("telegram", QUICK_INQUIRY[lang])}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+                title="Telegram"
+              >
+                <Send aria-hidden />
+              </a>
+            </Button>
             {mobileNavOpen && (
               <nav
                 id="mobile-main-navigation"
@@ -290,11 +320,9 @@ function HomePage() {
               <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-primary-foreground/90 sm:text-xl">
                 {t.heroText}
               </p>
-              {lang === "ru" && (
-                <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-primary-foreground/80">
-                  Madeira Mosaic («Мадейра Мозаика») — индивидуальные экскурсии по острову с Павлом.
-                </p>
-              )}
+              <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-primary-foreground/80">
+                {brandDescriptor[lang]}
+              </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Button
                   asChild
@@ -327,10 +355,10 @@ function HomePage() {
               <p className="mt-4 text-xs font-semibold text-primary-foreground/80">
                 {
                   {
-                    en: "No payment to inquire. Dates are confirmed personally.",
-                    be: "Запыт без аплаты. Даты пацвярджаюцца асабіста.",
-                    uk: "Запит без оплати. Дати підтверджуються особисто.",
-                    ru: "Заявка без оплаты. Дата подтверждается лично.",
+                    en: "Tell Pavel what you would like to see, and he’ll personally suggest a fitting route.",
+                    be: "Раскажыце Паўлу, што хочаце ўбачыць, — ён асабіста прапануе прыдатны маршрут.",
+                    uk: "Розкажіть Павлу, що хочете побачити, — він особисто запропонує відповідний маршрут.",
+                    ru: "Расскажите Павлу, что хотите увидеть, — он лично предложит подходящий маршрут.",
                   }[lang]
                 }
               </p>
@@ -538,7 +566,7 @@ function HomePage() {
         </section>
         <section id="products" className="scroll-mt-40 bg-background py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading label="7 DAYS" title={salesCopy.programs[lang]} />
+            <SectionHeading label={sevenDayLabel[lang]} title={salesCopy.programs[lang]} />
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {programs.map((p, i) => (
                 <article

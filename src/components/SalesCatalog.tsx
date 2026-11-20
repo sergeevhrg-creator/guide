@@ -16,6 +16,7 @@ import { salesEditorialRu } from "@/lib/sales-editorial";
 import { salesEditorialEn } from "@/lib/sales-editorial-en";
 import { getTourPageSlug } from "@/lib/tour-pages";
 import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
+import { generatedTourCovers } from "@/lib/generated-tour-covers";
 import photoTourCover from "@/assets/sales/31-photo-tour-madeira-textless-v1.webp";
 
 export const featuredTourIds = ["sunrise", "family-west", "funchal", "fanal"] as const;
@@ -352,6 +353,30 @@ function TourArt({ tour }: { tour: SalesTour }) {
   const { lang } = useLang();
   const photo = imageCredits[neutralPhotos[tour.id] ?? "home-coast"];
   if (tour.id === "photo-tour") return <PhotoTourArt lang={lang} />;
+  const generatedCover = generatedTourCovers[tour.id];
+  if (generatedCover)
+    return (
+      <div className="relative isolate aspect-[4/5] w-full overflow-hidden bg-mosaic-deep">
+        <img
+          src={generatedCover.src}
+          alt={generatedCover.alt[lang]}
+          width={960}
+          height={1200}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-mosaic-deep/95 via-mosaic-deep/10 to-transparent"
+        />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-6">
+          <p className="font-display text-2xl font-extrabold leading-tight sm:text-3xl">
+            {tourTitle(tour, lang)}
+          </p>
+          <p className="mt-2 text-sm font-bold text-white/85">{tour.route[lang]}</p>
+        </div>
+      </div>
+    );
   const updated = updatedSalesPosters[tour.id];
   if (lang === "ru" && updated)
     return (

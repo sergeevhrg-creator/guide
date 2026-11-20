@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
@@ -13,7 +13,7 @@ import {
   tourTitle,
 } from "@/components/SalesCatalog";
 import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
-import { CONTACTS } from "@/lib/contacts";
+import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { mosaicContent } from "@/lib/mosaic-content";
 import { salesTours, type SalesTour } from "@/lib/sales";
 
@@ -163,6 +163,22 @@ function ToursPage() {
               <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <MessageCircle />
                 WhatsApp
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="icon"
+              variant="outline"
+              className="hidden h-9 w-9 shrink-0 border-mosaic-deep/20 text-mosaic-deep hover:bg-mosaic-mist sm:inline-flex"
+            >
+              <a
+                href={contactUrl("telegram", QUICK_INQUIRY[lang])}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+                title="Telegram"
+              >
+                <Send aria-hidden />
               </a>
             </Button>
           </div>
