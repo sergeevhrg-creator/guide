@@ -27,6 +27,7 @@ export type TourPageConfig = {
   imageId: ImageId;
   kind?: "standard" | "cruise" | "photo";
   h1: Record<PrimaryTourPageLang, string>;
+  /** Search title without the brand suffix; the route adds " | Madeira Mosaic" when it fits. */
   seoTitle: Record<PrimaryTourPageLang, string>;
   keywords: Record<PrimaryTourPageLang, string>;
   durationLabel?: Record<TourPageLang, string>;
@@ -42,8 +43,8 @@ export const tourPages = [
       ru: "Рассвет на Пику-ду-Арейру — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Pico do Areeiro Sunrise Private Tour | Madeira Mosaic",
-      ru: "Рассвет на Пику-ду-Арейру — экскурсия | Madeira Mosaic",
+      en: "Pico do Areeiro Sunrise Private Tour",
+      ru: "Рассвет на Пику-ду-Арейру — экскурсия на русском",
     },
     keywords: {
       en: "Pico do Areeiro sunrise tour, private Madeira tour, Madeira mountain tour",
@@ -59,8 +60,8 @@ export const tourPages = [
       ru: "Ribeiro Frio и Balcões — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Ribeiro Frio and Balcões Private Tour | Madeira Mosaic",
-      ru: "Ribeiro Frio и Balcões — экскурсия | Madeira Mosaic",
+      en: "Ribeiro Frio & Balcões Levada Private Tour",
+      ru: "Рибейру-Фриу и Балкоэш — экскурсия на русском",
     },
     keywords: {
       en: "Ribeiro Frio tour, Balcoes viewpoint tour, Madeira Laurissilva walk",
@@ -76,8 +77,8 @@ export const tourPages = [
       ru: "Порту-Мониш и Сейшал — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Porto Moniz and Seixal Private Tour | Madeira Mosaic",
-      ru: "Порту-Мониш и Сейшал — экскурсия | Madeira Mosaic",
+      en: "Porto Moniz Natural Pools & Seixal Private Tour",
+      ru: "Порту-Мониш и Сейшал — экскурсия на русском",
     },
     keywords: {
       en: "Porto Moniz Seixal tour, private west Madeira tour, Madeira volcanic pools tour",
@@ -93,8 +94,8 @@ export const tourPages = [
       ru: "Восток Мадейры: São Lourenço, Машику и Фаял",
     },
     seoTitle: {
-      en: "East Madeira Private Tour | Madeira Mosaic",
-      ru: "Восток Мадейры — индивидуальная экскурсия | Madeira Mosaic",
+      en: "East Madeira & São Lourenço Private Tour",
+      ru: "Восток Мадейры и São Lourenço — экскурсия на русском",
     },
     keywords: {
       en: "east Madeira private tour, Sao Lourenco tour, Machico Porto da Cruz tour",
@@ -110,8 +111,8 @@ export const tourPages = [
       ru: "Фуншал — индивидуальная экскурсия по старому городу",
     },
     seoTitle: {
-      en: "Private Funchal Tour: Old Town and Viewpoints | Madeira Mosaic",
-      ru: "Индивидуальная экскурсия по Фуншалу | Madeira Mosaic",
+      en: "Private Funchal Tour: Old Town & Viewpoints",
+      ru: "Экскурсия по Фуншалу на русском — старый город",
     },
     keywords: {
       en: "private Funchal tour, Funchal old town tour, Funchal viewpoints tour",
@@ -127,8 +128,8 @@ export const tourPages = [
       ru: "Porto da Cruz и Engenhos do Norte — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Porto da Cruz and Engenhos do Norte Tour | Madeira Mosaic",
-      ru: "Porto da Cruz и Engenhos do Norte | Madeira Mosaic",
+      en: "Porto da Cruz & Rum Distillery Private Tour",
+      ru: "Порту-да-Круш и ромовая фабрика — экскурсия на русском",
     },
     keywords: {
       en: "Porto da Cruz tour, Engenhos do Norte tour, Madeira rum tour",
@@ -144,8 +145,8 @@ export const tourPages = [
       ru: "Levada dos Tornos и северное побережье Мадейры",
     },
     seoTitle: {
-      en: "Levada dos Tornos and North Coast Tour | Madeira Mosaic",
-      ru: "Levada dos Tornos и север Мадейры | Madeira Mosaic",
+      en: "Levada dos Tornos Private Walking Tour",
+      ru: "Левада дуж Торнуш — экскурсия на русском с гидом",
     },
     keywords: {
       en: "Levada dos Tornos tour, Madeira levada walk, north coast Madeira tour",
@@ -161,8 +162,8 @@ export const tourPages = [
       ru: "São Vicente, Barbusano и Сейшал — винный маршрут",
     },
     seoTitle: {
-      en: "Madeira Wine Tour: São Vicente and Barbusano | Madeira Mosaic",
-      ru: "Винный тур по Мадейре и São Vicente | Madeira Mosaic",
+      en: "Madeira Private Wine Tour: São Vicente & Barbusano",
+      ru: "Винный тур по Мадейре на русском: Сан-Висенте",
     },
     keywords: {
       en: "Madeira wine tour, Sao Vicente vineyard tour, Barbusano wine tour",
@@ -178,8 +179,8 @@ export const tourPages = [
       ru: "Рынок Фуншала и старый город — гастрономическая экскурсия",
     },
     seoTitle: {
-      en: "Funchal Food and Market Private Tour | Madeira Mosaic",
-      ru: "Гастрономическая экскурсия по Фуншалу | Madeira Mosaic",
+      en: "Funchal Food & Market Private Tour",
+      ru: "Гастрономическая экскурсия по Фуншалу на русском",
     },
     keywords: {
       en: "Funchal food tour, Mercado dos Lavradores tour, Madeira gastronomy tour",
@@ -195,8 +196,8 @@ export const tourPages = [
       ru: "Eira do Serrado и Curral das Freiras — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Curral das Freiras Private Tour | Madeira Mosaic",
-      ru: "Долина монахинь — экскурсия по Мадейре | Madeira Mosaic",
+      en: "Nuns Valley (Curral das Freiras) Private Tour",
+      ru: "Долина монахинь — экскурсия на русском",
     },
     keywords: {
       en: "Curral das Freiras tour, Eira do Serrado tour, Nuns Valley Madeira tour",
@@ -212,8 +213,8 @@ export const tourPages = [
       ru: "Фанал и северо-запад Мадейры — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Fanal Forest and Northwest Madeira Private Tour | Madeira Mosaic",
-      ru: "Фанал и северо-запад Мадейры — экскурсия | Madeira Mosaic",
+      en: "Fanal Forest & Northwest Madeira Private Tour",
+      ru: "Лес Фанал и северо-запад Мадейры — экскурсия на русском",
     },
     keywords: {
       en: "Fanal forest tour, northwest Madeira private tour, Madeira laurel forest tour",
@@ -229,8 +230,8 @@ export const tourPages = [
       ru: "Câmara de Lobos и Cabo Girão — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Câmara de Lobos and Cabo Girão Tour | Madeira Mosaic",
-      ru: "Câmara de Lobos и Cabo Girão | Madeira Mosaic",
+      en: "Câmara de Lobos & Cabo Girão Private Tour",
+      ru: "Камара-ди-Лобуш и Кабу-Жиран — экскурсия на русском",
     },
     keywords: {
       en: "Camara de Lobos tour, Cabo Girao tour, private Madeira shore tour",
@@ -246,8 +247,8 @@ export const tourPages = [
       ru: "Исторический Фуншал и вино Мадейры — индивидуальная экскурсия",
     },
     seoTitle: {
-      en: "Funchal and Madeira Wine Private Tour | Madeira Mosaic",
-      ru: "Фуншал и вино Мадейры — экскурсия | Madeira Mosaic",
+      en: "Funchal & Blandy’s Madeira Wine Private Tour",
+      ru: "Фуншал и вино мадера в Blandy’s — экскурсия на русском",
     },
     keywords: {
       en: "Funchal wine tour, Madeira wine lodge tour, historic Funchal private tour",
@@ -264,8 +265,8 @@ export const tourPages = [
       ru: "Индивидуальная экскурсия по Мадейре из порта Фуншал",
     },
     seoTitle: {
-      en: "Madeira Shore Excursion from Funchal Port | Madeira Mosaic",
-      ru: "Экскурсия из порта Фуншал по Мадейре | Madeira Mosaic",
+      en: "Madeira Shore Excursion from Funchal Cruise Port",
+      ru: "Экскурсия из порта Фуншал для круизных туристов",
     },
     keywords: {
       en: "Madeira shore excursion, Funchal cruise port tour, private Madeira cruise tour",
@@ -288,8 +289,8 @@ export const tourPages = [
       ru: "Мадейра за два дня — индивидуальная круизная экскурсия",
     },
     seoTitle: {
-      en: "Two-Day Madeira Shore Excursion | Madeira Mosaic",
-      ru: "Мадейра за два дня для пассажиров круиза | Madeira Mosaic",
+      en: "Two-Day Madeira Shore Excursion for Cruise Guests",
+      ru: "Мадейра за 2 дня для круизных туристов — на русском",
     },
     keywords: {
       en: "two day Madeira shore excursion, Madeira cruise tour, private Madeira cruise excursion",
@@ -312,8 +313,8 @@ export const tourPages = [
       ru: "Фотосессия на Мадейре — маршрут по живописным местам",
     },
     seoTitle: {
-      en: "Madeira Photo Tour and Scenic Locations | Madeira Mosaic",
-      ru: "Фотосессия на Мадейре и красивые места | Madeira Mosaic",
+      en: "Madeira Photo Tour: Scenic Locations",
+      ru: "Фотосессия на Мадейре — маршрут с русским гидом",
     },
     keywords: {
       en: "Madeira photo tour, Madeira photoshoot locations, private Madeira scenic tour",

@@ -23,7 +23,7 @@ import { guideTabs, type GuideCard } from "@/lib/guide-content";
 import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
 import { isIndexableGuideCategory } from "@/lib/guide-categories";
-import { localizedSeoLinks, validateLangSearch } from "@/lib/seo";
+import { localizedSeoLinks, titleWithBrand, validateLangSearch } from "@/lib/seo";
 
 const pageStrings = {
   en: {
@@ -180,7 +180,16 @@ export const Route = createFileRoute("/madeira-guide")({
     const canonical = `https://guide.orthodoxmadeira.com/madeira-guide?lang=${lang}`;
     return {
       meta: [
-        { title: `${page.title} — Madeira Mosaic` },
+        {
+          title: titleWithBrand(
+            {
+              en: "Madeira Travel Guide: What to See & Do",
+              ru: "Что посмотреть на Мадейре: гид по острову",
+              be: "Што паглядзець на Мадэйры: гід па востраве",
+              uk: "Що подивитися на Мадейрі: гід островом",
+            }[lang],
+          ),
+        },
         { name: "description", content: descriptions[lang] },
         { property: "og:title", content: page.title },
         { property: "og:description", content: descriptions[lang] },

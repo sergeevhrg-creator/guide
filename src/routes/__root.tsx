@@ -170,6 +170,23 @@ function RootShell({ children }: { children: ReactNode }) {
                     contactType: "customer service",
                     availableLanguage: ["English", "Russian", "Belarusian"],
                   },
+                  description:
+                    "Private Madeira tours in Russian, English and Belarusian for 1–4 guests, hosted by local guide Pavel Sergeev.",
+                  founder: { "@id": "https://guide.orthodoxmadeira.com/#pavel" },
+                  employee: { "@id": "https://guide.orthodoxmadeira.com/#pavel" },
+                },
+                {
+                  "@type": "Person",
+                  "@id": "https://guide.orthodoxmadeira.com/#pavel",
+                  name: "Pavel Sergeev",
+                  alternateName: "Павел Сергеев",
+                  jobTitle: "Private tour guide on Madeira",
+                  description:
+                    "Orthodox priest living on Madeira who personally hosts small private tours of the island.",
+                  homeLocation: { "@type": "Place", name: "Madeira, Portugal" },
+                  knowsLanguage: ["ru", "en", "be"],
+                  worksFor: { "@id": "https://guide.orthodoxmadeira.com/#organization" },
+                  image: "https://guide.orthodoxmadeira.com/assets/pavel-original.jpg",
                 },
               ],
             }),

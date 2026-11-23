@@ -24,6 +24,7 @@ import { salesEditorialEn } from "@/lib/sales-editorial-en";
 import { salesEditorialRu } from "@/lib/sales-editorial";
 import { salesCopy } from "@/lib/sales-copy";
 import { salesDescriptions } from "@/lib/sales-descriptions";
+import { titleWithBrand, tourMetaDescription } from "@/lib/seo";
 import { salesTours } from "@/lib/sales";
 import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
@@ -161,8 +162,16 @@ function getPageTitle(page: TourPageConfig, lang: TourPageLang) {
 }
 
 function getSeoTitle(page: TourPageConfig, lang: TourPageLang) {
-  if (lang === "ru" || lang === "en") return page.seoTitle[lang];
-  return `${getPageTitle(page, lang)} | Madeira Mosaic`;
+  if (lang === "ru" || lang === "en") return titleWithBrand(page.seoTitle[lang]);
+  return titleWithBrand(getPageTitle(page, lang));
+}
+
+function getDurationLabel(page: TourPageConfig, lang: TourPageLang) {
+  const tour = getTour(page);
+  return (
+    page.durationLabel?.[lang] ??
+    `${tour?.hours ?? ""} ${{ en: "hours", be: "гадзін", uk: "годин", ru: "часов" }[lang]}`.trim()
+  );
 }
 
 function getKeywords(page: TourPageConfig, lang: TourPageLang) {
@@ -189,14 +198,6 @@ function getEditorial(tourId: TourPageConfig["tourId"], lang: TourPageLang) {
     short,
     full: [intro, short].join("\n\n"),
   };
-}
-
-function conciseMetaDescription(value: string) {
-  if (value.length <= 158) return value;
-  const candidate = value.slice(0, 155);
-  const boundary = candidate.lastIndexOf(" ");
-  const shortened = candidate.slice(0, boundary >= 110 ? boundary : 155);
-  return `${shortened.replace(/[,:;.]+$/, "")}…`;
 }
 
 const tourPageLanguages = ["en", "be", "uk", "ru"] as const satisfies readonly TourPageLang[];
@@ -228,7 +229,7 @@ export const Route = createFileRoute("/tours_/$slug")({
     }
 
     const editorial = getEditorial(page.tourId, lang);
-    const description = conciseMetaDescription(editorial.short);
+    const description = tourMetaDescription(lang, getDurationLabel(page, lang), editorial.short);
     const canonical = `https://guide.orthodoxmadeira.com/tours/${page.slug}?lang=${lang}`;
     const image = getTourPageImage(page);
     const absoluteImage = `https://guide.orthodoxmadeira.com${image.src}`;
@@ -329,16 +330,35 @@ function TourPage() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Service",
+        "@type": ["Service", "TouristTrip"],
         "@id": `${canonical}#service`,
         name: pageTitle,
         description: editorial.short,
         url: canonical,
         image: absoluteImage,
         inLanguage: lang,
+        serviceType: {
+          en: "Private tour",
+          be: "Індывідуальная экскурсія",
+          uk: "Індивідуальна екскурсія",
+          ru: "Индивидуальная экскурсия",
+        }[lang],
+        touristType: {
+          en: "Small private group (1–4 guests)",
+          be: "Невялікая група (1–4 госці)",
+          uk: "Невелика група (1–4 гості)",
+          ru: "Небольшая группа (1–4 гостя)",
+        }[lang],
         areaServed: { "@type": "AdministrativeArea", name: "Madeira" },
+        itinerary: { "@type": "ItemList", name: tour.route[lang] },
         provider: {
           "@id": "https://guide.orthodoxmadeira.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          url: `https://guide.orthodoxmadeira.com/request?lang=${lang}&tour=${page.tourId}`,
+          description: displayTourPrice(page.tourId, lang),
         },
       },
       {
@@ -484,14 +504,7 @@ function TourPage() {
         <section className="border-y border-border bg-background py-8">
           <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
             <Fact icon={MapPin} label={t.route} value={tour.route[lang]} />
-            <Fact
-              icon={Clock3}
-              label={t.duration}
-              value={
-                page.durationLabel?.[lang] ??
-                `${tour.hours} ${{ en: "hours", be: "гадзін", uk: "годин", ru: "часов" }[lang]}`
-              }
-            />
+            <Fact icon={Clock3} label={t.duration} value={getDurationLabel(page, lang)} />
             <Fact icon={Users} label={t.format} value={t.guests} />
             <Fact icon={RouteIcon} label={t.price} value={displayTourPrice(page.tourId, lang)} />
           </div>
