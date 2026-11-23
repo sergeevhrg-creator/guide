@@ -12,20 +12,20 @@ export const Route = createFileRoute("/cookies")({
   head: ({ match }) => {
     const meta = {
       ru: [
-        "Cookies — Madeira Mosaic",
-        "Настройки cookies и локального хранения на сайте Madeira Mosaic.",
+        "Файлы cookies и настройки — Madeira Mosaic",
+        "Какие cookies и локальные настройки использует сайт Madeira Mosaic, зачем они нужны и как изменить своё согласие на аналитику и рекламу.",
       ],
       en: [
-        "Cookies — Madeira Mosaic",
-        "Cookie and local-storage choices on the Madeira Mosaic website.",
+        "Cookies and preferences — Madeira Mosaic",
+        "Which cookies and local settings the Madeira Mosaic website uses, why they are needed and how to change your analytics and advertising consent.",
       ],
       be: [
-        "Cookies — Madeira Mosaic",
-        "Налады cookies і лакальнага захоўвання на сайце Madeira Mosaic.",
+        "Файлы cookies і налады — Madeira Mosaic",
+        "Якія cookies і лакальныя налады выкарыстоўвае сайт Madeira Mosaic, навошта яны патрэбныя і як змяніць згоду на аналітыку і рэкламу.",
       ],
       uk: [
-        "Cookies — Madeira Mosaic",
-        "Налаштування cookies і локального зберігання на сайті Madeira Mosaic.",
+        "Файли cookies і налаштування — Madeira Mosaic",
+        "Які cookies і локальні налаштування використовує сайт Madeira Mosaic, навіщо вони потрібні та як змінити згоду на аналітику й рекламу.",
       ],
     }[match.search.lang];
     return {

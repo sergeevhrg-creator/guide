@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
       en: {
         title: "Madeira Private Tours & Shore Excursions with a Local Guide",
         description:
-          "Private Madeira tours and Funchal shore excursions with local guide Pavel for 1–4 guests: mountains, levadas, ocean pools, Funchal. Your own route from €40/hour.",
+          "Private Madeira tours and Funchal shore excursions with local guide Pavel for 1–4 guests: mountains, levadas, ocean pools, Funchal. Own route: €40/hour.",
         keywords:
           "Madeira private tours, private guided tours Madeira, Madeira day tours, Funchal private tours, Funchal shore excursions, Pico do Areeiro sunrise tour",
       },

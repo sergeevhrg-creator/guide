@@ -15,6 +15,7 @@ export const Route = createFileRoute("/photo-credits")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://guide.orthodoxmadeira.com/photo-credits" }],
   }),
   component: PhotoCreditsPage,
 });
