@@ -15,7 +15,8 @@ import levadaAsset from "@/assets/images/levada.webp.asset.json";
 import machicoAsset from "@/assets/images/machico.webp.asset.json";
 import santanaAsset from "@/assets/images/santana.webp.asset.json";
 import fanalAsset from "@/assets/images/fanal.webp.asset.json";
-import santaCatarinaInteriorAsset from "@/assets/images/santa-catarina-interior.webp.asset.json";
+import santaCatarinaInteriorAsset from "@/assets/images/santa-catarina-interior-4x3.webp.asset.json";
+import santaCatarinaExteriorAsset from "@/assets/images/santa-catarina-exterior.webp.asset.json";
 
 export type ImageId =
   | "home-coast"
@@ -34,7 +35,8 @@ export type ImageId =
   | "machico"
   | "santana"
   | "fanal"
-  | "santa-catarina-interior";
+  | "santa-catarina-interior"
+  | "santa-catarina-exterior";
 
 export type ImageCredit = {
   id: ImageId;
@@ -406,7 +408,7 @@ export const imageCredits: Record<ImageId, ImageCredit> = {
       uk: "Ікона святителя Спиридона перед вівтарем каплиці Santa Catarina, Фуншал",
       ru: "Икона святителя Спиридона перед алтарём часовни Santa Catarina, Фуншал",
     },
-    localPath: "src/assets/images/santa-catarina-interior.webp.asset.json",
+    localPath: "src/assets/images/santa-catarina-interior-4x3.webp.asset.json",
     src: santaCatarinaInteriorAsset.url,
     author: "Orthodox parish of St Spyridon, Madeira",
     license: "All rights reserved, used with permission",
@@ -417,6 +419,27 @@ export const imageCredits: Record<ImageId, ImageCredit> = {
       be: "Унутры капліцы Santa Catarina ў Фуншале: праваслаўныя абразы на барочным алтары і абраз святога Спірыдона",
       uk: "Усередині каплиці Santa Catarina у Фуншалі: православні ікони на бароковому вівтарі та ікона святителя Спиридона",
       ru: "Внутри часовни Santa Catarina в Фуншале: православные иконы на барочном алтаре и икона святителя Спиридона",
+    },
+  },
+  "santa-catarina-exterior": {
+    id: "santa-catarina-exterior",
+    slot: {
+      en: "Chapel of Santa Catarina in Funchal: porch on red-stone columns and the Cross of the Order of Christ",
+      be: "Капліца Santa Catarina ў Фуншале: галерэя на калонах з чырвонага каменю і крыж Ордэна Хрыста",
+      uk: "Каплиця Santa Catarina у Фуншалі: галерея на колонах із червоного каменю та хрест Ордену Христа",
+      ru: "Часовня Santa Catarina в Фуншале: галерея на колоннах из красного камня и крест Ордена Христа",
+    },
+    localPath: "src/assets/images/santa-catarina-exterior.webp.asset.json",
+    src: santaCatarinaExteriorAsset.url,
+    author: "Orthodox parish of St Spyridon, Madeira",
+    license: "All rights reserved, used with permission",
+    licenseUrl: "",
+    sourceUrl: "https://orthodoxmadeira.com/",
+    alt: {
+      en: "Chapel of Santa Catarina in Funchal: white walls, a porch on red-stone columns and the Cross of the Order of Christ on the gable",
+      be: "Капліца Santa Catarina ў Фуншале: белыя сцены, галерэя на калонах з чырвонага каменю і крыж Ордэна Хрыста на франтоне",
+      uk: "Каплиця Santa Catarina у Фуншалі: білі стіни, галерея на колонах із червоного каменю та хрест Ордену Христа на фронтоні",
+      ru: "Часовня Santa Catarina в Фуншале: белые стены, галерея на колоннах из красного камня и крест Ордена Христа на фронтоне",
     },
   },
 };

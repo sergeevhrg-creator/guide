@@ -26,7 +26,8 @@ export const churchesTab: GuideTab = {
   cards: [
     {
       id: "churches-santa-catarina",
-      imageId: "santa-catarina-interior",
+      imageId: "santa-catarina-exterior",
+      secondaryImageId: "santa-catarina-interior",
       name: l(
         "Chapel of Santa Catarina",
         "Капліца святой Кацярыны (Santa Catarina)",

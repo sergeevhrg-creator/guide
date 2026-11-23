@@ -7,6 +7,8 @@ export type GuideSource = { url: string; checkedOn: string };
 export interface GuideCard {
   id: string;
   imageId?: ImageId;
+  /** Optional second photo shown side by side with imageId (e.g. outside + inside). */
+  secondaryImageId?: ImageId;
   name: string | LocalizedText;
   area: LocalizedText;
   description: LocalizedText;
