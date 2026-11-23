@@ -2,7 +2,14 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { salesEditorialRu } from "./sales-editorial.ts";
-import { displayTourPrice, publicTourParagraphs, SHOW_DRAFT_PRICES } from "./tour-pricing.ts";
+import {
+  CUSTOM_ROUTE_HOURLY_RATE_EUR,
+  CUSTOM_ROUTE_MAX_GUESTS,
+  displayCustomRouteRate,
+  displayTourPrice,
+  publicTourParagraphs,
+  SHOW_DRAFT_PRICES,
+} from "./tour-pricing.ts";
 
 const tourIds = [
   "sunrise",
@@ -58,5 +65,19 @@ test("unconfirmed tour prices stay out of public tour content", async (t) => {
       ),
       ["Описание маршрута.", "Доступно только при подходящем расписании судна."],
     );
+  });
+});
+
+test("Your route offer shows the confirmed hourly car-with-driver rate", async (t) => {
+  await t.test("rate is 40 EUR per hour for up to 4 guests", () => {
+    assert.equal(CUSTOM_ROUTE_HOURLY_RATE_EUR, 40);
+    assert.equal(CUSTOM_ROUTE_MAX_GUESTS, 4);
+  });
+
+  await t.test("rate is formatted in every language", () => {
+    assert.equal(displayCustomRouteRate("ru"), "40 € / час");
+    assert.equal(displayCustomRouteRate("en"), "€40 per hour");
+    assert.equal(displayCustomRouteRate("be"), "40 € / гадзіна");
+    assert.equal(displayCustomRouteRate("uk"), "40 € / година");
   });
 });

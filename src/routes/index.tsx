@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { MadeiraHeroMotion } from "@/components/MadeiraHeroMotion";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
-import { SalesInquiryForm } from "@/components/SalesInquiryForm";
 import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
 import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { pavelImages } from "@/lib/poster-assets";
@@ -18,13 +17,14 @@ import {
   SalesTourCard,
   TourDetailsDialog,
   featuredTourIds,
-  helpChooseRoute,
-  tourTitle,
   transportNote,
   introduction,
   introductionTitle,
 } from "@/components/SalesCatalog";
 import { QuickContact } from "@/components/QuickContact";
+import { CustomRouteOffer } from "@/components/CustomRouteOffer";
+import { RequestCta } from "@/components/RequestCta";
+import { useOpenRequest } from "@/lib/use-open-request";
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>): { lang?: "en" | "ru" | "be" | "uk" } => {
     const lang = search["lang"];
@@ -127,7 +127,6 @@ function HomePage() {
     if (search.lang) setLang(search.lang);
   }, [search.lang, setLang]);
   const [selectedTour, setSelectedTour] = useState<SalesTour | null>(null);
-  const [selection, setSelection] = useState("");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNavButtonRef = useRef<HTMLButtonElement>(null);
   const mobileNavContainerRef = useRef<HTMLDivElement>(null);
@@ -153,17 +152,10 @@ function HomePage() {
     .map((id) => salesTours.find((x) => x.id === id))
     .filter((x): x is SalesTour => x !== undefined);
   const programs = [t.products[2], t.products[1]].filter((p) => p !== undefined);
-  function openOrder(title?: string) {
+  const openRequest = useOpenRequest("home");
+  function openOrder(title?: string, from = "home") {
     setSelectedTour(null);
-    setSelection(title ?? helpChooseRoute[lang]);
-    window.setTimeout(() => {
-      document.getElementById("contact")?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-        block: "start",
-      });
-    }, 50);
+    openRequest(title, from);
   }
   const pavelParagraphs = (lang === "ru" ? pavelIntroductionRu : introduction[lang]).split("\n\n");
   const pavelCta = {
@@ -286,8 +278,12 @@ function HomePage() {
                   {t.nav[2]}
                 </Link>
                 <a
-                  href="#contact"
-                  onClick={() => setMobileNavOpen(false)}
+                  href={`/request?lang=${lang}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setMobileNavOpen(false);
+                    openOrder(undefined, "home_menu");
+                  }}
                   className="mt-1 flex min-h-11 touch-manipulation select-none items-center gap-2 rounded-lg bg-mosaic-leaf px-4 py-3 text-primary-foreground transition-transform duration-150 ease-out hover:bg-mosaic-deep focus-visible:bg-mosaic-deep active:scale-[0.97]"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden />
@@ -341,10 +337,10 @@ function HomePage() {
                   className="h-13 border-primary-foreground/70 bg-primary-foreground/10 px-6 font-extrabold text-primary-foreground hover:bg-primary-foreground hover:text-mosaic-deep"
                 >
                   <a
-                    href="#contact"
+                    href={`/request?lang=${lang}`}
                     onClick={(event) => {
                       event.preventDefault();
-                      openOrder();
+                      openOrder(undefined, "home_hero");
                     }}
                   >
                     {t.journeyCta}
@@ -425,7 +421,7 @@ function HomePage() {
               </div>
               <div className="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
                 <Button
-                  onClick={() => openOrder()}
+                  onClick={() => openOrder(undefined, "home_pavel")}
                   className="h-auto min-h-11 whitespace-normal bg-mosaic-deep py-3 text-center font-bold hover:bg-mosaic-ocean"
                 >
                   {pavelCta}
@@ -508,10 +504,14 @@ function HomePage() {
                   key={tour.id}
                   tour={tour}
                   onDetails={() => setSelectedTour(tour)}
-                  onDiscuss={openOrder}
+                  onDiscuss={(title) => openOrder(title, "home_catalog")}
                 />
               ))}
             </div>
+            <CustomRouteOffer
+              className="mt-6"
+              onDiscuss={(title) => openOrder(title, "home_custom_route")}
+            />
             <div className="mt-10 flex justify-center">
               <Button
                 asChild
@@ -606,7 +606,7 @@ function HomePage() {
                         </Link>
                       </Button>
                       <Button
-                        onClick={() => openOrder(p.title)}
+                        onClick={() => openOrder(p.title, "home_programs")}
                         className="bg-mosaic-deep hover:bg-mosaic-ocean"
                       >
                         {salesCopy.discuss[lang]}
@@ -619,15 +619,7 @@ function HomePage() {
           </div>
         </section>
         <section id="contact" className="scroll-mt-40 bg-mosaic-mist px-4 py-16 sm:px-6 sm:py-24">
-          <SalesInquiryForm
-            key={lang}
-            products={[
-              ...salesTours.map((t) => tourTitle(t, lang)),
-              ...programs.map((p) => p.title),
-            ]}
-            selected={selection}
-            onSelect={setSelection}
-          />
+          <RequestCta onOpen={() => openOrder(undefined, "home_bottom")} />
         </section>
       </main>
       <footer className="bg-mosaic-deep px-4 pb-24 pt-10 text-primary-foreground sm:pb-10">
@@ -645,9 +637,9 @@ function HomePage() {
       <TourDetailsDialog
         tour={selectedTour}
         onClose={() => setSelectedTour(null)}
-        onDiscuss={openOrder}
+        onDiscuss={(title) => openOrder(title, "home_tour_dialog")}
       />
-      <QuickContact onOpenForm={() => openOrder()} />
+      <QuickContact onOpenForm={() => openOrder(undefined, "home_quick_contact")} />
     </div>
   );
 }

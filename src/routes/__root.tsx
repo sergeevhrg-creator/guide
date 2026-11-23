@@ -16,6 +16,11 @@ import { LanguageProvider, langFromSearch } from "../lib/i18n/lang";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/CookieConsent";
 import { LegalFooter } from "../components/LegalFooter";
+import {
+  captureAttribution,
+  installContactClickTracking,
+  trackingBootstrapScript,
+} from "../lib/tracking";
 
 function NotFoundComponent() {
   return (
@@ -82,7 +87,6 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
-      { charSet: "utf-8" },
       {
         name: "viewport",
         content:
@@ -131,6 +135,9 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang={lang} translate="no" className="notranslate">
       <head>
+        <meta charSet="utf-8" />
+        {/* Google Tag Manager with Consent Mode v2 defaults: must stay first in <head>. */}
+        <script dangerouslySetInnerHTML={{ __html: trackingBootstrapScript }} />
         <HeadContent />
         <script
           type="application/ld+json"
@@ -179,6 +186,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const href = useRouterState({ select: (state) => state.location.href });
+  useEffect(() => installContactClickTracking(), []);
+  useEffect(() => {
+    captureAttribution();
+  }, [href]);
 
   return (
     <QueryClientProvider client={queryClient}>
