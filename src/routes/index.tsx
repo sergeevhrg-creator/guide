@@ -25,6 +25,8 @@ import {
   introductionTitle,
 } from "@/components/SalesCatalog";
 import { QuickContact } from "@/components/QuickContact";
+import { CustomRouteOffer } from "@/components/CustomRouteOffer";
+import { customRouteTitle } from "@/lib/custom-route";
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>): { lang?: "en" | "ru" | "be" | "uk" } => {
     const lang = search["lang"];
@@ -512,6 +514,7 @@ function HomePage() {
                 />
               ))}
             </div>
+            <CustomRouteOffer className="mt-6" onDiscuss={openOrder} />
             <div className="mt-10 flex justify-center">
               <Button
                 asChild
@@ -623,6 +626,7 @@ function HomePage() {
             key={lang}
             products={[
               ...salesTours.map((t) => tourTitle(t, lang)),
+              customRouteTitle(lang),
               ...programs.map((p) => p.title),
             ]}
             selected={selection}

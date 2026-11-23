@@ -6,6 +6,8 @@ import { MosaicLogo } from "@/components/MosaicLogo";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
 import { SalesInquiryForm } from "@/components/SalesInquiryForm";
 import { QuickContact } from "@/components/QuickContact";
+import { CustomRouteOffer } from "@/components/CustomRouteOffer";
+import { customRouteTitle } from "@/lib/custom-route";
 import {
   SalesTourCard,
   TourDetailsDialog,
@@ -212,6 +214,7 @@ function ToursPage() {
                 />
               ))}
             </div>
+            <CustomRouteOffer className="mt-6" onDiscuss={openOrder} />
           </div>
         </section>
         <section id="contact" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-24">
@@ -219,6 +222,7 @@ function ToursPage() {
             key={lang}
             products={[
               ...salesTours.map((x) => tourTitle(x, lang)),
+              customRouteTitle(lang),
               ...programs.map((p) => p.title),
             ]}
             selected={selection}
