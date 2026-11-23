@@ -1,10 +1,12 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { MessageCircle, Phone, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACTS, contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
 import { englishSalesInquiryMessage } from "@/lib/sales-inquiry-en";
+import { readAttribution, rememberLead, sourceLine, sourceSummary, track } from "@/lib/tracking";
 
 export type InquiryMode = "standard" | "cruise" | "cruise-two" | "photo";
 
@@ -155,15 +157,28 @@ export function SalesInquiryForm({
   selected,
   onSelect,
   mode = "standard",
+  location = "page",
+  hideIntro = false,
 }: {
   products: string[];
   selected: string;
   onSelect: (value: string) => void;
   mode?: InquiryMode;
+  /** Where the form is shown, for analytics (e.g. "request_page", "tour_page"). */
+  location?: string;
+  /** Hide the form's own heading and note when the page already explains the step. */
+  hideIntro?: boolean;
 }) {
   const { lang } = useLang();
   const t = copy[lang];
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
+  const started = useRef(false);
+  function markStarted() {
+    if (started.current) return;
+    started.current = true;
+    track("form_start", { form_location: location, lang, product: selected || t.empty });
+  }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const parsed = schema.safeParse(Object.fromEntries(new FormData(event.currentTarget)));
@@ -210,18 +225,40 @@ export function SalesInquiryForm({
             `${t.comment}: ${d.comment || "—"}`,
             `Language: ${lang.toUpperCase()}`,
           ].join("\n");
+    const source = sourceLine(lang);
+    const fullMessage = source ? `${message}\n${source}` : message;
     const channel = d.channel === "Telegram" ? "telegram" : "whatsapp";
-    window.open(contactUrl(channel, message), "_blank", "noopener,noreferrer");
+    const url = contactUrl(channel, fullMessage);
+    window.open(url, "_blank", "noopener,noreferrer");
+    track("generate_lead", {
+      form_location: location,
+      lang,
+      product: d.product,
+      channel,
+      guests: d.guests,
+      lead_source: sourceSummary(readAttribution()) || "direct",
+    });
+    rememberLead({ url, channel, product: d.product });
+    void navigate({ to: "/request/thanks", search: { lang } });
   }
   const field =
     "mt-2 w-full min-w-0 rounded-md border border-input bg-background px-3 py-3 text-base font-normal text-foreground";
   return (
     <div className="mx-auto max-w-3xl">
-      <h2 className="font-display text-3xl font-extrabold text-mosaic-deep sm:text-4xl">
-        {t.title}
-      </h2>
-      <p className="mt-4 leading-7 text-muted-foreground">{t.note}</p>
-      <form className="mt-8 grid gap-5 sm:grid-cols-2" onSubmit={submit}>
+      {!hideIntro && (
+        <>
+          <h2 className="font-display text-3xl font-extrabold text-mosaic-deep sm:text-4xl">
+            {t.title}
+          </h2>
+          <p className="mt-4 leading-7 text-muted-foreground">{t.note}</p>
+        </>
+      )}
+      <form
+        className="mt-8 grid gap-5 sm:grid-cols-2"
+        onSubmit={submit}
+        onFocusCapture={markStarted}
+        data-track-location={location}
+      >
         <label className="text-sm font-bold">
           {t.name}
           <input name="name" autoComplete="name" required maxLength={100} className={field} />

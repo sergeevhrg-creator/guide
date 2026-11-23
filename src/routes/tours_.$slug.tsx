@@ -595,6 +595,7 @@ function TourPage() {
             selected={selection}
             onSelect={setSelection}
             mode={page.tourId === "cruise-two" ? "cruise-two" : (page.kind ?? "standard")}
+            location="tour_page"
           />
         </section>
       </main>

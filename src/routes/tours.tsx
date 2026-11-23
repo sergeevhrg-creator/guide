@@ -4,16 +4,11 @@ import { ArrowLeft, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
-import { SalesInquiryForm } from "@/components/SalesInquiryForm";
 import { QuickContact } from "@/components/QuickContact";
 import { CustomRouteOffer } from "@/components/CustomRouteOffer";
-import { customRouteTitle } from "@/lib/custom-route";
-import {
-  SalesTourCard,
-  TourDetailsDialog,
-  helpChooseRoute,
-  tourTitle,
-} from "@/components/SalesCatalog";
+import { RequestCta } from "@/components/RequestCta";
+import { useOpenRequest } from "@/lib/use-open-request";
+import { SalesTourCard, TourDetailsDialog } from "@/components/SalesCatalog";
 import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
 import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { mosaicContent } from "@/lib/mosaic-content";
@@ -124,16 +119,10 @@ function ToursPage() {
   }, [search.lang, setLang]);
   const t = mosaicContent[lang];
   const [selectedTour, setSelectedTour] = useState<SalesTour | null>(null);
-  const [selection, setSelection] = useState("");
-  const programs = [t.products[2], t.products[1]].filter((p) => p !== undefined);
-  function openOrder(title?: string) {
+  const openRequest = useOpenRequest("tours");
+  function openOrder(title?: string, from = "tours") {
     setSelectedTour(null);
-    setSelection(title ?? helpChooseRoute[lang]);
-    window.setTimeout(
-      () =>
-        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" }),
-      50,
-    );
+    openRequest(title, from);
   }
   return (
     <div className="min-h-screen bg-background">
@@ -150,7 +139,11 @@ function ToursPage() {
               className="h-11 w-11 shrink-0 touch-manipulation select-none bg-mosaic-leaf transition-transform duration-150 ease-out hover:bg-mosaic-deep active:scale-[0.97] sm:hidden"
             >
               <a
-                href="#contact"
+                href={`/request?lang=${lang}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  openOrder(undefined, "tours_header");
+                }}
                 aria-label={contactPavelLabel[lang]}
                 title={contactPavelLabel[lang]}
               >
@@ -210,24 +203,18 @@ function ToursPage() {
                   key={tour.id}
                   tour={tour}
                   onDetails={() => setSelectedTour(tour)}
-                  onDiscuss={openOrder}
+                  onDiscuss={(title) => openOrder(title, "tours_catalog")}
                 />
               ))}
             </div>
-            <CustomRouteOffer className="mt-6" onDiscuss={openOrder} />
+            <CustomRouteOffer
+              className="mt-6"
+              onDiscuss={(title) => openOrder(title, "tours_custom_route")}
+            />
           </div>
         </section>
         <section id="contact" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-24">
-          <SalesInquiryForm
-            key={lang}
-            products={[
-              ...salesTours.map((x) => tourTitle(x, lang)),
-              customRouteTitle(lang),
-              ...programs.map((p) => p.title),
-            ]}
-            selected={selection}
-            onSelect={setSelection}
-          />
+          <RequestCta onOpen={() => openOrder(undefined, "tours_bottom")} />
         </section>
       </main>
       <footer className="bg-mosaic-deep px-4 pb-24 pt-10 text-primary-foreground sm:pb-10">
@@ -245,9 +232,9 @@ function ToursPage() {
       <TourDetailsDialog
         tour={selectedTour}
         onClose={() => setSelectedTour(null)}
-        onDiscuss={openOrder}
+        onDiscuss={(title) => openOrder(title, "tours_tour_dialog")}
       />
-      <QuickContact onOpenForm={() => openOrder()} />
+      <QuickContact onOpenForm={() => openOrder(undefined, "tours_quick_contact")} />
     </div>
   );
 }

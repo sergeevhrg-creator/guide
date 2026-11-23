@@ -15,10 +15,12 @@ import { Route as MadeiraGuideRouteImport } from './routes/madeira-guide'
 import { Route as PhotoCreditsRouteImport } from './routes/photo-credits'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RemoteWorkMadeiraRouteImport } from './routes/remote-work-madeira'
+import { Route as RequestRouteImport } from './routes/request'
 import { Route as ReturnToWhatMattersRouteImport } from './routes/return-to-what-matters'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as WeekOfSilenceRouteImport } from './routes/week-of-silence'
 import { Route as MadeiraGuideCategoryRouteImport } from './routes/madeira-guide_.$category'
+import { Route as RequestThanksRouteImport } from './routes/request_.thanks'
 import { Route as ToursSlugRouteImport } from './routes/tours_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -51,6 +53,11 @@ const RemoteWorkMadeiraRoute = RemoteWorkMadeiraRouteImport.update({
   path: '/remote-work-madeira',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RequestRoute = RequestRouteImport.update({
+  id: '/request',
+  path: '/request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReturnToWhatMattersRoute = ReturnToWhatMattersRouteImport.update({
   id: '/return-to-what-matters',
   path: '/return-to-what-matters',
@@ -71,6 +78,11 @@ const MadeiraGuideCategoryRoute = MadeiraGuideCategoryRouteImport.update({
   path: '/madeira-guide/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RequestThanksRoute = RequestThanksRouteImport.update({
+  id: '/request_/thanks',
+  path: '/request/thanks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToursSlugRoute = ToursSlugRouteImport.update({
   id: '/tours_/$slug',
   path: '/tours/$slug',
@@ -84,10 +96,12 @@ export interface FileRoutesByFullPath {
   '/photo-credits': typeof PhotoCreditsRoute
   '/privacy': typeof PrivacyRoute
   '/remote-work-madeira': typeof RemoteWorkMadeiraRoute
+  '/request': typeof RequestRoute
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
   '/week-of-silence': typeof WeekOfSilenceRoute
   '/madeira-guide/$category': typeof MadeiraGuideCategoryRoute
+  '/request/thanks': typeof RequestThanksRoute
   '/tours/$slug': typeof ToursSlugRoute
 }
 export interface FileRoutesByTo {
@@ -97,10 +111,12 @@ export interface FileRoutesByTo {
   '/photo-credits': typeof PhotoCreditsRoute
   '/privacy': typeof PrivacyRoute
   '/remote-work-madeira': typeof RemoteWorkMadeiraRoute
+  '/request': typeof RequestRoute
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
   '/week-of-silence': typeof WeekOfSilenceRoute
   '/madeira-guide/$category': typeof MadeiraGuideCategoryRoute
+  '/request/thanks': typeof RequestThanksRoute
   '/tours/$slug': typeof ToursSlugRoute
 }
 export interface FileRoutesById {
@@ -111,10 +127,12 @@ export interface FileRoutesById {
   '/photo-credits': typeof PhotoCreditsRoute
   '/privacy': typeof PrivacyRoute
   '/remote-work-madeira': typeof RemoteWorkMadeiraRoute
+  '/request': typeof RequestRoute
   '/return-to-what-matters': typeof ReturnToWhatMattersRoute
   '/tours': typeof ToursRoute
   '/week-of-silence': typeof WeekOfSilenceRoute
   '/madeira-guide_/$category': typeof MadeiraGuideCategoryRoute
+  '/request_/thanks': typeof RequestThanksRoute
   '/tours_/$slug': typeof ToursSlugRoute
 }
 export interface FileRouteTypes {
@@ -126,10 +144,12 @@ export interface FileRouteTypes {
     | '/photo-credits'
     | '/privacy'
     | '/remote-work-madeira'
+    | '/request'
     | '/return-to-what-matters'
     | '/tours'
     | '/week-of-silence'
     | '/madeira-guide/$category'
+    | '/request/thanks'
     | '/tours/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -139,10 +159,12 @@ export interface FileRouteTypes {
     | '/photo-credits'
     | '/privacy'
     | '/remote-work-madeira'
+    | '/request'
     | '/return-to-what-matters'
     | '/tours'
     | '/week-of-silence'
     | '/madeira-guide/$category'
+    | '/request/thanks'
     | '/tours/$slug'
   id:
     | '__root__'
@@ -152,10 +174,12 @@ export interface FileRouteTypes {
     | '/photo-credits'
     | '/privacy'
     | '/remote-work-madeira'
+    | '/request'
     | '/return-to-what-matters'
     | '/tours'
     | '/week-of-silence'
     | '/madeira-guide_/$category'
+    | '/request_/thanks'
     | '/tours_/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -166,10 +190,12 @@ export interface RootRouteChildren {
   PhotoCreditsRoute: typeof PhotoCreditsRoute
   PrivacyRoute: typeof PrivacyRoute
   RemoteWorkMadeiraRoute: typeof RemoteWorkMadeiraRoute
+  RequestRoute: typeof RequestRoute
   ReturnToWhatMattersRoute: typeof ReturnToWhatMattersRoute
   ToursRoute: typeof ToursRoute
   WeekOfSilenceRoute: typeof WeekOfSilenceRoute
   MadeiraGuideCategoryRoute: typeof MadeiraGuideCategoryRoute
+  RequestThanksRoute: typeof RequestThanksRoute
   ToursSlugRoute: typeof ToursSlugRoute
 }
 
@@ -217,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RemoteWorkMadeiraRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/request': {
+      id: '/request'
+      path: '/request'
+      fullPath: '/request'
+      preLoaderRoute: typeof RequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/return-to-what-matters': {
       id: '/return-to-what-matters'
       path: '/return-to-what-matters'
@@ -245,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MadeiraGuideCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/request_/thanks': {
+      id: '/request_/thanks'
+      path: '/request/thanks'
+      fullPath: '/request/thanks'
+      preLoaderRoute: typeof RequestThanksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tours_/$slug': {
       id: '/tours_/$slug'
       path: '/tours/$slug'
@@ -262,10 +302,12 @@ const rootRouteChildren: RootRouteChildren = {
   PhotoCreditsRoute: PhotoCreditsRoute,
   PrivacyRoute: PrivacyRoute,
   RemoteWorkMadeiraRoute: RemoteWorkMadeiraRoute,
+  RequestRoute: RequestRoute,
   ReturnToWhatMattersRoute: ReturnToWhatMattersRoute,
   ToursRoute: ToursRoute,
   WeekOfSilenceRoute: WeekOfSilenceRoute,
   MadeiraGuideCategoryRoute: MadeiraGuideCategoryRoute,
+  RequestThanksRoute: RequestThanksRoute,
   ToursSlugRoute: ToursSlugRoute,
 }
 export const routeTree = rootRouteImport
