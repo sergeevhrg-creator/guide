@@ -4,8 +4,8 @@ import type { ConsentChoice } from "@/lib/consent";
 // Mirrors CONSENT_STORAGE_KEY in consent.ts (kept as a literal so this module stays dependency-free; a test checks they match).
 export const CONSENT_KEY_FOR_BOOTSTRAP = "madeira-mosaic-consent-v3";
 
-/** Google Tag Manager containers: GTM-PHKGV26F (Google Ads) and GTM-5X3L4R35 (Google Analytics). */
-export const GTM_IDS = ["GTM-PHKGV26F", "GTM-5X3L4R35"] as const;
+/** Single Google Tag Manager container (account "Mosaic Guide"); GA4 and Google Ads tags live inside it. */
+export const GTM_IDS = ["GTM-TFQC4VTX"] as const;
 
 /**
  * Inline bootstrap placed first in <head>, before the Google tag.

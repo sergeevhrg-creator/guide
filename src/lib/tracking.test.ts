@@ -40,7 +40,7 @@ test("contact links are classified by channel", () => {
   assert.equal(contactChannelForHref("/tours"), null);
 });
 
-test("tag bootstrap denies consent by default and loads both GTM containers", () => {
+test("tag bootstrap denies consent by default and loads the GTM container", () => {
   assert.equal(CONSENT_KEY_FOR_BOOTSTRAP, CONSENT_STORAGE_KEY);
   assert.match(trackingBootstrapScript, /gtag\('consent','default',\{ad_storage:'denied'/);
   assert.ok(
@@ -48,5 +48,5 @@ test("tag bootstrap denies consent by default and loads both GTM containers", ()
       trackingBootstrapScript.indexOf("gtm.js?id="),
   );
   for (const id of GTM_IDS) assert.ok(trackingBootstrapScript.includes(id));
-  assert.deepEqual([...GTM_IDS], ["GTM-PHKGV26F", "GTM-5X3L4R35"]);
+  assert.deepEqual([...GTM_IDS], ["GTM-TFQC4VTX"]);
 });
