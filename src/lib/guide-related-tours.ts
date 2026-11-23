@@ -8,6 +8,7 @@ export const guideRelatedTourIds: Record<IndexableGuideCategoryId, readonly stri
   beaches: ["family-west", "camara", "east-north", "cruise-two"],
   levadas: ["screen-free", "balcoes", "fanal", "east-north"],
   mountains: ["sunrise", "curral", "fanal", "balcoes"],
+  churches: ["funchal", "east-north", "camara", "cruise-one"],
 };
 
 export const relatedToursHeading: Record<Lang, string> = {

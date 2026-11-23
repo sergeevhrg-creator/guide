@@ -81,6 +81,12 @@ const categorySeoTitles = {
     be: "Горы Мадэйры і аглядныя пляцоўкі",
     uk: "Гори Мадейри та оглядові майданчики",
   },
+  churches: {
+    en: "Churches & Shrines of Madeira: History, Feasts, Pilgrimages",
+    ru: "Храмы и святыни Мадейры: история, праздники, православный храм",
+    be: "Храмы і святыні Мадэйры: гісторыя і святы",
+    uk: "Храми та святині Мадейри: історія і свята",
+  },
 } as const;
 
 export const Route = createFileRoute("/madeira-guide_/$category")({
