@@ -15,6 +15,7 @@ import levadaAsset from "@/assets/images/levada.webp.asset.json";
 import machicoAsset from "@/assets/images/machico.webp.asset.json";
 import santanaAsset from "@/assets/images/santana.webp.asset.json";
 import fanalAsset from "@/assets/images/fanal.webp.asset.json";
+import santaCatarinaInteriorAsset from "@/assets/images/santa-catarina-interior.webp.asset.json";
 
 export type ImageId =
   | "home-coast"
@@ -32,7 +33,8 @@ export type ImageId =
   | "levada"
   | "machico"
   | "santana"
-  | "fanal";
+  | "fanal"
+  | "santa-catarina-interior";
 
 export type ImageCredit = {
   id: ImageId;
@@ -394,6 +396,27 @@ export const imageCredits: Record<ImageId, ImageCredit> = {
       be: "Старажытныя лаўровыя дрэвы ў лесе Фанал, Мадэйра",
       uk: "Стародавні лаврові дерева в лісі Фанал, Мадейра",
       ru: "Древние лавровые деревья в лесу Фанал, Мадейра",
+    },
+  },
+  "santa-catarina-interior": {
+    id: "santa-catarina-interior",
+    slot: {
+      en: "Icon of St Spyridon before the altar of the Chapel of Santa Catarina, Funchal",
+      be: "Абраз святога Спірыдона перад алтаром капліцы Santa Catarina, Фуншал",
+      uk: "Ікона святителя Спиридона перед вівтарем каплиці Santa Catarina, Фуншал",
+      ru: "Икона святителя Спиридона перед алтарём часовни Santa Catarina, Фуншал",
+    },
+    localPath: "src/assets/images/santa-catarina-interior.webp.asset.json",
+    src: santaCatarinaInteriorAsset.url,
+    author: "Orthodox parish of St Spyridon, Madeira",
+    license: "All rights reserved, used with permission",
+    licenseUrl: "",
+    sourceUrl: "https://orthodoxmadeira.com/",
+    alt: {
+      en: "Inside the Chapel of Santa Catarina in Funchal: Orthodox icons on the Baroque altar and the icon of St Spyridon",
+      be: "Унутры капліцы Santa Catarina ў Фуншале: праваслаўныя абразы на барочным алтары і абраз святога Спірыдона",
+      uk: "Усередині каплиці Santa Catarina у Фуншалі: православні ікони на бароковому вівтарі та ікона святителя Спиридона",
+      ru: "Внутри часовни Santa Catarina в Фуншале: православные иконы на барочном алтаре и икона святителя Спиридона",
     },
   },
 };
