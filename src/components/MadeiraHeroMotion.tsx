@@ -25,7 +25,7 @@ export function MadeiraHeroMotion() {
     <div className="absolute inset-0 overflow-hidden">
       <img
         src={imageCredits["pico-arieiro"].src}
-        alt=""
+        alt={imageCredits["pico-arieiro"].alt[lang]}
         fetchPriority="high"
         width="1800"
         height="1200"

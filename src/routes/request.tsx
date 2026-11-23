@@ -29,6 +29,8 @@ export const Route = createFileRoute("/request")({
       meta: [
         { title: c.seoTitle },
         { name: "description", content: c.seoDescription },
+        // A form, not a search landing page: keep it out of the index but let links pass.
+        { name: "robots", content: "noindex, follow" },
         { property: "og:title", content: c.seoTitle },
         { property: "og:description", content: c.seoDescription },
         { property: "og:type", content: "website" },

@@ -23,28 +23,28 @@ export const Route = createFileRoute("/tours")({
     const lang = match.search.lang ?? "en";
     const seo = {
       en: {
-        title: "All Private Madeira Tours — Madeira Mosaic",
+        title: "All Madeira Private Tours & Day Trips | Madeira Mosaic",
         description:
-          "Explore private Madeira day tours and cruise excursions for up to 4 guests: mountains, ocean, Funchal, Fanal and more.",
+          "16 private Madeira day tours with a local guide for 1–4 guests: Pico do Areeiro sunrise, levadas, Porto Moniz pools, Funchal, wine and cruise shore excursions.",
         keywords:
           "Madeira private tours, Madeira day tours, private guided tours Madeira, Funchal shore excursions, Pico do Areeiro sunrise tour, Porto Moniz Seixal Fanal tour",
       },
       ru: {
-        title: "Все индивидуальные экскурсии по Мадейре — Madeira Mosaic",
+        title: "Все экскурсии по Мадейре на русском | Madeira Mosaic",
         description:
-          "Выберите индивидуальную экскурсию по Мадейре для группы до 4 гостей: горы, океан, Фуншал, Фанал и другие маршруты.",
+          "16 индивидуальных экскурсий по Мадейре с русским гидом для 1–4 гостей: рассвет на Пику-ду-Арейру, левады, Порту-Мониш, Фуншал, вино, экскурсии из порта.",
         keywords:
           "индивидуальные экскурсии на Мадейре, экскурсии по Мадейре на русском языке, русский гид на Мадейре, рассвет на Пику-ду-Арейру, экскурсия по Фуншалу",
       },
       be: {
-        title: "Усе індывідуальныя экскурсіі па Мадэйры — Madeira Mosaic",
+        title: "Усе экскурсіі па Мадэйры | Madeira Mosaic",
         description:
           "Выберыце індывідуальную экскурсію па Мадэйры для групы да 4 гасцей: горы, акіян, Фуншал, Фанал і іншыя маршруты.",
         keywords:
           "індывідуальныя экскурсіі па Мадэйры, прыватныя туры па Мадэйры, світанак на Pico do Areeiro, экскурсія па Фуншале",
       },
       uk: {
-        title: "Усі індивідуальні екскурсії Мадейрою — Madeira Mosaic",
+        title: "Усі екскурсії Мадейрою | Madeira Mosaic",
         description:
           "Оберіть індивідуальну екскурсію Мадейрою для групи до 4 гостей: гори, океан, Фуншал, Фанал та інші маршрути.",
         keywords:

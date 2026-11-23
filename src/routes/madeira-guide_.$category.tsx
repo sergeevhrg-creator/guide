@@ -7,7 +7,13 @@ import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
 import { Button } from "@/components/ui/button";
 import { getIndexableGuideCategory, indexableGuideCategoryIds } from "@/lib/guide-categories";
 import { LanguageSwitcher, useLang, type Lang } from "@/lib/i18n/lang";
-import { localizedSeoLinks, validateLangSearch } from "@/lib/seo";
+import { relatedToursFor, relatedToursHeading } from "@/lib/guide-related-tours";
+import {
+  conciseMetaDescription,
+  localizedSeoLinks,
+  titleWithBrand,
+  validateLangSearch,
+} from "@/lib/seo";
 
 const pageCopy = {
   en: {
@@ -56,12 +62,26 @@ const pageCopy = {
   },
 } as const;
 
-function conciseDescription(value: string) {
-  if (value.length <= 158) return value;
-  const candidate = value.slice(0, 155);
-  const boundary = candidate.lastIndexOf(" ");
-  return `${candidate.slice(0, boundary >= 110 ? boundary : 155).replace(/[,:;.]+$/, "")}…`;
-}
+const categorySeoTitles = {
+  beaches: {
+    en: "Madeira Beaches & Natural Swimming Pools",
+    ru: "Пляжи Мадейры для купания и природные бассейны",
+    be: "Пляжы Мадэйры і прыродныя басейны",
+    uk: "Пляжі Мадейри для купання та природні басейни",
+  },
+  levadas: {
+    en: "Madeira Levada Walks: Routes & Trail Rules",
+    ru: "Левады Мадейры: маршруты и правила троп",
+    be: "Левады Мадэйры: маршруты і правілы сцежак",
+    uk: "Левади Мадейри: маршрути та правила стежок",
+  },
+  mountains: {
+    en: "Madeira Mountains & Viewpoints: Pico do Areeiro & More",
+    ru: "Горы Мадейры и смотровые площадки: что посмотреть",
+    be: "Горы Мадэйры і аглядныя пляцоўкі",
+    uk: "Гори Мадейри та оглядові майданчики",
+  },
+} as const;
 
 export const Route = createFileRoute("/madeira-guide_/$category")({
   beforeLoad: ({ params }) => {
@@ -80,8 +100,10 @@ export const Route = createFileRoute("/madeira-guide_/$category")({
       };
     }
 
-    const title = `${category.title[lang]} — Madeira Mosaic`;
-    const description = conciseDescription(category.intro[lang]);
+    const title = titleWithBrand(
+      categorySeoTitles[category.id as keyof typeof categorySeoTitles][lang],
+    );
+    const description = conciseMetaDescription(category.intro[lang]);
     const path = `/madeira-guide/${category.id}`;
     const canonical = `https://guide.orthodoxmadeira.com${path}?lang=${lang}`;
     const ogLocale = { en: "en_GB", be: "be_BY", uk: "uk_UA", ru: "ru_RU" }[lang];
@@ -255,6 +277,29 @@ function GuideCategoryPage() {
             })}
           </div>
         </section>
+
+        <nav aria-label={relatedToursHeading[lang]} className="px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <h2 className="font-display text-2xl font-extrabold text-mosaic-deep">
+              {relatedToursHeading[lang]}
+            </h2>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              {relatedToursFor(category.id as keyof typeof categorySeoTitles, lang).map((tour) => (
+                <li key={tour.id}>
+                  <a
+                    href={tour.href}
+                    className="block min-h-11 rounded-xl border border-border bg-card p-4 transition-colors hover:border-mosaic-ocean"
+                  >
+                    <span className="font-bold text-mosaic-deep underline-offset-4 hover:underline">
+                      {tour.title}
+                    </span>
+                    <span className="mt-1 block text-sm text-muted-foreground">{tour.route}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
 
         <nav aria-label={copy.more} className="bg-mosaic-mist px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">

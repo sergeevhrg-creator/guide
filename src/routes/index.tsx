@@ -34,30 +34,30 @@ export const Route = createFileRoute("/")({
     const lang = match.search.lang ?? "en";
     const seo = {
       en: {
-        title: "Madeira Mosaic — Private Madeira Tours & Cruise Excursions",
+        title: "Madeira Private Tours & Shore Excursions with a Local Guide",
         description:
-          "Private Madeira tours for small groups of up to 4 guests: mountains, ocean, Funchal, Fanal and the north-west of the island.",
+          "Private Madeira tours and Funchal shore excursions with local guide Pavel for 1–4 guests: mountains, levadas, ocean pools, Funchal. Your own route from €40/hour.",
         keywords:
           "Madeira private tours, private guided tours Madeira, Madeira day tours, Funchal private tours, Funchal shore excursions, Pico do Areeiro sunrise tour",
       },
       ru: {
-        title: "Индивидуальные экскурсии по Мадейре — Madeira Mosaic",
+        title: "Экскурсии на Мадейре на русском — частный гид Павел",
         description:
-          "Madeira Mosaic («Мадейра Мозаика») — индивидуальные экскурсии по Мадейре на русском языке для 1–4 гостей с Павлом.",
+          "Индивидуальные экскурсии по Мадейре на русском языке с гидом Павлом для 1–4 гостей: горы, левады, океан, Фуншал, экскурсии из порта. Свой маршрут — 40 €/час.",
         keywords:
           "индивидуальные экскурсии на Мадейре, экскурсии на Мадейре на русском языке, частные экскурсии по Мадейре, экскурсия из порта Фуншал",
       },
       be: {
-        title: "Індывідуальныя экскурсіі па Мадэйры — Madeira Mosaic",
+        title: "Экскурсіі па Мадэйры па-беларуску — гід Павел | Madeira Mosaic",
         description:
-          "Індывідуальныя экскурсіі па Мадэйры для невялікіх груп да 4 гасцей: горы, акіян, Фуншал, Фанал і паўночны захад вострава.",
+          "Індывідуальныя экскурсіі па Мадэйры па-беларуску з гідам Паўлам для 1–4 гасцей: горы, левады, акіян, Фуншал. Свой маршрут — 40 € / гадзіна.",
         keywords:
           "індывідуальныя экскурсіі па Мадэйры, экскурсіі па Мадэйры, беларускамоўны гід на Мадэйры, прыватныя туры па Мадэйры",
       },
       uk: {
-        title: "Індивідуальні екскурсії Мадейрою — Madeira Mosaic",
+        title: "Індивідуальні екскурсії Мадейрою з гідом | Madeira Mosaic",
         description:
-          "Індивідуальні екскурсії Мадейрою для невеликих груп до 4 гостей: гори, океан, Фуншал, Фанал і північний захід острова.",
+          "Індивідуальні екскурсії Мадейрою з гідом Павлом для 1–4 гостей: гори, левади, океан, Фуншал, екскурсії з порту. Свій маршрут — 40 € / година.",
         keywords:
           "індивідуальні екскурсії на Мадейрі, екскурсії на Мадейрі, приватні тури Мадейрою, екскурсія з порту Фуншал",
       },

@@ -15,6 +15,7 @@ export const Route = createFileRoute("/request_/thanks")({
   head: ({ match }) => ({
     meta: [
       { title: requestCopy[match.search.lang ?? "en"].thanksSeoTitle },
+      { name: "description", content: requestCopy[match.search.lang ?? "en"].thanksSeoTitle },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
