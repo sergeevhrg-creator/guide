@@ -1,0 +1,6 @@
+{
+  // Merged by Nitro into the generated .output/server/wrangler.json.
+  // Cloudflare Workers Builds runs `npx wrangler preview` for non-production
+  // branches, which requires a `previews` block (it may be empty).
+  "previews": {}
+}
