@@ -1,4 +1,5 @@
-import { ChevronRight, Clock3, Users, MapPin, MessageCircle } from "lucide-react";
+import { Church, ChevronRight, Clock3, Users, MapPin, MessageCircle } from "lucide-react";
+import { churchCopy, churchesForTour } from "@/lib/tour-churches";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useLang, type Lang } from "@/lib/i18n/lang";
@@ -60,6 +61,15 @@ export function SalesTourCard({
         <p className="mt-4 flex items-start gap-2 text-sm leading-6 text-muted-foreground">
           <MapPin className="mt-1 h-4 w-4 shrink-0 text-mosaic-roof" />
           {tour.route[lang]}
+        </p>
+        <p data-tour-church className="mt-2 flex items-start gap-2 text-sm leading-6 text-mosaic-deep">
+          <Church className="mt-1 h-4 w-4 shrink-0 text-mosaic-roof" aria-hidden="true" />
+          <span>
+            <span className="font-bold">{churchCopy.label[lang]}:</span>{" "}
+            {churchesForTour(tour.id)
+              .map((church) => church.name)
+              .join(" · ")}
+          </span>
         </p>
         <div className="mt-5 flex flex-wrap gap-4 border-t border-border pt-4 text-sm font-bold">
           <span className="flex items-center gap-2">
