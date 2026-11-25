@@ -50,3 +50,14 @@ test("tag bootstrap denies consent by default and loads the GTM container", () =
   for (const id of GTM_IDS) assert.ok(trackingBootstrapScript.includes(id));
   assert.deepEqual([...GTM_IDS], ["GTM-TFQC4VTX"]);
 });
+
+test("messengers open in the same tab only on touch-only devices", async () => {
+  const { sameTabForMessengers } = await import("./tracking.ts");
+  const media = (coarse: boolean, hover: boolean) => (q: string) => ({
+    matches: q === "(pointer: coarse)" ? coarse : q === "(hover: hover)" ? hover : false,
+  });
+  assert.equal(sameTabForMessengers(media(true, false)), true); // phone / tablet
+  assert.equal(sameTabForMessengers(media(false, true)), false); // computer
+  assert.equal(sameTabForMessengers(media(true, true)), false); // touch laptop with trackpad
+  assert.equal(sameTabForMessengers(undefined), false); // server render
+});

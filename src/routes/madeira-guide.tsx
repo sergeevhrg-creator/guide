@@ -24,6 +24,8 @@ import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
 import { isIndexableGuideCategory } from "@/lib/guide-categories";
 import { localizedSeoLinks, titleWithBrand, validateLangSearch } from "@/lib/seo";
+import { openMessenger } from "@/lib/messenger";
+import { readAttribution, sourceSummary } from "@/lib/tracking";
 
 const pageStrings = {
   en: {
@@ -223,8 +225,12 @@ function MadeiraGuidePage() {
       contact: String(data.get("contact") ?? ""),
       details: [["Question / Вопрос", String(data.get("question") ?? "")]],
     });
-    window.open(contactUrl("whatsapp", message), "_blank", "noopener,noreferrer");
-    console.info("[cta]", "messenger_opened", "whatsapp");
+    openMessenger(contactUrl("whatsapp", message), "generate_lead", {
+      form_location: "madeira_guide",
+      lang,
+      channel: "whatsapp",
+      lead_source: sourceSummary(readAttribution()) || "direct",
+    });
   }
 
   function focusForm() {

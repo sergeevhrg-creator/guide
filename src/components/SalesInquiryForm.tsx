@@ -7,6 +7,7 @@ import { CONTACTS, contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
 import { englishSalesInquiryMessage } from "@/lib/sales-inquiry-en";
 import { readAttribution, rememberLead, sourceLine, sourceSummary, track } from "@/lib/tracking";
+import { openMessenger } from "@/lib/messenger";
 
 export type InquiryMode = "standard" | "cruise" | "cruise-two" | "photo";
 
@@ -229,17 +230,20 @@ export function SalesInquiryForm({
     const fullMessage = source ? `${message}\n${source}` : message;
     const channel = d.channel === "Telegram" ? "telegram" : "whatsapp";
     const url = contactUrl(channel, fullMessage);
-    window.open(url, "_blank", "noopener,noreferrer");
-    track("generate_lead", {
-      form_location: location,
-      lang,
-      product: d.product,
-      channel,
-      guests: d.guests,
-      lead_source: sourceSummary(readAttribution()) || "direct",
-    });
     rememberLead({ url, channel, product: d.product });
-    void navigate({ to: "/request/thanks", search: { lang } });
+    openMessenger(
+      url,
+      "generate_lead",
+      {
+        form_location: location,
+        lang,
+        product: d.product,
+        channel,
+        guests: d.guests,
+        lead_source: sourceSummary(readAttribution()) || "direct",
+      },
+      () => navigate({ to: "/request/thanks", search: { lang } }),
+    );
   }
   const field =
     "mt-2 w-full min-w-0 rounded-md border border-input bg-background px-3 py-3 text-base font-normal text-foreground";

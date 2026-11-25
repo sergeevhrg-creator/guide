@@ -50,10 +50,39 @@ export function applyConsent(consent: Pick<ConsentChoice, "analytics" | "marketi
 }
 
 export type TrackEvent =
-  "cta_click" | "form_start" | "generate_lead" | "contact_click" | "consent_update";
+  | "cta_click"
+  | "form_start"
+  | "generate_lead"
+  | "contact_click"
+  | "consent_update"
+  | "quick_panel_open"
+  | "quick_panel_close";
 
 export function track(event: TrackEvent, params: Record<string, string | number | boolean> = {}) {
   dataLayer()?.push({ event, ...params });
+}
+
+/**
+ * Pushes the event and calls `done` once GTM has fired its tags for it,
+ * or after `timeoutMs` if GTM is blocked or slow — whichever comes first, exactly once.
+ * Use before leaving the page, so the Ads conversion is sent before navigation.
+ */
+export function trackThen(
+  event: TrackEvent,
+  params: Record<string, string | number | boolean>,
+  done: () => void,
+  timeoutMs = 400,
+) {
+  let called = false;
+  const finish = () => {
+    if (called) return;
+    called = true;
+    done();
+  };
+  const layer = dataLayer();
+  if (!layer) return finish();
+  layer.push({ event, ...params, eventCallback: finish, eventTimeout: timeoutMs });
+  window.setTimeout(finish, timeoutMs + 50);
 }
 
 /* ---------- Ad attribution: kept for this browser session only ---------- */
@@ -182,7 +211,8 @@ export function installContactClickTracking() {
     const target = event.target as Element | null;
     const link = target?.closest?.("a[href]") as HTMLAnchorElement | null;
     if (!link) return;
-    const channel = contactChannelForHref(link.getAttribute("href") ?? "");
+    const href = link.getAttribute("href") ?? "";
+    const channel = contactChannelForHref(href);
     if (!channel) return;
     const section = link.closest("[data-track-location], section[id], header, footer");
     const location =
@@ -190,8 +220,38 @@ export function installContactClickTracking() {
       section?.id ||
       section?.tagName.toLowerCase() ||
       "page";
-    track("contact_click", { channel, location, page: window.location.pathname });
+    const params = { channel, location, page: window.location.pathname };
+
+    const plainClick =
+      event.button === 0 &&
+      !event.defaultPrevented &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      !event.altKey;
+    // Messengers on phones/tablets open in the same tab (Back returns to the site);
+    // wait for the conversion tag before leaving. Phone calls and computers keep the default.
+    if (channel !== "phone" && plainClick && sameTabForMessengers()) {
+      event.preventDefault();
+      trackThen("contact_click", params, () => window.location.assign(link.href));
+      return;
+    }
+    if (channel !== "phone" && plainClick && link.target !== "_blank") {
+      event.preventDefault();
+      window.open(link.href, "_blank", "noopener,noreferrer");
+    }
+    track("contact_click", params);
   };
   document.addEventListener("click", onClick, { capture: true });
   return () => document.removeEventListener("click", onClick, { capture: true });
+}
+
+/** Touch-only devices (phones, tablets); computers with a mouse or trackpad return false. */
+export function sameTabForMessengers(
+  matchMedia: ((query: string) => { matches: boolean }) | undefined = typeof window === "undefined"
+    ? undefined
+    : window.matchMedia?.bind(window),
+): boolean {
+  if (!matchMedia) return false;
+  return matchMedia("(pointer: coarse)").matches && !matchMedia("(hover: hover)").matches;
 }

@@ -28,6 +28,8 @@ import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
 import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
 import { localizedSeoLinks, validateLangSearch } from "@/lib/seo";
+import { openMessenger } from "@/lib/messenger";
+import { readAttribution, sourceSummary } from "@/lib/tracking";
 
 const dayWord = { en: "Day", be: "Дзень", uk: "День", ru: "День" } as const;
 
@@ -87,8 +89,12 @@ function ReturnJourneyPage() {
         ["Comment / Комментарий", String(data.get("note") ?? "")],
       ],
     });
-    window.open(contactUrl("whatsapp", message), "_blank", "noopener,noreferrer");
-    console.info("[cta]", "messenger_opened", "whatsapp");
+    openMessenger(contactUrl("whatsapp", message), "generate_lead", {
+      form_location: "return_to_what_matters",
+      lang,
+      channel: "whatsapp",
+      lead_source: sourceSummary(readAttribution()) || "direct",
+    });
   };
 
   return (
