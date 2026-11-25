@@ -4,12 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { useLang, type Lang } from "@/lib/i18n/lang";
 import { imageCredits, type ImageId } from "@/lib/image-credits";
 import { mosaicContent } from "@/lib/mosaic-content";
-import {
-  salesPosters,
-  updatedSalesPosters,
-  salesPosterReplacementPending,
-  type SalesTour,
-} from "@/lib/sales";
+import type { SalesTour } from "@/lib/sales";
 import { salesCopy } from "@/lib/sales-copy";
 import { salesDescriptions } from "@/lib/sales-descriptions";
 import { salesEditorialRu } from "@/lib/sales-editorial";
@@ -178,15 +173,15 @@ const neutralPhotos: Record<string, ImageId> = {
   balcoes: "balcoes",
   "family-west": "porto-moniz",
   "east-north": "sao-lourenco",
-  funchal: "food",
+  funchal: "santa-catarina-exterior",
   "rum-surf": "engenhos",
   "screen-free": "levada",
-  wine: "seixal",
+  wine: "vineyard",
   food: "food",
   curral: "pico-arieiro",
   fanal: "fanal",
   camara: "home-coast",
-  blandys: "food",
+  blandys: "vineyard",
   "cruise-one": "home-coast",
   "cruise-two": "porto-moniz",
   "photo-tour": "sao-lourenco",
@@ -296,12 +291,6 @@ const cruiseNotes: Record<string, Record<Lang, string>> = {
     uk: "Павло спланує обидва дні за розкладом судна й закладе запас часу на повернення.",
   },
 };
-const updatedPosterAlts: Record<string, string> = {
-  "cruise-one":
-    "Круизная экскурсия из порта Фуншал по Madeira: Câmara de Lobos, Cabo Girão и Eira do Serrado",
-  "cruise-two":
-    "Двухдневная круизная экскурсия по Madeira: Seixal, Porto Moniz, São Lourenço, Machico и Porto da Cruz",
-};
 function firstPersonDetail(tour: SalesTour, lang: Lang) {
   if (lang === "en") return salesEditorialEn[tour.id]?.full ?? "";
   return [
@@ -376,33 +365,6 @@ function TourArt({ tour }: { tour: SalesTour }) {
           <p className="mt-2 text-sm font-bold text-white/85">{tour.route[lang]}</p>
         </div>
       </div>
-    );
-  const updated = updatedSalesPosters[tour.id];
-  if (lang === "ru" && updated)
-    return (
-      <img
-        src={updated}
-        alt={updatedPosterAlts[tour.id] ?? `${tourTitle(tour, lang)} — рекламная афиша`}
-        width={768}
-        height={960}
-        loading="lazy"
-        className="aspect-[4/5] w-full object-contain"
-      />
-    );
-  if (lang === "ru" && tour.poster)
-    return (
-      <div
-        role="img"
-        aria-label={`${tourTitle(tour, lang)} — рекламная афиша`}
-        data-artwork-replacement={
-          salesPosterReplacementPending.includes(tour.id) ? "pending" : undefined
-        }
-        className={`aspect-[4/5] w-full bg-no-repeat ${tour.poster === "d" ? "bg-cover" : "bg-[length:200%_200%]"}`}
-        style={{
-          backgroundImage: `url(${salesPosters[tour.poster]})`,
-          backgroundPosition: tour.position,
-        }}
-      />
     );
   return (
     <img

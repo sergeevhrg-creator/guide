@@ -105,7 +105,7 @@ export const tourPages = [
   {
     tourId: "funchal",
     slug: "funchal-private-tour",
-    imageId: "food",
+    imageId: "santa-catarina-exterior",
     h1: {
       en: "Private Funchal Old Town and Viewpoints Tour",
       ru: "Фуншал — индивидуальная экскурсия по старому городу",
