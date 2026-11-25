@@ -7,10 +7,11 @@ import type { MosaicLang as Lang } from "@/lib/mosaic-content";
  * Facts: visitmadeira.com, elucidariomadeirense.pt, cultura.madeira.gov.pt (checked 25.11.2026).
  */
 type Text = Record<Lang, string>;
-export type Church = { name: Text; note: Text };
+export type Church = { original: string; name: Text; note: Text };
 
 export const churches = {
   "santa-catarina": {
+    original: "Capela de Santa Catarina",
     name: {
       ru: "Часовня Святой Екатерины",
       uk: "Каплиця Святої Катерини",
@@ -25,6 +26,7 @@ export const churches = {
     },
   },
   se: {
+    original: "Sé do Funchal",
     name: {
       ru: "Кафедральный собор Фуншала",
       uk: "Кафедральний собор Фуншала",
@@ -39,6 +41,7 @@ export const churches = {
     },
   },
   monte: {
+    original: "Igreja de Nossa Senhora do Monte",
     name: {
       ru: "Церковь Богоматери Монте",
       uk: "Церква Богоматері Монте",
@@ -53,11 +56,12 @@ export const churches = {
     },
   },
   "canical-sebastiao": {
+    original: "Igreja de São Sebastião",
     name: {
-      ru: "Церковь Святого Себастьяна (Канисал)",
-      uk: "Церква Святого Себастьяна (Канісал)",
-      be: "Царква Святога Сябасцьяна (Канісал)",
-      en: "Church of St Sebastian (Caniçal)",
+      ru: "Церковь Святого Себастьяна, Канисал",
+      uk: "Церква Святого Себастьяна, Канісал",
+      be: "Царква Святога Сябасцьяна, Канісал",
+      en: "Church of St Sebastian, Caniçal",
     },
     note: {
       ru: "Приходской храм рыбацкого Канисала; первая часовня Св. Себастьяна основана в начале XVI века.",
@@ -67,11 +71,12 @@ export const churches = {
     },
   },
   milagres: {
+    original: "Capela do Senhor dos Milagres",
     name: {
-      ru: "Часовня Господа Чудес (Машику)",
-      uk: "Каплиця Господа Чудес (Машику)",
-      be: "Капліца Госпада Цудаў (Машыку)",
-      en: "Chapel of the Lord of Miracles (Machico)",
+      ru: "Часовня Господа Чудес, Машику",
+      uk: "Каплиця Господа Чудес, Машику",
+      be: "Капліца Госпада Цудаў, Машыку",
+      en: "Chapel of the Lord of Miracles, Machico",
     },
     note: {
       ru: "Барочная часовня на месте эрмиты XV века; здесь хранится распятие Господа Чудес, к которому 8–9 октября идут паломники со всего острова.",
@@ -81,6 +86,7 @@ export const churches = {
     },
   },
   "machico-matriz": {
+    original: "Igreja Matriz de Machico",
     name: {
       ru: "Главная церковь Машику",
       uk: "Головна церква Машику",
@@ -95,11 +101,12 @@ export const churches = {
     },
   },
   "porto-da-cruz": {
+    original: "Igreja de Nossa Senhora de Guadalupe",
     name: {
-      ru: "Церковь Богоматери Гваделупской (Порту-да-Круш)",
-      uk: "Церква Богоматері Гваделупської (Порту-да-Круш)",
-      be: "Царква Багародзіцы Гвадэлупскай (Порту-да-Круш)",
-      en: "Church of Our Lady of Guadalupe (Porto da Cruz)",
+      ru: "Церковь Богоматери Гваделупской, Порту-да-Круш",
+      uk: "Церква Богоматері Гваделупської, Порту-да-Круш",
+      be: "Царква Багародзіцы Гвадэлупскай, Порту-да-Круш",
+      en: "Church of Our Lady of Guadalupe, Porto da Cruz",
     },
     note: {
       ru: "Приходская церковь Порту-да-Круш у самого океана; история прихода начинается в 1570-х годах.",
@@ -109,6 +116,7 @@ export const churches = {
     },
   },
   "sao-vicente": {
+    original: "Igreja Matriz de São Vicente",
     name: {
       ru: "Главная церковь Сан-Висенте",
       uk: "Головна церква Сан-Вісенте",
@@ -123,6 +131,7 @@ export const churches = {
     },
   },
   "porto-moniz": {
+    original: "Igreja Matriz do Porto Moniz",
     name: {
       ru: "Главная церковь Порту-Мониша",
       uk: "Головна церква Порту-Моніша",
@@ -137,11 +146,12 @@ export const churches = {
     },
   },
   seixal: {
+    original: "Igreja de Santo Antão",
     name: {
-      ru: "Церковь Святого Антония Великого (Сейшал)",
-      uk: "Церква Святого Антонія Великого (Сейшал)",
-      be: "Царква Святога Антонія Вялікага (Сейшал)",
-      en: "Church of St Anthony the Great (Seixal)",
+      ru: "Церковь Святого Антония Великого, Сейшал",
+      uk: "Церква Святого Антонія Великого, Сейшал",
+      be: "Царква Святога Антонія Вялікага, Сейшал",
+      en: "Church of St Anthony the Great, Seixal",
     },
     note: {
       ru: "Главный храм Сейшала: приход основан в 1553 году, от церкви открывается вид на океан.",
@@ -151,11 +161,12 @@ export const churches = {
     },
   },
   "ribeira-janela": {
+    original: "Igreja de Nossa Senhora da Encarnação",
     name: {
-      ru: "Церковь Богоматери Воплощения (Рибейра-да-Жанела)",
-      uk: "Церква Богоматері Втілення (Рібейра-да-Жанела)",
-      be: "Царква Багародзіцы Увасаблення (Рыбейра-да-Жанела)",
-      en: "Church of Our Lady of the Incarnation (Ribeira da Janela)",
+      ru: "Церковь Богоматери Воплощения, Рибейра-да-Жанела",
+      uk: "Церква Богоматері Втілення, Рібейра-да-Жанела",
+      be: "Царква Багародзіцы Увасаблення, Рыбейра-да-Жанела",
+      en: "Church of Our Lady of the Incarnation, Ribeira da Janela",
     },
     note: {
       ru: "Построена в 1699 году на месте часовни, разрушенной селем; по дороге из Фанала к океану.",
@@ -165,11 +176,12 @@ export const churches = {
     },
   },
   curral: {
+    original: "Igreja de Nossa Senhora do Livramento",
     name: {
-      ru: "Церковь Богоматери Избавления (Долина монахинь)",
-      uk: "Церква Богоматері Визволення (Долина черниць)",
-      be: "Царква Багародзіцы Збаўлення (Даліна манашак)",
-      en: "Church of Our Lady of Deliverance (Curral das Freiras)",
+      ru: "Церковь Богоматери Избавления, Долина монахинь",
+      uk: "Церква Богоматері Визволення, Долина черниць",
+      be: "Царква Багародзіцы Збаўлення, Даліна манашак",
+      en: "Church of Our Lady of Deliverance, Curral das Freiras",
     },
     note: {
       ru: "Приходской храм Долины монахинь начала XIX века — единственный исторический памятник деревни; праздник в последнее воскресенье августа.",
@@ -179,11 +191,12 @@ export const churches = {
     },
   },
   "camara-sebastiao": {
+    original: "Igreja de São Sebastião",
     name: {
-      ru: "Церковь Святого Себастьяна (Камара-ди-Лобуш)",
-      uk: "Церква Святого Себастьяна (Камара-ді-Лобуш)",
-      be: "Царква Святога Сябасцьяна (Камара-дзі-Лобуш)",
-      en: "Church of St Sebastian (Câmara de Lobos)",
+      ru: "Церковь Святого Себастьяна, Камара-ди-Лобуш",
+      uk: "Церква Святого Себастьяна, Камара-ді-Лобуш",
+      be: "Царква Святога Сябасцьяна, Камара-дзі-Лобуш",
+      en: "Church of St Sebastian, Câmara de Lobos",
     },
     note: {
       ru: "Главный храм Камара-ди-Лобуш: заложен в 1426 году по приказу инфанта Энрике, барокко; праздник 20 января.",
@@ -215,6 +228,11 @@ export const tourChurches: Record<string, [ChurchId, ...ChurchId[]]> = {
   "cruise-two": ["seixal", "machico-matriz"],
   "photo-tour": ["machico-matriz"],
 };
+
+/** Localized name with the original Portuguese name in parentheses, e.g. for Google Maps. */
+export function churchLabel(church: Church, lang: Lang): string {
+  return `${church.name[lang]} (${church.original})`;
+}
 
 export function churchesForTour(tourId: string): Church[] {
   return (tourChurches[tourId] ?? []).map((id) => churches[id]);
