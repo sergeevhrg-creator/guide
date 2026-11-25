@@ -534,8 +534,8 @@ function TourPage() {
                 <p className="mt-3 leading-7 text-foreground">{churchCopy.intro[lang]}</p>
                 <ul className="mt-5 space-y-4">
                   {churchesForTour(page.tourId).map((church) => (
-                    <li key={church.name}>
-                      <p className="font-bold text-mosaic-deep">{church.name}</p>
+                    <li key={church.name.en}>
+                      <p className="font-bold text-mosaic-deep">{church.name[lang]}</p>
                       <p className="mt-1 leading-7 text-muted-foreground">{church.note[lang]}</p>
                     </li>
                   ))}

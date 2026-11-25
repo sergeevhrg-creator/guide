@@ -67,7 +67,7 @@ export function SalesTourCard({
           <span>
             <span className="font-bold">{churchCopy.label[lang]}:</span>{" "}
             {churchesForTour(tour.id)
-              .map((church) => church.name)
+              .map((church) => church.name[lang])
               .join(" · ")}
           </span>
         </p>

@@ -22,3 +22,13 @@ test("church notes exist in every language", () => {
   }
   for (const lang of ["ru", "uk", "be", "en"] as const) assert.ok(churchCopy.intro[lang]);
 });
+
+test("church names and notes are localized: no Portuguese words in RU/UK/BE", () => {
+  for (const church of Object.values(churches)) {
+    for (const lang of ["ru", "uk", "be"] as const) {
+      for (const text of [church.name[lang], church.note[lang]]) {
+        assert.equal(text.replace(/\b[IVXL]+\b/g, "").match(/[A-Za-zÀ-ÿ]/), null, text);
+      }
+    }
+  }
+});
