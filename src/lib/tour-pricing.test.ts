@@ -69,15 +69,15 @@ test("unconfirmed tour prices stay out of public tour content", async (t) => {
 });
 
 test("Your route offer shows the confirmed hourly car-with-driver rate", async (t) => {
-  await t.test("rate is 40 EUR per hour for up to 4 guests", () => {
-    assert.equal(CUSTOM_ROUTE_HOURLY_RATE_EUR, 40);
+  await t.test("rate is 30 EUR per hour for up to 4 guests", () => {
+    assert.equal(CUSTOM_ROUTE_HOURLY_RATE_EUR, 30);
     assert.equal(CUSTOM_ROUTE_MAX_GUESTS, 4);
   });
 
   await t.test("rate is formatted in every language", () => {
-    assert.equal(displayCustomRouteRate("ru"), "40 € / час");
-    assert.equal(displayCustomRouteRate("en"), "€40 per hour");
-    assert.equal(displayCustomRouteRate("be"), "40 € / гадзіна");
-    assert.equal(displayCustomRouteRate("uk"), "40 € / година");
+    assert.equal(displayCustomRouteRate("ru"), "30 € / час");
+    assert.equal(displayCustomRouteRate("en"), "€30 per hour");
+    assert.equal(displayCustomRouteRate("be"), "30 € / гадзіна");
+    assert.equal(displayCustomRouteRate("uk"), "30 € / година");
   });
 });

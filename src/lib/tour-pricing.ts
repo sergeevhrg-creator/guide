@@ -4,7 +4,7 @@ import type { Lang } from "@/lib/i18n/lang";
 export const SHOW_DRAFT_PRICES = false;
 
 // Confirmed public rate for the "Your route" offer: car with driver, fuel, wear and insurance included.
-export const CUSTOM_ROUTE_HOURLY_RATE_EUR = 40;
+export const CUSTOM_ROUTE_HOURLY_RATE_EUR = 30;
 export const CUSTOM_ROUTE_MAX_GUESTS = 4;
 
 const perHour: Record<Lang, string> = {
