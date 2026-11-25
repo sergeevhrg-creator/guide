@@ -1,5 +1,5 @@
 import { Church, ChevronRight, Clock3, Users, MapPin, MessageCircle } from "lucide-react";
-import { churchCopy, churchesForTour } from "@/lib/tour-churches";
+import { churchCopy, churchesForTour, churchLabel } from "@/lib/tour-churches";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useLang, type Lang } from "@/lib/i18n/lang";
@@ -67,7 +67,7 @@ export function SalesTourCard({
           <span>
             <span className="font-bold">{churchCopy.label[lang]}:</span>{" "}
             {churchesForTour(tour.id)
-              .map((church) => church.name[lang])
+              .map((church) => churchLabel(church, lang))
               .join(" · ")}
           </span>
         </p>

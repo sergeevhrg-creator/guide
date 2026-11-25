@@ -29,7 +29,7 @@ import { titleWithBrand, tourMetaDescription } from "@/lib/seo";
 import { salesTours } from "@/lib/sales";
 import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
-import { churchCopy, churchesForTour } from "@/lib/tour-churches";
+import { churchCopy, churchesForTour, churchLabel } from "@/lib/tour-churches";
 import type { TourPageConfig } from "@/lib/tour-pages";
 
 const photoTourPageAlt: Record<TourPageLang, string> = {
@@ -535,7 +535,7 @@ function TourPage() {
                 <ul className="mt-5 space-y-4">
                   {churchesForTour(page.tourId).map((church) => (
                     <li key={church.name.en}>
-                      <p className="font-bold text-mosaic-deep">{church.name[lang]}</p>
+                      <p className="font-bold text-mosaic-deep">{churchLabel(church, lang)}</p>
                       <p className="mt-1 leading-7 text-muted-foreground">{church.note[lang]}</p>
                     </li>
                   ))}
