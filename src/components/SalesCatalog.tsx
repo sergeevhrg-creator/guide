@@ -180,9 +180,9 @@ const neutralPhotos: Record<string, ImageId> = {
   food: "food",
   curral: "pico-arieiro",
   fanal: "fanal",
-  camara: "home-coast",
-  blandys: "vineyard",
-  "cruise-one": "home-coast",
+  camara: "camara-de-lobos",
+  blandys: "blandys-wine-lodge",
+  "cruise-one": "cabo-girao",
   "cruise-two": "porto-moniz",
   "photo-tour": "sao-lourenco",
 };

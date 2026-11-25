@@ -17,6 +17,9 @@ import santanaAsset from "@/assets/images/santana.webp.asset.json";
 import fanalAsset from "@/assets/images/fanal.webp.asset.json";
 import santaCatarinaInteriorAsset from "@/assets/images/santa-catarina-interior-4x3.webp.asset.json";
 import santaCatarinaExteriorAsset from "@/assets/images/santa-catarina-exterior.webp.asset.json";
+import camaraDeLobosAsset from "@/assets/images/camara-de-lobos.webp.asset.json";
+import blandysWineLodgeAsset from "@/assets/images/blandys-wine-lodge.webp.asset.json";
+import caboGiraoAsset from "@/assets/images/cabo-girao.webp.asset.json";
 
 export type ImageId =
   | "home-coast"
@@ -36,7 +39,10 @@ export type ImageId =
   | "santana"
   | "fanal"
   | "santa-catarina-interior"
-  | "santa-catarina-exterior";
+  | "santa-catarina-exterior"
+  | "camara-de-lobos"
+  | "blandys-wine-lodge"
+  | "cabo-girao";
 
 export type ImageCredit = {
   id: ImageId;
@@ -440,6 +446,71 @@ export const imageCredits: Record<ImageId, ImageCredit> = {
       be: "Капліца Santa Catarina ў Фуншале: белыя сцены, галерэя на калонах з чырвонага каменю і крыж Ордэна Хрыста на франтоне",
       uk: "Каплиця Santa Catarina у Фуншалі: білі стіни, галерея на колонах із червоного каменю та хрест Ордену Христа на фронтоні",
       ru: "Часовня Santa Catarina в Фуншале: белые стены, галерея на колоннах из красного камня и крест Ордена Христа на фронтоне",
+    },
+  },
+  "camara-de-lobos": {
+    id: "camara-de-lobos",
+    slot: {
+      en: "Fishing boats in the bay of Câmara de Lobos below terraced hillsides",
+      be: "Рыбацкія лодкі ў бухце Câmara de Lobos пад тэрасамі на схілах",
+      uk: "Рибальські човни в бухті Câmara de Lobos під терасованими схилами",
+      ru: "Рыбацкие лодки в бухте Câmara de Lobos под террасами на склонах",
+    },
+    localPath: "src/assets/images/camara-de-lobos.webp.asset.json",
+    src: camaraDeLobosAsset.url,
+    author: "Josep M. Gracia",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:CDL_-_Fishing_boats_in_the_bay_of_C%C3%A2mara_de_Lobos,_Madeira,_2023.jpg",
+    alt: {
+      en: "Fishing boats in the bay of Câmara de Lobos below terraced hillsides",
+      be: "Рыбацкія лодкі ў бухце Câmara de Lobos пад тэрасамі на схілах",
+      uk: "Рибальські човни в бухті Câmara de Lobos під терасованими схилами",
+      ru: "Рыбацкие лодки в бухте Câmara de Lobos под террасами на склонах",
+    },
+  },
+  "blandys-wine-lodge": {
+    id: "blandys-wine-lodge",
+    slot: {
+      en: "Courtyard of Blandy’s Wine Lodge in Funchal with Madeira wine casks and an old wine press",
+      be: "Унутраны дворык Blandy’s Wine Lodge у Фуншале з бочкамі мадэры і старым вінным прэсам",
+      uk: "Внутрішній дворик Blandy’s Wine Lodge у Фуншалі з бочками мадери та старим винним пресом",
+      ru: "Внутренний дворик Blandy’s Wine Lodge в Фуншале с бочками мадеры и старым винным прессом",
+    },
+    localPath: "src/assets/images/blandys-wine-lodge.webp.asset.json",
+    src: blandysWineLodgeAsset.url,
+    author: "Palickap",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Funchal,_Blandy%27s_Wine_Lodge_(2).jpg",
+    alt: {
+      en: "Courtyard of Blandy’s Wine Lodge in Funchal with Madeira wine casks and an old wine press",
+      be: "Унутраны дворык Blandy’s Wine Lodge у Фуншале з бочкамі мадэры і старым вінным прэсам",
+      uk: "Внутрішній дворик Blandy’s Wine Lodge у Фуншалі з бочками мадери та старим винним пресом",
+      ru: "Внутренний дворик Blandy’s Wine Lodge в Фуншале с бочками мадеры и старым винным прессом",
+    },
+  },
+  "cabo-girao": {
+    id: "cabo-girao",
+    slot: {
+      en: "View down from the Cabo Girão skywalk to the ocean and terraced fields at the foot of the cliff",
+      be: "Від са скайвока Cabo Girão уніз на акіян і тэрасы ля падножжа скалы",
+      uk: "Вид зі скайвоку Cabo Girão вниз на океан і тераси біля підніжжя скелі",
+      ru: "Вид со скайвока Cabo Girão вниз на океан и террасы у подножия скалы",
+    },
+    localPath: "src/assets/images/cabo-girao.webp.asset.json",
+    src: caboGiraoAsset.url,
+    author: "H. Zell",
+    license: "CC BY-SA 3.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:View_from_Miradouro_do_Cabo_Gir%C3%A3o_02.jpg",
+    alt: {
+      en: "View down from the Cabo Girão skywalk to the ocean and terraced fields at the foot of the cliff",
+      be: "Від са скайвока Cabo Girão уніз на акіян і тэрасы ля падножжа скалы",
+      uk: "Вид зі скайвоку Cabo Girão вниз на океан і тераси біля підніжжя скелі",
+      ru: "Вид со скайвока Cabo Girão вниз на океан и террасы у подножия скалы",
     },
   },
 };

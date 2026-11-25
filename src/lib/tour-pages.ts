@@ -224,7 +224,7 @@ export const tourPages = [
   {
     tourId: "camara",
     slug: "camara-de-lobos-cabo-girao",
-    imageId: "home-coast",
+    imageId: "camara-de-lobos",
     h1: {
       en: "Câmara de Lobos and Cabo Girão Private Tour",
       ru: "Câmara de Lobos и Cabo Girão — индивидуальная экскурсия",
@@ -241,7 +241,7 @@ export const tourPages = [
   {
     tourId: "blandys",
     slug: "blandys-funchal-wine-tour",
-    imageId: "vineyard",
+    imageId: "blandys-wine-lodge",
     h1: {
       en: "Historic Funchal and Madeira Wine Private Tour",
       ru: "Исторический Фуншал и вино Мадейры — индивидуальная экскурсия",
@@ -258,7 +258,7 @@ export const tourPages = [
   {
     tourId: "cruise-one",
     slug: "funchal-cruise-shore-excursion",
-    imageId: "home-coast",
+    imageId: "cabo-girao",
     kind: "cruise",
     h1: {
       en: "Private Madeira Shore Excursion from Funchal Port",
