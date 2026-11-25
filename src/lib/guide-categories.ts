@@ -1,6 +1,6 @@
 import { guideTabs, type GuideTab } from "./guide-content.ts";
 
-export const indexableGuideCategoryIds = ["beaches", "levadas", "mountains"] as const;
+export const indexableGuideCategoryIds = ["beaches", "levadas", "mountains", "churches"] as const;
 
 export type IndexableGuideCategoryId = (typeof indexableGuideCategoryIds)[number];
 

@@ -81,6 +81,12 @@ const categorySeoTitles = {
     be: "Горы Мадэйры і аглядныя пляцоўкі",
     uk: "Гори Мадейри та оглядові майданчики",
   },
+  churches: {
+    en: "Churches & Shrines of Madeira: History, Feasts, Pilgrimages",
+    ru: "Храмы и святыни Мадейры: история, праздники, православный храм",
+    be: "Храмы і святыні Мадэйры: гісторыя і святы",
+    uk: "Храми та святині Мадейри: історія і свята",
+  },
 } as const;
 
 export const Route = createFileRoute("/madeira-guide_/$category")({
@@ -226,7 +232,12 @@ function GuideCategoryPage() {
                   id={card.id}
                   className="scroll-mt-24 overflow-hidden rounded-xl border border-border bg-card shadow-[0_16px_40px_-32px_var(--shadow-color)]"
                 >
-                  {card.imageId ? (
+                  {card.imageId && card.secondaryImageId ? (
+                    <div className="grid grid-cols-2 gap-px bg-border">
+                      <LocationPhotoSlot imageId={card.imageId} className="aspect-[4/3]" />
+                      <LocationPhotoSlot imageId={card.secondaryImageId} className="aspect-[4/3]" />
+                    </div>
+                  ) : card.imageId ? (
                     <LocationPhotoSlot imageId={card.imageId} className="aspect-[16/8]" />
                   ) : (
                     <div

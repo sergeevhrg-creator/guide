@@ -1,11 +1,14 @@
 import type { Lang } from "@/lib/i18n/lang";
 import type { ImageId } from "@/lib/image-credits";
+import { churchesTab } from "./guide-churches.ts";
 
 export type LocalizedText = Record<Lang, string>;
 export type GuideSource = { url: string; checkedOn: string };
 export interface GuideCard {
   id: string;
   imageId?: ImageId;
+  /** Optional second photo shown side by side with imageId (e.g. outside + inside). */
+  secondaryImageId?: ImageId;
   name: string | LocalizedText;
   area: LocalizedText;
   description: LocalizedText;
@@ -1661,86 +1664,7 @@ export const guideTabs: GuideTab[] = [
       ),
     ],
   },
-  {
-    id: "churches",
-    title: {
-      en: "Christian shrines & churches",
-      be: "Хрысціянскія святыні і цэрквы",
-      uk: "Християнські святині та церкви",
-      ru: "Христианские святыни и церкви",
-    },
-    intro: {
-      en: "Active churches, convent heritage and pilgrimage traditions reveal six centuries of Madeira’s religious life through Manueline stonework, baroque interiors and community worship.",
-      be: "Дзеючыя храмы, манастырская спадчына і паломніцтва раскрываюць шэсць стагоддзяў рэлігійнага жыцця Мадэйры праз мануэліну, барока і жывую супольнасць.",
-      uk: "Діючі храми, монастирська спадщина й паломництва розкривають шість століть релігійного життя Мадейри через мануеліну, бароко та живу громаду.",
-      ru: "Действующие храмы, монастырское наследие и паломничества раскрывают шесть веков религиозной жизни Мадейры через мануэлино, барокко и живую общину.",
-    },
-    cards: [
-      card(
-        "churches-1",
-        "Funchal Cathedral",
-        "Funchal",
-        "https://www.catedraldofunchal.com/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-2",
-        "Church of the College",
-        "Funchal",
-        "https://www.igrejadocolegiofunchal.pt/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-3",
-        "Church of Our Lady of Monte",
-        "Monte",
-        "https://pnsmonte.pt/paroquia/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-4",
-        "Diocese of Funchal",
-        "Madeira",
-        "https://www.diocesedofunchal.com/diocese/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-5",
-        "Chapel of Our Lady of Fátima",
-        "Cabo Girão",
-        "https://visitmadeira.com/en/where-to-go/madeira/south-coast/camara-de-lobos/cabo-girao/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-6",
-        "Chapel of Penha de França",
-        "Funchal",
-        "https://www.catedraldofunchal.com/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-7",
-        "Convent of Santa Clara",
-        "Funchal",
-        "https://cultura.madeira.gov.pt/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-8",
-        "Church of São Pedro",
-        "Funchal",
-        "https://www.diocesedofunchal.com/diocese/",
-        "Christian shrines & churches",
-      ),
-      card(
-        "churches-9",
-        "Our Lady of Monte Pilgrimage",
-        "Monte",
-        "https://visitmadeira.com/en/whats-on/events-programme/",
-        "Christian shrines & churches",
-      ),
-    ],
-  },
+  churchesTab,
   {
     id: "family",
     title: {
