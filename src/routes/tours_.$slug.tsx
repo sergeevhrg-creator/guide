@@ -5,6 +5,7 @@ import {
   Clock3,
   MapPin,
   MessageCircle,
+  Church,
   Route as RouteIcon,
   Send,
   Users,
@@ -28,6 +29,7 @@ import { titleWithBrand, tourMetaDescription } from "@/lib/seo";
 import { salesTours } from "@/lib/sales";
 import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
+import { churchCopy, churchesForTour } from "@/lib/tour-churches";
 import type { TourPageConfig } from "@/lib/tour-pages";
 
 const photoTourPageAlt: Record<TourPageLang, string> = {
@@ -521,6 +523,24 @@ function TourPage() {
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
+              <section
+                data-tour-church
+                className="mt-10 rounded-xl border border-mosaic-deep/10 bg-mosaic-mist p-6"
+              >
+                <h3 className="flex items-center gap-2 font-display text-2xl font-extrabold text-mosaic-deep">
+                  <Church className="h-6 w-6 text-mosaic-roof" aria-hidden="true" />
+                  {churchCopy.label[lang]}
+                </h3>
+                <p className="mt-3 leading-7 text-foreground">{churchCopy.intro[lang]}</p>
+                <ul className="mt-5 space-y-4">
+                  {churchesForTour(page.tourId).map((church) => (
+                    <li key={church.name.en}>
+                      <p className="font-bold text-mosaic-deep">{church.name[lang]}</p>
+                      <p className="mt-1 leading-7 text-muted-foreground">{church.note[lang]}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             </article>
             <aside className="h-fit rounded-xl border border-mosaic-deep/10 bg-mosaic-mist p-6 lg:sticky lg:top-24">
               <h2 className="font-display text-2xl font-extrabold text-mosaic-deep">
