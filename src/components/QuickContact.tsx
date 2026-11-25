@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageCircle, Phone, Send, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
+import { track } from "@/lib/tracking";
 
 const copy = {
   ru: { button: "Помочь выбрать маршрут", title: "Помочь выбрать экскурсию?", text: "Расскажите, какую Мадейру вы хотите увидеть. Я лично отвечу, помогу выбрать маршрут и заранее согласую все детали поездки.", call: "Позвонить Павлу", form: "Оставить заявку" },
@@ -23,10 +24,19 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
   const isMobile = useIsMobile();
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
+  const acted = useRef(false);
 
-  function changeOpen(next: boolean) {
+  // trigger: "auto" (timer) or "button"; close records whether the visitor chose a channel first.
+  function changeOpen(next: boolean, trigger: "auto" | "button" = "button") {
+    if (next === open) return;
     setOpen(next);
-    if (next) window.sessionStorage.setItem(AUTO_OPEN_SEEN_KEY, "1");
+    if (next) {
+      acted.current = false;
+      window.sessionStorage.setItem(AUTO_OPEN_SEEN_KEY, "1");
+      track("quick_panel_open", { trigger, page: window.location.pathname });
+    } else {
+      track("quick_panel_close", { acted: acted.current, page: window.location.pathname });
+    }
   }
 
   useEffect(() => {
@@ -61,7 +71,7 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
         return;
       }
 
-      changeOpen(true);
+      changeOpen(true, "auto");
     };
 
     timer = window.setTimeout(tryOpen, AUTO_OPEN_DELAY_MS);
@@ -81,7 +91,7 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
         </Button>
       )}
       <Sheet open={open} onOpenChange={changeOpen}>
-        <SheetContent side={isMobile ? "bottom" : "right"} data-quick-panel className={isMobile ? "max-h-[88dvh] overflow-y-auto rounded-t-xl pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]" : "w-full overflow-y-auto sm:max-w-sm"}>
+        <SheetContent side={isMobile ? "bottom" : "right"} data-quick-panel data-track-location="quick_panel" onClickCapture={(e) => { if ((e.target as Element).closest("a[href]")) acted.current = true; }} className={isMobile ? "max-h-[88dvh] overflow-y-auto rounded-t-xl pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]" : "w-full overflow-y-auto sm:max-w-sm"}>
           <SheetTitle className="pr-14 font-display text-xl font-extrabold text-mosaic-deep">{t.title}</SheetTitle>
           <SheetDescription className="mt-2 leading-6">{t.text}</SheetDescription>
           <div className="mt-6 grid gap-3">
@@ -94,7 +104,7 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
             <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold">
               <a href={CONTACTS.phoneUrl} aria-label={`${t.call}: ${CONTACTS.phoneNumber}`}><Phone />{t.call} · {CONTACTS.phoneNumber}</a>
             </Button>
-            <Button variant="secondary" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold" onClick={() => { changeOpen(false); onOpenForm(); }}>{t.form}</Button>
+            <Button variant="secondary" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold" onClick={() => { acted.current = true; changeOpen(false); onOpenForm(); }}>{t.form}</Button>
           </div>
         </SheetContent>
       </Sheet>

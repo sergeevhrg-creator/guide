@@ -6,6 +6,8 @@ import { contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
 import type { ImageId } from "@/lib/image-credits";
 import { imageCredits } from "@/lib/image-credits";
+import { openMessenger } from "@/lib/messenger";
+import { readAttribution, sourceSummary } from "@/lib/tracking";
 
 type Selection = {
   title: string;
@@ -104,7 +106,13 @@ export function TourInquiryDialog({
       `Wishes / Пожелания: ${wishes.trim() || "—"}`,
       `Page / Страница: ${cleanUrl}`,
     ].join("\n");
-    window.open(contactUrl(channel, message), "_blank", "noopener,noreferrer");
+    openMessenger(contactUrl(channel, message), "generate_lead", {
+      form_location: "tour_dialog",
+      lang,
+      product: selection?.title ?? t.empty,
+      channel,
+      lead_source: sourceSummary(readAttribution()) || "direct",
+    });
   }
 
   return (

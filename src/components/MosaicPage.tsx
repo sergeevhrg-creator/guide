@@ -14,6 +14,8 @@ import { pageContent } from "@/lib/page-content";
 import { pavelImages } from "@/lib/poster-assets";
 import { contactUrl } from "@/lib/contacts";
 import { buildInquiryMessage, openWhatsAppLabel } from "@/lib/inquiry-message";
+import { openMessenger } from "@/lib/messenger";
+import { readAttribution, sourceSummary } from "@/lib/tracking";
 
 const heroColors = {
   silence: "bg-mosaic-leaf",
@@ -65,8 +67,12 @@ export function MosaicPage({
         ["Question / Вопрос", String(data.get("note") ?? "")],
       ],
     });
-    window.open(contactUrl("whatsapp", message), "_blank", "noopener,noreferrer");
-    console.info("[cta]", "messenger_opened", "whatsapp");
+    openMessenger(contactUrl("whatsapp", message), "generate_lead", {
+      form_location: "mosaic_page",
+      lang,
+      channel: "whatsapp",
+      lead_source: sourceSummary(readAttribution()) || "direct",
+    });
   }
 
   function focusForm() {
