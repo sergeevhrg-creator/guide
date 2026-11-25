@@ -36,28 +36,28 @@ export const Route = createFileRoute("/")({
       en: {
         title: "Madeira Private Tours & Shore Excursions with a Local Guide",
         description:
-          "Private Madeira tours and Funchal shore excursions with local guide Pavel for 1–4 guests: mountains, levadas, ocean pools, Funchal. Own route: €40/hour.",
+          "Private Madeira tours and Funchal shore excursions with local guide Pavel for 1–4 guests: mountains, levadas, ocean pools, Funchal. Own route: €30/hour.",
         keywords:
           "Madeira private tours, private guided tours Madeira, Madeira day tours, Funchal private tours, Funchal shore excursions, Pico do Areeiro sunrise tour",
       },
       ru: {
         title: "Экскурсии на Мадейре на русском — частный гид Павел",
         description:
-          "Индивидуальные экскурсии по Мадейре на русском языке с гидом Павлом для 1–4 гостей: горы, левады, океан, Фуншал, экскурсии из порта. Свой маршрут — 40 €/час.",
+          "Индивидуальные экскурсии по Мадейре на русском языке с гидом Павлом для 1–4 гостей: горы, левады, океан, Фуншал, экскурсии из порта. Свой маршрут — 30 €/час.",
         keywords:
           "индивидуальные экскурсии на Мадейре, экскурсии на Мадейре на русском языке, частные экскурсии по Мадейре, экскурсия из порта Фуншал",
       },
       be: {
         title: "Экскурсіі па Мадэйры па-беларуску — гід Павел | Madeira Mosaic",
         description:
-          "Індывідуальныя экскурсіі па Мадэйры па-беларуску з гідам Паўлам для 1–4 гасцей: горы, левады, акіян, Фуншал. Свой маршрут — 40 € / гадзіна.",
+          "Індывідуальныя экскурсіі па Мадэйры па-беларуску з гідам Паўлам для 1–4 гасцей: горы, левады, акіян, Фуншал. Свой маршрут — 30 € / гадзіна.",
         keywords:
           "індывідуальныя экскурсіі па Мадэйры, экскурсіі па Мадэйры, беларускамоўны гід на Мадэйры, прыватныя туры па Мадэйры",
       },
       uk: {
         title: "Індивідуальні екскурсії Мадейрою з гідом | Madeira Mosaic",
         description:
-          "Індивідуальні екскурсії Мадейрою з гідом Павлом для 1–4 гостей: гори, левади, океан, Фуншал, екскурсії з порту. Свій маршрут — 40 € / година.",
+          "Індивідуальні екскурсії Мадейрою з гідом Павлом для 1–4 гостей: гори, левади, океан, Фуншал, екскурсії з порту. Свій маршрут — 30 € / година.",
         keywords:
           "індивідуальні екскурсії на Мадейрі, екскурсії на Мадейрі, приватні тури Мадейрою, екскурсія з порту Фуншал",
       },
