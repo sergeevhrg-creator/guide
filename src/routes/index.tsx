@@ -10,7 +10,7 @@ import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { pavelImages } from "@/lib/poster-assets";
 import { imageCredits } from "@/lib/image-credits";
 import { mosaicContent } from "@/lib/mosaic-content";
-import { salesTours, salesPosters, type SalesTour } from "@/lib/sales";
+import { salesTours, type SalesTour } from "@/lib/sales";
 import { salesCopy } from "@/lib/sales-copy";
 import { pavelIntroductionRu } from "@/lib/sales-editorial";
 import {
@@ -574,20 +574,10 @@ function HomePage() {
                   className="flex min-w-0 flex-col overflow-hidden rounded-md border border-border bg-card"
                 >
                   <img
-                    src={
-                      lang === "ru"
-                        ? i === 0
-                          ? salesPosters.retreat
-                          : salesPosters.family
-                        : imageCredits[i === 0 ? "fanal" : "seixal"].src
-                    }
-                    alt={lang === "ru" ? `${p.title} — рекламная афиша` : p.title}
+                    src={imageCredits[i === 0 ? "fanal" : "seixal"].src}
+                    alt={imageCredits[i === 0 ? "fanal" : "seixal"].alt[lang]}
                     loading="lazy"
-                    className={
-                      lang === "ru"
-                        ? "aspect-[4/5] w-full object-contain"
-                        : "aspect-[7/5] w-full object-cover"
-                    }
+                    className="aspect-[7/5] w-full object-cover"
                   />
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="font-display text-2xl font-extrabold text-mosaic-deep">
