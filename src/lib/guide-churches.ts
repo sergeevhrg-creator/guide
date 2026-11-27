@@ -71,6 +71,7 @@ export const churchesTab: GuideTab = {
     },
     {
       id: "churches-se",
+      imageId: "church-se",
       name: l(
         "Funchal Cathedral (Sé)",
         "Сабор Фуншала (Sé)",
@@ -111,6 +112,7 @@ export const churchesTab: GuideTab = {
     },
     {
       id: "churches-monte",
+      imageId: "church-monte",
       name: l(
         "Church of Our Lady of Monte",
         "Царква Маці Божай дэ Монтэ",
@@ -154,6 +156,7 @@ export const churchesTab: GuideTab = {
     },
     {
       id: "churches-socorro",
+      imageId: "church-socorro",
       name: l(
         "Socorro Church (São Tiago)",
         "Царква Сакору (São Tiago)",
@@ -236,6 +239,7 @@ export const churchesTab: GuideTab = {
     },
     {
       id: "churches-machico-matriz",
+      imageId: "church-machico-matriz",
       name: l(
         "Machico Parish Church (Nossa Senhora da Conceição)",
         "Галоўная царква Машыку (Nossa Senhora da Conceição)",
@@ -313,6 +317,7 @@ export const churchesTab: GuideTab = {
     },
     {
       id: "churches-santa-cruz",
+      imageId: "church-santa-cruz",
       name: l(
         "São Salvador Church",
         "Царква São Salvador",
@@ -391,6 +396,7 @@ export const churchesTab: GuideTab = {
     },
     {
       id: "churches-camara",
+      imageId: "church-camara",
       name: l(
         "Câmara de Lobos: São Sebastião and the fishermen’s chapel",
         "Камара-дэ-Лобуш: São Sebastião і рыбацкая капліца",
@@ -473,6 +479,7 @@ export const churchesTab: GuideTab = {
     {
       id: "churches-sao-jorge",
       imageId: "santana",
+      secondaryImageId: "church-sao-jorge",
       name: l(
         "São Jorge and Santana parish churches",
         "Царквы Сан-Жоржы і Сантаны",
