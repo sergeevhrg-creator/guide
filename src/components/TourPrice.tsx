@@ -5,6 +5,7 @@ import {
   tourDiscountPercent,
   tourPerCarLabel,
   tourPriceEur,
+  tourPriceMaxEur,
   tourRegularPriceEur,
 } from "@/lib/tour-pricing";
 
@@ -32,7 +33,13 @@ export function TourPrice({
           {formatEur(regular, lang)}
         </s>
       ) : null}
-      <span>{formatEur(price, lang)}</span>
+      <span>
+        {tourPriceMaxEur(id)
+          ? lang === "en"
+            ? `€${price}–${tourPriceMaxEur(id)}`
+            : `${price}–${tourPriceMaxEur(id)} €`
+          : formatEur(price, lang)}
+      </span>
       {discount ? (
         <span className="rounded-full bg-mosaic-flower/20 px-2 py-0.5 text-xs font-extrabold text-mosaic-deep">
           −{discount}%

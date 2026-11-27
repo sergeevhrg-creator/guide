@@ -12,6 +12,7 @@ import {
   TOUR_HOURS,
   tourDiscountPercent,
   tourPriceEur,
+  tourPriceMaxEur,
   tourRegularPriceEur,
 } from "./tour-pricing.ts";
 

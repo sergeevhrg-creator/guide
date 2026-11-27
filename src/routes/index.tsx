@@ -6,6 +6,8 @@ import { MosaicLogo } from "@/components/MosaicLogo";
 import { MadeiraHeroMotion } from "@/components/MadeiraHeroMotion";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
 import { LanguageSwitcher, useLang } from "@/lib/i18n/lang";
+import { heroPriceLine } from "@/lib/trust-content";
+import { BookingSteps, Faq } from "@/components/TrustBlocks";
 import { CONTACTS, contactUrl, QUICK_INQUIRY } from "@/lib/contacts";
 import { pavelImages } from "@/lib/poster-assets";
 import { imageCredits } from "@/lib/image-credits";
@@ -316,6 +318,12 @@ function HomePage() {
               <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-primary-foreground/90 sm:text-xl">
                 {t.heroText}
               </p>
+              <p
+                data-hero-price
+                className="mt-5 inline-flex rounded-full bg-primary-foreground/15 px-4 py-2 text-sm font-extrabold text-primary-foreground sm:text-base"
+              >
+                {heroPriceLine[lang]}
+              </p>
               <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-primary-foreground/80">
                 {brandDescriptor[lang]}
               </p>
@@ -607,6 +615,12 @@ function HomePage() {
               ))}
             </div>
           </div>
+        </section>
+        <section id="booking" className="scroll-mt-40 bg-mosaic-mist py-16 sm:py-20">
+          <BookingSteps lang={lang} />
+        </section>
+        <section id="faq" className="scroll-mt-40 bg-background py-16 sm:py-20">
+          <Faq lang={lang} />
         </section>
         <section id="contact" className="scroll-mt-40 bg-mosaic-mist px-4 py-16 sm:px-6 sm:py-24">
           <RequestCta onOpen={() => openOrder(undefined, "home_bottom")} />
