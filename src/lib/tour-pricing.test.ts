@@ -9,6 +9,10 @@ import {
   displayTourPrice,
   publicTourParagraphs,
   SHOW_DRAFT_PRICES,
+  TOUR_HOURS,
+  tourDiscountPercent,
+  tourPriceEur,
+  tourRegularPriceEur,
 } from "./tour-pricing.ts";
 
 const tourIds = [
@@ -37,20 +41,52 @@ const requestCopy = {
   uk: "Вартість за запитом",
 } as const;
 
-test("unconfirmed tour prices stay out of public tour content", async (t) => {
-  await t.test("draft prices are disabled", () => {
+test("catalogue tour prices follow the 30 EUR hourly rate", async (t) => {
+  await t.test("draft prices stay disabled", () => {
     assert.equal(SHOW_DRAFT_PRICES, false);
   });
 
-  await t.test("all 16 current tours show price on request in every language", () => {
+  await t.test("every tour has a duration and price = hours x 30", () => {
     for (const id of tourIds) {
-      for (const [lang, expected] of Object.entries(requestCopy)) {
-        assert.equal(displayTourPrice(id, lang as keyof typeof requestCopy), expected);
-      }
+      const hours = TOUR_HOURS[id];
+      assert.ok(hours, id);
+      if (id === "photo-tour" || id === "cruise-two") continue;
+      assert.equal(tourPriceEur(id), hours * 30);
+    }
+    assert.equal(tourPriceEur("funchal"), 150);
+    assert.equal(tourPriceEur("family-west"), 240);
+  });
+
+  await t.test("photo tour adds 150 EUR, two-day cruise is discounted", () => {
+    assert.equal(tourPriceEur("photo-tour"), 6 * 30 + 150);
+    assert.equal(tourRegularPriceEur("cruise-two"), 420);
+    assert.equal(tourPriceEur("cruise-two"), 380);
+    assert.equal(tourDiscountPercent("cruise-two"), 9);
+    assert.equal(tourDiscountPercent("funchal"), undefined);
+    assert.equal(
+      displayTourPrice("cruise-two", "ru"),
+      "380 € (вместо 420 €) за машину, до 4 человек",
+    );
+  });
+
+  await t.test("durations match the catalogue in sales.ts", async () => {
+    const { readFile } = await import("node:fs/promises");
+    const src = await readFile(new URL("./sales.ts", import.meta.url), "utf8");
+    for (const m of src.matchAll(/id: "([\w-]+)", title:[\s\S]*?hours: (\d+), price: (\d+)/g)) {
+      assert.equal(TOUR_HOURS[m[1] ?? ""], Number(m[2]), `hours for ${m[1]}`);
+      assert.equal(Number(m[3]), tourRegularPriceEur(m[1] ?? ""), `price for ${m[1]}`);
     }
   });
 
-  await t.test("Russian editorial data contains no numeric tour prices", () => {
+  await t.test("price is formatted per car in every language", () => {
+    assert.equal(displayTourPrice("funchal", "ru"), "150 € за машину, до 4 человек");
+    assert.equal(displayTourPrice("family-west", "en"), "€240 per car, up to 4 guests");
+    assert.equal(displayTourPrice("funchal", "be"), "150 € за машыну, да 4 чалавек");
+    assert.equal(displayTourPrice("funchal", "uk"), "150 € за авто, до 4 осіб");
+    assert.equal(displayTourPrice("unknown", "ru"), requestCopy.ru);
+  });
+
+  await t.test("Russian editorial data contains no hard-coded numeric prices", () => {
     assert.equal(Object.keys(salesEditorialRu).length, 16);
     for (const tour of Object.values(salesEditorialRu)) {
       assert.doesNotMatch(`${tour.title}\n${tour.short}\n${tour.full}`, /€|€35\/час/);
