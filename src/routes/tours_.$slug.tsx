@@ -35,6 +35,7 @@ import {
   tourPriceEur,
 } from "@/lib/tour-pricing";
 import { TourPrice } from "@/components/TourPrice";
+import { BookingSteps, CruiseGuarantee, Faq } from "@/components/TrustBlocks";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
 import { churchCopy, churchesForTour, churchLabel } from "@/lib/tour-churches";
 import type { TourPageConfig } from "@/lib/tour-pages";
@@ -593,6 +594,12 @@ function TourPage() {
           </div>
         </section>
 
+        {page.kind === "cruise" ? (
+          <section className="px-4 pb-14 sm:px-6 sm:pb-20 lg:px-8">
+            <CruiseGuarantee lang={lang} />
+          </section>
+        ) : null}
+
         <section className="bg-mosaic-deep py-12 text-primary-foreground">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="font-display text-3xl font-extrabold">{t.transport}</h2>
@@ -640,6 +647,13 @@ function TourPage() {
               })}
             </div>
           </div>
+        </section>
+
+        <section className="bg-mosaic-mist py-14 sm:py-20">
+          <BookingSteps lang={lang} />
+        </section>
+        <section className="bg-background py-14 sm:py-20">
+          <Faq lang={lang} />
         </section>
 
         <section id="contact" className="scroll-mt-24 bg-mosaic-mist px-4 py-14 sm:px-6 sm:py-20">

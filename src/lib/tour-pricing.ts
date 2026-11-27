@@ -50,6 +50,15 @@ export function tourRegularPriceEur(id: string): number | undefined {
   return hours ? hours * CUSTOM_ROUTE_HOURLY_RATE_EUR + (TOUR_EXTRA_EUR[id] ?? 0) : undefined;
 }
 
+// Tours whose length depends on the ship's port stay: the price is shown as a range.
+export const TOUR_HOURS_MAX: Record<string, number> = { "cruise-one": 8 };
+
+/** Upper bound of a price range, when the tour length varies. */
+export function tourPriceMaxEur(id: string): number | undefined {
+  const max = TOUR_HOURS_MAX[id];
+  return max ? max * CUSTOM_ROUTE_HOURLY_RATE_EUR + (TOUR_EXTRA_EUR[id] ?? 0) : undefined;
+}
+
 /** Price the guest pays (sale price if any). */
 export function tourPriceEur(id: string): number | undefined {
   return TOUR_SALE_EUR[id] ?? tourRegularPriceEur(id);
@@ -91,6 +100,11 @@ export function tourPerCarLabel(lang: Lang) {
 export function displayTourPrice(id: string, lang: Lang) {
   const eur = tourPriceEur(id);
   if (!eur) return request[lang];
+  const max = tourPriceMaxEur(id);
+  if (max) {
+    const range = lang === "en" ? `€${eur}–${max}` : `${eur}–${max} €`;
+    return `${range} ${perCar[lang]}`;
+  }
   const regular = tourRegularPriceEur(id);
   const was = regular && regular > eur ? ` (${insteadOf[lang]} ${formatEur(regular, lang)})` : "";
   return `${formatEur(eur, lang)}${was} ${perCar[lang]}`;
