@@ -18,6 +18,13 @@ import fanalAsset from "@/assets/images/fanal.webp.asset.json";
 import santaCatarinaInteriorAsset from "@/assets/images/santa-catarina-interior-4x3.webp.asset.json";
 import santaCatarinaExteriorAsset from "@/assets/images/santa-catarina-exterior.webp.asset.json";
 import camaraDeLobosAsset from "@/assets/images/camara-de-lobos.webp.asset.json";
+import churchSeAsset from "@/assets/images/church-se.webp.asset.json";
+import churchMonteAsset from "@/assets/images/church-monte.webp.asset.json";
+import churchSocorroAsset from "@/assets/images/church-socorro.webp.asset.json";
+import churchMachicoMatrizAsset from "@/assets/images/church-machico-matriz.webp.asset.json";
+import churchSantaCruzAsset from "@/assets/images/church-santa-cruz.webp.asset.json";
+import churchCamaraAsset from "@/assets/images/church-camara.webp.asset.json";
+import churchSaoJorgeAsset from "@/assets/images/church-sao-jorge.webp.asset.json";
 import blandysWineLodgeAsset from "@/assets/images/blandys-wine-lodge.webp.asset.json";
 import caboGiraoAsset from "@/assets/images/cabo-girao.webp.asset.json";
 
@@ -41,6 +48,13 @@ export type ImageId =
   | "santa-catarina-interior"
   | "santa-catarina-exterior"
   | "camara-de-lobos"
+  | "church-se"
+  | "church-monte"
+  | "church-socorro"
+  | "church-machico-matriz"
+  | "church-santa-cruz"
+  | "church-camara"
+  | "church-sao-jorge"
   | "blandys-wine-lodge"
   | "cabo-girao";
 
@@ -468,6 +482,157 @@ export const imageCredits: Record<ImageId, ImageCredit> = {
       be: "Рыбацкія лодкі ў бухце Câmara de Lobos пад тэрасамі на схілах",
       uk: "Рибальські човни в бухті Câmara de Lobos під терасованими схилами",
       ru: "Рыбацкие лодки в бухте Câmara de Lobos под террасами на склонах",
+    },
+  },
+  "church-se": {
+    id: "church-se",
+    slot: {
+      en: "Façade of Funchal Cathedral (Sé) with its stone portal and bell tower",
+      be: "Фасад кафедральнага сабора Фуншала (Sé) з каменным парталам і званіцай",
+      uk: "Фасад кафедрального собору Фуншала (Sé) з кам’яним порталом і дзвіницею",
+      ru: "Фасад кафедрального собора Фуншала (Sé) с каменным порталом и колокольней",
+    },
+    localPath: "src/assets/images/church-se.webp.asset.json",
+    src: churchSeAsset.url,
+    author: "Gerda Arendt",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Funchal_Cathedral,_Madeira.jpg",
+    alt: {
+      en: "Façade of Funchal Cathedral (Sé) with its stone portal and bell tower",
+      be: "Фасад кафедральнага сабора Фуншала (Sé) з каменным парталам і званіцай",
+      uk: "Фасад кафедрального собору Фуншала (Sé) з кам’яним порталом і дзвіницею",
+      ru: "Фасад кафедрального собора Фуншала (Sé) с каменным порталом и колокольней",
+    },
+  },
+  "church-monte": {
+    id: "church-monte",
+    slot: {
+      en: "The twin towers of the Church of Our Lady of Monte above the trees",
+      be: "Дзве вежы царквы Багародзіцы Монтэ над дрэвамі",
+      uk: "Дві вежі церкви Богоматері Монте над деревами",
+      ru: "Две башни церкви Богоматери Монте над деревьями",
+    },
+    localPath: "src/assets/images/church-monte.webp.asset.json",
+    src: churchMonteAsset.url,
+    author: "Shaun Dunphy",
+    license: "CC BY-SA 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Igreja_de_Nossa_Senhora_do_Monte_-_Funchal,_Madeira_Island.jpg",
+    alt: {
+      en: "The twin towers of the Church of Our Lady of Monte above the trees",
+      be: "Дзве вежы царквы Багародзіцы Монтэ над дрэвамі",
+      uk: "Дві вежі церкви Богоматері Монте над деревами",
+      ru: "Две башни церкви Богоматери Монте над деревьями",
+    },
+  },
+  "church-socorro": {
+    id: "church-socorro",
+    slot: {
+      en: "Socorro Church in Funchal’s old town decorated with festival flags",
+      be: "Царква Сакору ў старым Фуншале са святочнымі сцяжкамі",
+      uk: "Церква Сокору в старому Фуншалі зі святковими прапорцями",
+      ru: "Церковь Сокору в старом Фуншале с праздничными флажками",
+    },
+    localPath: "src/assets/images/church-socorro.webp.asset.json",
+    src: churchSocorroAsset.url,
+    author: "Hqfngawz (cropped)",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Igreja_do_Socorro,_Funchal,_Madeira.jpg",
+    alt: {
+      en: "Socorro Church in Funchal’s old town decorated with festival flags",
+      be: "Царква Сакору ў старым Фуншале са святочнымі сцяжкамі",
+      uk: "Церква Сокору в старому Фуншалі зі святковими прапорцями",
+      ru: "Церковь Сокору в старом Фуншале с праздничными флажками",
+    },
+  },
+  "church-machico-matriz": {
+    id: "church-machico-matriz",
+    slot: {
+      en: "Clock tower of Machico parish church against the green valley slopes",
+      be: "Гадзіннікавая вежа галоўнай царквы Машыку на фоне зялёных схілаў",
+      uk: "Годинникова вежа головної церкви Машику на тлі зелених схилів",
+      ru: "Часовая башня главной церкви Машику на фоне зелёных склонов долины",
+    },
+    localPath: "src/assets/images/church-machico-matriz.webp.asset.json",
+    src: churchMachicoMatrizAsset.url,
+    author: "Sergey Ashmarin (cropped)",
+    license: "CC BY-SA 3.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Machico,_Madeira_-_2013-04-04_-_90144757.jpg",
+    alt: {
+      en: "Clock tower of Machico parish church against the green valley slopes",
+      be: "Гадзіннікавая вежа галоўнай царквы Машыку на фоне зялёных схілаў",
+      uk: "Годинникова вежа головної церкви Машику на тлі зелених схилів",
+      ru: "Часовая башня главной церкви Машику на фоне зелёных склонов долины",
+    },
+  },
+  "church-santa-cruz": {
+    id: "church-santa-cruz",
+    slot: {
+      en: "São Salvador Church in Santa Cruz with its white walls and basalt corners",
+      be: "Царква Сан-Салвадор у Санта-Крушы з белымі сценамі і базальтавымі вугламі",
+      uk: "Церква Сан-Салвадор у Санта-Круші з білими стінами й базальтовими кутами",
+      ru: "Церковь Сан-Салвадор в Санта-Круше с белыми стенами и базальтовыми углами",
+    },
+    localPath: "src/assets/images/church-santa-cruz.webp.asset.json",
+    src: churchSantaCruzAsset.url,
+    author: "PESP/ Wikimedia",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Igreja_Matriz_de_Santa_Cruz,_Madeira_-_2012-09-23_-_DSC00456.jpg",
+    alt: {
+      en: "São Salvador Church in Santa Cruz with its white walls and basalt corners",
+      be: "Царква Сан-Салвадор у Санта-Крушы з белымі сценамі і базальтавымі вугламі",
+      uk: "Церква Сан-Салвадор у Санта-Круші з білими стінами й базальтовими кутами",
+      ru: "Церковь Сан-Салвадор в Санта-Круше с белыми стенами и базальтовыми углами",
+    },
+  },
+  "church-camara": {
+    id: "church-camara",
+    slot: {
+      en: "White chapel by the fishing harbour of Câmara de Lobos",
+      be: "Белая капліца каля рыбацкай гавані Камара-дзі-Лобуш",
+      uk: "Біла каплиця біля рибальської гавані Камара-ді-Лобуш",
+      ru: "Белая часовня у рыбацкой гавани Камара-ди-Лобуш",
+    },
+    localPath: "src/assets/images/church-camara.webp.asset.json",
+    src: churchCamaraAsset.url,
+    author: "Anne and David (Kent, UK)",
+    license: "Public Domain Mark 1.0",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Madeira_west_of_Funchal._Camara_De_Lobos._Fishing_port._The_Chapel_of_Saint_Sebastian._Read_below._(51859571866).jpg",
+    alt: {
+      en: "White chapel by the fishing harbour of Câmara de Lobos",
+      be: "Белая капліца каля рыбацкай гавані Камара-дзі-Лобуш",
+      uk: "Біла каплиця біля рибальської гавані Камара-ді-Лобуш",
+      ru: "Белая часовня у рыбацкой гавани Камара-ди-Лобуш",
+    },
+  },
+  "church-sao-jorge": {
+    id: "church-sao-jorge",
+    slot: {
+      en: "Gilded carved saint inside the São Jorge parish church",
+      be: "Пазалочаная разьбяная фігура святога ў царкве Сан-Жоржы",
+      uk: "Позолочена різьблена фігура святого в церкві Сан-Жоржі",
+      ru: "Позолоченная резная фигура святого в церкви Сан-Жоржи",
+    },
+    localPath: "src/assets/images/church-sao-jorge.webp.asset.json",
+    src: churchSaoJorgeAsset.url,
+    author: "Ruipa (cropped)",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Igrj._S%C3%A3o_Jorge,_Madeira_(50).jpg",
+    alt: {
+      en: "Gilded carved saint inside the São Jorge parish church",
+      be: "Пазалочаная разьбяная фігура святога ў царкве Сан-Жоржы",
+      uk: "Позолочена різьблена фігура святого в церкві Сан-Жоржі",
+      ru: "Позолоченная резная фигура святого в церкви Сан-Жоржи",
     },
   },
   "blandys-wine-lodge": {
