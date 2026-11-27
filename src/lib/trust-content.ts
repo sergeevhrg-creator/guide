@@ -3,6 +3,7 @@ import type { Lang } from "@/lib/i18n/lang";
 // Confirmed by Pavel on 27 Nov 2026:
 // - no prepayment, payment on the day of the tour, free cancellation;
 // - pick-up from the guest's hotel anywhere on Madeira (cruise guests: Funchal port);
+// - airport transfers: Santa Cruz/Caniçal/Machico €15, Funchal €30, Calheta/Ponta do Sol/north €50;
 // - cruise guests are back at the port at least 60 minutes before all aboard.
 // "Car, driver, fuel and insurance included" comes from the confirmed hourly rate in tour-pricing.ts.
 
@@ -210,10 +211,10 @@ export const faqItems: Array<{ q: Text; a: Text }> = [
       ru: "Есть ли трансфер из аэропорта?",
     },
     a: {
-      en: "Yes. Pavel can meet you at Madeira airport and drive you to your hotel, or take you to the airport on departure. Message him with your flight details for the price.",
-      be: "Так. Павел можа сустрэць вас у аэрапорце Мадэйры і адвезці ў гатэль або адвезці ў аэрапорт у дзень вылету. Напішыце дэталі рэйса — ён назаве кошт.",
-      uk: "Так. Павло може зустріти вас в аеропорту Мадейри й відвезти до готелю або відвезти в аеропорт у день вильоту. Напишіть деталі рейсу — він назве вартість.",
-      ru: "Да. Павел может встретить вас в аэропорту Мадейры и отвезти в отель или отвезти в аэропорт в день вылета. Напишите детали рейса — он назовёт стоимость.",
+      en: "Yes, to or from Madeira airport: Santa Cruz, Caniçal and Machico — €15; Funchal — €30; Calheta, Ponta do Sol and the north of the island — €50. Send your flight details to book.",
+      be: "Так, у аэрапорт Мадэйры і з яго: Санта-Круш, Канісал і Машыку — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол і поўнач выспы — 50 €. Для браніравання напішыце дэталі рэйса.",
+      uk: "Так, до аеропорту Мадейри й з нього: Санта-Круш, Канісал і Машику — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол і північ острова — 50 €. Для бронювання напишіть деталі рейсу.",
+      ru: "Да, в аэропорт Мадейры и из него: Санта-Круш, Канисал и Машику — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол и север острова — 50 €. Для бронирования напишите детали рейса.",
     },
   },
   {
