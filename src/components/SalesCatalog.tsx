@@ -11,7 +11,8 @@ import { salesDescriptions } from "@/lib/sales-descriptions";
 import { salesEditorialRu } from "@/lib/sales-editorial";
 import { salesEditorialEn } from "@/lib/sales-editorial-en";
 import { getTourPageSlug } from "@/lib/tour-pages";
-import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
+import { publicTourParagraphs, tourExtrasNote } from "@/lib/tour-pricing";
+import { TourPrice } from "@/components/TourPrice";
 import { generatedTourCovers } from "@/lib/generated-tour-covers";
 import photoTourCover from "@/assets/sales/31-photo-tour-madeira-textless-v1.webp";
 
@@ -62,7 +63,10 @@ export function SalesTourCard({
           <MapPin className="mt-1 h-4 w-4 shrink-0 text-mosaic-roof" />
           {tour.route[lang]}
         </p>
-        <p data-tour-church className="mt-2 flex items-start gap-2 text-sm leading-6 text-mosaic-deep">
+        <p
+          data-tour-church
+          className="mt-2 flex items-start gap-2 text-sm leading-6 text-mosaic-deep"
+        >
           <Church className="mt-1 h-4 w-4 shrink-0 text-mosaic-roof" aria-hidden="true" />
           <span>
             <span className="font-bold">{churchCopy.label[lang]}:</span>{" "}
@@ -81,7 +85,12 @@ export function SalesTourCard({
             {salesCopy.guests[lang]}
           </span>
         </div>
-        <strong className="mt-4 text-lg text-mosaic-deep">{displayTourPrice(tour.id, lang)}</strong>
+        <strong className="mt-4 text-lg text-mosaic-deep">
+          <TourPrice id={tour.id} lang={lang} />
+        </strong>
+        <p data-tour-extras className="mt-1 text-xs leading-5 text-muted-foreground">
+          {tourExtrasNote[lang]}
+        </p>
         <p data-child-seat className="mt-3 text-sm font-bold leading-6 text-mosaic-leaf">
           {salesCopy.childSeat[lang]}
         </p>
@@ -160,9 +169,9 @@ export function TourDetailsDialog({
             </p>
             <p className="text-sm leading-6 text-muted-foreground">{transportNote[lang]}</p>
             <p className="font-bold">
-              {tourDuration(tour, lang)} · {displayTourPrice(tour.id, lang)} ·{" "}
-              {salesCopy.guests[lang]}
+              {tourDuration(tour, lang)} · <TourPrice id={tour.id} lang={lang} />
             </p>
+            <p className="text-sm leading-6 text-muted-foreground">{tourExtrasNote[lang]}</p>
             <p className="text-sm leading-6">{salesCopy.checks[lang]}</p>
             <Button
               onClick={() => onDiscuss(tourTitle(tour, lang))}

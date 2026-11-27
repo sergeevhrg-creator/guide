@@ -10,7 +10,9 @@ import {
   publicTourParagraphs,
   SHOW_DRAFT_PRICES,
   TOUR_HOURS,
+  tourDiscountPercent,
   tourPriceEur,
+  tourRegularPriceEur,
 } from "./tour-pricing.ts";
 
 const tourIds = [
@@ -48,10 +50,23 @@ test("catalogue tour prices follow the 30 EUR hourly rate", async (t) => {
     for (const id of tourIds) {
       const hours = TOUR_HOURS[id];
       assert.ok(hours, id);
+      if (id === "photo-tour" || id === "cruise-two") continue;
       assert.equal(tourPriceEur(id), hours * 30);
     }
     assert.equal(tourPriceEur("funchal"), 150);
     assert.equal(tourPriceEur("family-west"), 240);
+  });
+
+  await t.test("photo tour adds 150 EUR, two-day cruise is discounted", () => {
+    assert.equal(tourPriceEur("photo-tour"), 6 * 30 + 150);
+    assert.equal(tourRegularPriceEur("cruise-two"), 420);
+    assert.equal(tourPriceEur("cruise-two"), 380);
+    assert.equal(tourDiscountPercent("cruise-two"), 9);
+    assert.equal(tourDiscountPercent("funchal"), undefined);
+    assert.equal(
+      displayTourPrice("cruise-two", "ru"),
+      "380 € (вместо 420 €) за машину, до 4 человек",
+    );
   });
 
   await t.test("durations match the catalogue in sales.ts", async () => {
@@ -59,7 +74,7 @@ test("catalogue tour prices follow the 30 EUR hourly rate", async (t) => {
     const src = await readFile(new URL("./sales.ts", import.meta.url), "utf8");
     for (const m of src.matchAll(/id: "([\w-]+)", title:[\s\S]*?hours: (\d+), price: (\d+)/g)) {
       assert.equal(TOUR_HOURS[m[1] ?? ""], Number(m[2]), `hours for ${m[1]}`);
-      assert.equal(Number(m[3]), Number(m[2]) * 30, `price for ${m[1]}`);
+      assert.equal(Number(m[3]), tourRegularPriceEur(m[1] ?? ""), `price for ${m[1]}`);
     }
   });
 

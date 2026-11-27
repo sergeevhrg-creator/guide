@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
@@ -27,7 +28,13 @@ import { salesCopy } from "@/lib/sales-copy";
 import { salesDescriptions } from "@/lib/sales-descriptions";
 import { titleWithBrand, tourMetaDescription } from "@/lib/seo";
 import { salesTours } from "@/lib/sales";
-import { displayTourPrice, publicTourParagraphs, tourPriceEur } from "@/lib/tour-pricing";
+import {
+  displayTourPrice,
+  publicTourParagraphs,
+  tourExtrasNote,
+  tourPriceEur,
+} from "@/lib/tour-pricing";
+import { TourPrice } from "@/components/TourPrice";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
 import { churchCopy, churchesForTour, churchLabel } from "@/lib/tour-churches";
 import type { TourPageConfig } from "@/lib/tour-pages";
@@ -511,7 +518,18 @@ function TourPage() {
             <Fact icon={MapPin} label={t.route} value={tour.route[lang]} />
             <Fact icon={Clock3} label={t.duration} value={getDurationLabel(page, lang)} />
             <Fact icon={Users} label={t.format} value={t.guests} />
-            <Fact icon={RouteIcon} label={t.price} value={displayTourPrice(page.tourId, lang)} />
+            <Fact
+              icon={RouteIcon}
+              label={t.price}
+              value={
+                <>
+                  <TourPrice id={page.tourId} lang={lang} />
+                  <span className="mt-1 block text-xs font-normal leading-5 text-muted-foreground">
+                    {tourExtrasNote[lang]}
+                  </span>
+                </>
+              }
+            />
           </div>
         </section>
 
@@ -651,7 +669,15 @@ function TourPage() {
   );
 }
 
-function Fact({ icon: Icon, label, value }: { icon: typeof Clock3; label: string; value: string }) {
+function Fact({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: typeof Clock3;
+  label: string;
+  value: ReactNode;
+}) {
   return (
     <div className="flex min-w-0 items-start gap-3 rounded-xl bg-mosaic-mist/65 p-4">
       <Icon className="mt-0.5 h-5 w-5 shrink-0 text-mosaic-ocean" aria-hidden />
@@ -659,7 +685,7 @@ function Fact({ icon: Icon, label, value }: { icon: typeof Clock3; label: string
         <p className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
           {label}
         </p>
-        <p className="mt-1 break-words font-bold leading-6 text-mosaic-deep">{value}</p>
+        <div className="mt-1 break-words font-bold leading-6 text-mosaic-deep">{value}</div>
       </div>
     </div>
   );
