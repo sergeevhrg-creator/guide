@@ -27,7 +27,7 @@ import { salesCopy } from "@/lib/sales-copy";
 import { salesDescriptions } from "@/lib/sales-descriptions";
 import { titleWithBrand, tourMetaDescription } from "@/lib/seo";
 import { salesTours } from "@/lib/sales";
-import { displayTourPrice, publicTourParagraphs } from "@/lib/tour-pricing";
+import { displayTourPrice, publicTourParagraphs, tourPriceEur } from "@/lib/tour-pricing";
 import { getTourPageBySlug, tourPages, type TourPageLang } from "@/lib/tour-pages";
 import { churchCopy, churchesForTour, churchLabel } from "@/lib/tour-churches";
 import type { TourPageConfig } from "@/lib/tour-pages";
@@ -361,6 +361,9 @@ function TourPage() {
           availability: "https://schema.org/InStock",
           url: `https://guide.orthodoxmadeira.com/request?lang=${lang}&tour=${page.tourId}`,
           description: displayTourPrice(page.tourId, lang),
+          ...(tourPriceEur(page.tourId)
+            ? { price: tourPriceEur(page.tourId), priceCurrency: "EUR" }
+            : {}),
         },
       },
       {
