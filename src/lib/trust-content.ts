@@ -3,7 +3,7 @@ import type { Lang } from "@/lib/i18n/lang";
 // Confirmed by Pavel on 27 Nov 2026:
 // - no prepayment, payment on the day of the tour, free cancellation;
 // - pick-up from the guest's hotel anywhere on Madeira (cruise guests: Funchal port);
-// - airport transfers: Santa Cruz/Caniçal/Machico €15, Funchal €30, Calheta/Ponta do Sol/north €50;
+// - airport transfers (one way, per car, any number of passengers): Santa Cruz/Caniçal/Machico €15, Funchal €30, Calheta/Ponta do Sol/north €50;
 // - cruise guests are back at the port at least 60 minutes before all aboard.
 // "Car, driver, fuel and insurance included" comes from the confirmed hourly rate in tour-pricing.ts.
 
@@ -211,10 +211,10 @@ export const faqItems: Array<{ q: Text; a: Text }> = [
       ru: "Есть ли трансфер из аэропорта?",
     },
     a: {
-      en: "Yes, to or from Madeira airport: Santa Cruz, Caniçal and Machico — €15; Funchal — €30; Calheta, Ponta do Sol and the north of the island — €50. Send your flight details to book.",
-      be: "Так, у аэрапорт Мадэйры і з яго: Санта-Круш, Канісал і Машыку — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол і поўнач выспы — 50 €. Для браніравання напішыце дэталі рэйса.",
-      uk: "Так, до аеропорту Мадейри й з нього: Санта-Круш, Канісал і Машику — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол і північ острова — 50 €. Для бронювання напишіть деталі рейсу.",
-      ru: "Да, в аэропорт Мадейры и из него: Санта-Круш, Канисал и Машику — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол и север острова — 50 €. Для бронирования напишите детали рейса.",
+      en: "Yes, one way to or from Madeira airport, price per car regardless of the number of passengers: Santa Cruz, Caniçal and Machico — €15; Funchal — €30; Calheta, Ponta do Sol and the north of the island — €50. Send your flight details to book.",
+      be: "Так, у адзін бок у аэрапорт Мадэйры або з яго, кошт за машыну незалежна ад колькасці пасажыраў: Санта-Круш, Канісал і Машыку — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол і поўнач выспы — 50 €. Для браніравання напішыце дэталі рэйса.",
+      uk: "Так, в один бік до аеропорту Мадейри або з нього, ціна за авто незалежно від кількості пасажирів: Санта-Круш, Канісал і Машику — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол і північ острова — 50 €. Для бронювання напишіть деталі рейсу.",
+      ru: "Да, в одну сторону в аэропорт Мадейры или из него, цена за машину независимо от числа пассажиров: Санта-Круш, Канисал и Машику — 15 €; Фуншал — 30 €; Калета, Понта-ду-Сол и север острова — 50 €. Для бронирования напишите детали рейса.",
     },
   },
   {
