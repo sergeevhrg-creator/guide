@@ -62,6 +62,8 @@ export const requestCopy: Record<
     reopen: (channel: string) => string;
     toTours: string;
     noLead: string;
+    emailThanksTitle: string;
+    emailThanksText: string;
   }
 > = {
   ru: {
@@ -82,6 +84,9 @@ export const requestCopy: Record<
     reopen: (channel) => `Открыть ${channel} ещё раз`,
     toTours: "Вернуться к экскурсиям",
     noLead: "Чтобы написать Павлу, заполните форму заявки.",
+    emailThanksTitle: "Спасибо! Заявка отправлена",
+    emailThanksText:
+      "Павел получил вашу заявку на почту и ответит лично по указанному контакту — обычно в течение дня.",
   },
   en: {
     seoTitle: "Request a private Madeira tour — Madeira Mosaic",
@@ -105,6 +110,9 @@ export const requestCopy: Record<
     reopen: (channel) => `Open ${channel} again`,
     toTours: "Back to tours",
     noLead: "To message Pavel, please fill in the request form.",
+    emailThanksTitle: "Thank you! Your request is sent",
+    emailThanksText:
+      "Pavel has received your request by email and will reply personally to the contact you gave, usually within a day.",
   },
   be: {
     seoTitle: "Заяўка на экскурсію па Мадэйры — Madeira Mosaic",
@@ -128,6 +136,9 @@ export const requestCopy: Record<
     reopen: (channel) => `Адкрыць ${channel} яшчэ раз`,
     toTours: "Вярнуцца да экскурсій",
     noLead: "Каб напісаць Паўлу, запоўніце форму заяўкі.",
+    emailThanksTitle: "Дзякуй! Заяўка адпраўлена",
+    emailThanksText:
+      "Павел атрымаў вашу заяўку на пошту і адкажа асабіста па пазначаным кантакце — звычайна на працягу дня.",
   },
   uk: {
     seoTitle: "Заявка на екскурсію Мадейрою — Madeira Mosaic",
@@ -151,5 +162,8 @@ export const requestCopy: Record<
     reopen: (channel) => `Відкрити ${channel} ще раз`,
     toTours: "Повернутися до екскурсій",
     noLead: "Щоб написати Павлу, заповніть форму заявки.",
+    emailThanksTitle: "Дякуємо! Заявку надіслано",
+    emailThanksText:
+      "Павло отримав вашу заявку на пошту й відповість особисто за вказаним контактом — зазвичай протягом дня.",
   },
 };

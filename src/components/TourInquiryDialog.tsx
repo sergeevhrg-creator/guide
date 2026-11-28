@@ -8,6 +8,7 @@ import type { ImageId } from "@/lib/image-credits";
 import { imageCredits } from "@/lib/image-credits";
 import { openMessenger } from "@/lib/messenger";
 import { readAttribution, sourceSummary } from "@/lib/tracking";
+import { sendLeadEmail } from "@/lib/lead-email";
 
 type Selection = {
   title: string;
@@ -20,6 +21,7 @@ const copy = {
   en: {
     title: "Discuss your journey",
     name: "Your name",
+    contact: "Phone or email for Pavel’s reply (optional)",
     dates: "Dates or date range",
     adults: "Adults",
     children: "Children",
@@ -34,6 +36,7 @@ const copy = {
   be: {
     title: "Абмеркаваць падарожжа",
     name: "Ваша імя",
+    contact: "Тэлефон ці email для адказу (неабавязкова)",
     dates: "Даты ці прамежак дат",
     adults: "Дарослых",
     children: "Дзяцей",
@@ -48,6 +51,7 @@ const copy = {
   uk: {
     title: "Обговорити подорож",
     name: "Ваше ім’я",
+    contact: "Телефон або email для відповіді (необов’язково)",
     dates: "Дати або період",
     adults: "Дорослих",
     children: "Дітей",
@@ -62,6 +66,7 @@ const copy = {
   ru: {
     title: "Обсудить путешествие",
     name: "Ваше имя",
+    contact: "Телефон или email для ответа (необязательно)",
     dates: "Даты или диапазон дат",
     adults: "Взрослых",
     children: "Детей",
@@ -87,6 +92,7 @@ export function TourInquiryDialog({
   const { lang } = useLang();
   const t = copy[lang];
   const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
   const [dates, setDates] = useState("");
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
@@ -104,8 +110,18 @@ export function TourInquiryDialog({
       `Guests / Гости: ${adults} adults, ${children} children${ages.trim() ? ` (${ages.trim()})` : ""}`,
       `Language / Язык: ${lang.toUpperCase()}`,
       `Wishes / Пожелания: ${wishes.trim() || "—"}`,
+      `Contact / Контакт: ${contact.trim() || "—"}`,
       `Page / Страница: ${cleanUrl}`,
     ].join("\n");
+    // A copy by email, so the request is not lost if the visitor never taps Send.
+    void sendLeadEmail({
+      name: name.trim(),
+      contact: contact.trim(),
+      channel: channel === "telegram" ? "Telegram" : "WhatsApp",
+      product: selection?.title ?? t.empty,
+      message,
+      lang,
+    });
     openMessenger(contactUrl(channel, message), "generate_lead", {
       form_location: "tour_dialog",
       lang,
@@ -195,6 +211,15 @@ export function TourInquiryDialog({
               />
             </label>
           </div>
+          <label className="text-xs font-bold text-foreground">
+            {t.contact}
+            <input
+              value={contact}
+              maxLength={150}
+              onChange={(e) => setContact(e.target.value)}
+              className="mt-1 h-11 w-full rounded border border-input bg-background px-3 text-sm"
+            />
+          </label>
           {children > 0 && (
             <label className="text-xs font-bold text-foreground">
               {t.ages}
