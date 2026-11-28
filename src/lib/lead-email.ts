@@ -6,7 +6,7 @@
  * use), not a secret: the inbox address itself never appears in the site code.
  * While the key is empty, email delivery stays off and the forms behave as before.
  */
-export const LEAD_EMAIL_ACCESS_KEY = "";
+export const LEAD_EMAIL_ACCESS_KEY = "0dee24c8-88cc-47d3-93ca-c04439b46f97";
 export const LEAD_EMAIL_ENDPOINT = "https://api.web3forms.com/submit";
 
 export function leadEmailEnabled(key: string = LEAD_EMAIL_ACCESS_KEY): boolean {
