@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { LanguageProvider, langFromSearch } from "../lib/i18n/lang";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/CookieConsent";
+import { CallbackBanner } from "../components/CallbackBanner";
 import { LegalFooter } from "../components/LegalFooter";
 import {
   captureAttribution,
@@ -215,6 +216,7 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <LegalFooter />
+        <CallbackBanner />
         <CookieConsent />
       </LanguageProvider>
     </QueryClientProvider>

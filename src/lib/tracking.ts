@@ -56,7 +56,9 @@ export type TrackEvent =
   | "contact_click"
   | "consent_update"
   | "quick_panel_open"
-  | "quick_panel_close";
+  | "quick_panel_close"
+  | "callback_banner_show"
+  | "callback_banner_close";
 
 export function track(event: TrackEvent, params: Record<string, string | number | boolean> = {}) {
   dataLayer()?.push({ event, ...params });
