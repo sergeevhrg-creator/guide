@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
-import { Mail, MessageCircle, Phone, Send } from "lucide-react";
+import { Mail, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACTS, contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
@@ -34,7 +34,7 @@ const copy = {
     note: "A ready-to-send message to Pavel will open in your chosen messenger. Tap Send, and Pavel will reply personally to plan the details.",
     empty: "I need help choosing a route",
     error: "Please complete the required fields.",
-    emailOption: "Email (Pavel replies to your contact)",
+    emailOption: "No messenger — Pavel will contact you",
     submitEmail: "Send request",
     sending: "Sending…",
     sendError: "The request could not be sent. Please try again or write on WhatsApp.",
@@ -54,7 +54,7 @@ const copy = {
     note: "У абраным мэсенджары адкрыецца гатовае паведамленне Паўлу. Націсніце «Адправіць» — Павел адкажа асабіста і дапаможа ўзгадніць дэталі.",
     empty: "Патрэбна дапамога з выбарам маршруту",
     error: "Запоўніце абавязковыя палі.",
-    emailOption: "Email (Павел адкажа на ваш кантакт)",
+    emailOption: "Без мэсенджара — Павел сам звяжацца з вамі",
     submitEmail: "Адправіць заяўку",
     sending: "Адпраўляем…",
     sendError: "Не ўдалося адправіць заяўку. Паспрабуйце яшчэ раз або напішыце ў WhatsApp.",
@@ -74,7 +74,7 @@ const copy = {
     note: "У вибраному месенджері відкриється готове повідомлення Павлу. Натисніть «Надіслати» — Павло відповість особисто й допоможе узгодити деталі.",
     empty: "Потрібна допомога з вибором маршруту",
     error: "Заповніть обов’язкові поля.",
-    emailOption: "Email (Павло відповість на ваш контакт)",
+    emailOption: "Без месенджера — Павло сам зв’яжеться з вами",
     submitEmail: "Надіслати заявку",
     sending: "Надсилаємо…",
     sendError: "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть у WhatsApp.",
@@ -94,7 +94,7 @@ const copy = {
     note: "В выбранном мессенджере откроется готовое сообщение Павлу. Нажмите «Отправить» — Павел ответит лично и поможет согласовать детали поездки.",
     empty: "Нужна помощь с выбором маршрута",
     error: "Заполните обязательные поля.",
-    emailOption: "Email (Павел ответит на ваш контакт)",
+    emailOption: "Без мессенджера — Павел сам свяжется с вами",
     submitEmail: "Отправить заявку",
     sending: "Отправляем…",
     sendError: "Не удалось отправить заявку. Попробуйте ещё раз или напишите в WhatsApp.",
@@ -202,7 +202,7 @@ export function SalesInquiryForm({
   const t = copy[lang];
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [channelChoice, setChannelChoice] = useState("WhatsApp");
+  const [channelChoice, setChannelChoice] = useState(leadEmailEnabled() ? "Email" : "WhatsApp");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState(false);
   const emailOn = leadEmailEnabled();
@@ -344,9 +344,9 @@ export function SalesInquiryForm({
             onChange={(e) => setChannelChoice(e.target.value)}
             className={field}
           >
+            {emailOn && <option value="Email">{t.emailOption}</option>}
             <option>WhatsApp</option>
             <option>Telegram</option>
-            {emailOn && <option value="Email">{t.emailOption}</option>}
           </select>
         </label>
         <label className="text-sm font-bold">
@@ -470,9 +470,9 @@ export function SalesInquiryForm({
             variant="outline"
             className="h-auto min-h-11 whitespace-normal py-3 text-center"
           >
-            <a href={CONTACTS.phoneUrl} aria-label={`${t.call}: ${CONTACTS.phoneNumber}`}>
-              <Phone />
-              {t.call} · {CONTACTS.phoneNumber}
+            <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle />
+              WhatsApp {CONTACTS.whatsappNumber}
             </a>
           </Button>
         </div>

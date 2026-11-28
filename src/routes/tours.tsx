@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, MessageCircle, Send } from "lucide-react";
+import { ArrowLeft, Mail, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { PhotoCreditsLink } from "@/components/PhotoCreditsLink";
@@ -151,9 +151,25 @@ function ToursPage() {
               </a>
             </Button>
             <Button
+              size="sm"
+              className="hidden bg-mosaic-leaf font-bold hover:bg-mosaic-deep sm:inline-flex"
+              onClick={() => openOrder(undefined, "tours_header")}
+            >
+              <Mail />
+              {
+                {
+                  ru: "Оставить заявку",
+                  en: "Request a tour",
+                  be: "Пакінуць заяўку",
+                  uk: "Залишити заявку",
+                }[lang]
+              }
+            </Button>
+            <Button
               asChild
               size="sm"
-              className="hidden bg-mosaic-leaf hover:bg-mosaic-deep sm:inline-flex"
+              variant="outline"
+              className="hidden shrink-0 border-mosaic-leaf font-bold text-mosaic-deep hover:bg-mosaic-mist sm:inline-flex"
             >
               <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <MessageCircle />
