@@ -176,7 +176,11 @@ export function sourceLine(lang: Lang, a: Attribution | null = readAttribution()
 /* ---------- Thank-you page hand-off ---------- */
 
 export const LAST_LEAD_KEY = "madeira-mosaic-last-lead";
-export type LastLead = { url: string; channel: "whatsapp" | "telegram"; product: string };
+export type LastLead = {
+  url: string;
+  channel: "whatsapp" | "telegram" | "email";
+  product: string;
+};
 
 export function rememberLead(lead: LastLead) {
   try {

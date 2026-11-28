@@ -1,12 +1,20 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
-import { MessageCircle, Phone, Send } from "lucide-react";
+import { Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACTS, contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
 import { englishSalesInquiryMessage } from "@/lib/sales-inquiry-en";
-import { readAttribution, rememberLead, sourceLine, sourceSummary, track } from "@/lib/tracking";
+import {
+  readAttribution,
+  rememberLead,
+  sourceLine,
+  sourceSummary,
+  track,
+  trackThen,
+} from "@/lib/tracking";
+import { leadEmailEnabled, sendLeadEmail } from "@/lib/lead-email";
 import { openMessenger } from "@/lib/messenger";
 
 export type InquiryMode = "standard" | "cruise" | "cruise-two" | "photo";
@@ -26,6 +34,11 @@ const copy = {
     note: "A ready-to-send message to Pavel will open in your chosen messenger. Tap Send, and Pavel will reply personally to plan the details.",
     empty: "I need help choosing a route",
     error: "Please complete the required fields.",
+    emailOption: "Email (Pavel replies to your contact)",
+    submitEmail: "Send request",
+    sending: "Sending…",
+    sendError: "The request could not be sent. Please try again or write on WhatsApp.",
+    qr: "Prefer your phone? Scan the code to open WhatsApp with Pavel.",
   },
   be: {
     title: "Абмеркаваць паездку з Паўлам",
@@ -41,6 +54,11 @@ const copy = {
     note: "У абраным мэсенджары адкрыецца гатовае паведамленне Паўлу. Націсніце «Адправіць» — Павел адкажа асабіста і дапаможа ўзгадніць дэталі.",
     empty: "Патрэбна дапамога з выбарам маршруту",
     error: "Запоўніце абавязковыя палі.",
+    emailOption: "Email (Павел адкажа на ваш кантакт)",
+    submitEmail: "Адправіць заяўку",
+    sending: "Адпраўляем…",
+    sendError: "Не ўдалося адправіць заяўку. Паспрабуйце яшчэ раз або напішыце ў WhatsApp.",
+    qr: "Зручней з тэлефона? Навядзіце камеру на код — адкрыецца WhatsApp з Паўлам.",
   },
   uk: {
     title: "Обговорити поїздку з Павлом",
@@ -56,6 +74,11 @@ const copy = {
     note: "У вибраному месенджері відкриється готове повідомлення Павлу. Натисніть «Надіслати» — Павло відповість особисто й допоможе узгодити деталі.",
     empty: "Потрібна допомога з вибором маршруту",
     error: "Заповніть обов’язкові поля.",
+    emailOption: "Email (Павло відповість на ваш контакт)",
+    submitEmail: "Надіслати заявку",
+    sending: "Надсилаємо…",
+    sendError: "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть у WhatsApp.",
+    qr: "Зручніше з телефона? Наведіть камеру на код — відкриється WhatsApp з Павлом.",
   },
   ru: {
     title: "Обсудить поездку с Павлом",
@@ -71,6 +94,11 @@ const copy = {
     note: "В выбранном мессенджере откроется готовое сообщение Павлу. Нажмите «Отправить» — Павел ответит лично и поможет согласовать детали поездки.",
     empty: "Нужна помощь с выбором маршрута",
     error: "Заполните обязательные поля.",
+    emailOption: "Email (Павел ответит на ваш контакт)",
+    submitEmail: "Отправить заявку",
+    sending: "Отправляем…",
+    sendError: "Не удалось отправить заявку. Попробуйте ещё раз или напишите в WhatsApp.",
+    qr: "Удобнее с телефона? Наведите камеру на код — откроется WhatsApp с Павлом.",
   },
 };
 
@@ -140,7 +168,7 @@ const specialCopy = {
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
   contact: z.string().trim().min(3).max(150),
-  channel: z.enum(["WhatsApp", "Telegram"]),
+  channel: z.enum(["WhatsApp", "Telegram", "Email"]),
   dates: z.string().trim().min(1).max(150),
   guests: z.coerce.number().int().min(1).max(30),
   product: z.string().trim().min(1).max(250),
@@ -174,13 +202,17 @@ export function SalesInquiryForm({
   const t = copy[lang];
   const navigate = useNavigate();
   const [error, setError] = useState(false);
+  const [channelChoice, setChannelChoice] = useState("WhatsApp");
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
+  const emailOn = leadEmailEnabled();
   const started = useRef(false);
   function markStarted() {
     if (started.current) return;
     started.current = true;
     track("form_start", { form_location: location, lang, product: selected || t.empty });
   }
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const parsed = schema.safeParse(Object.fromEntries(new FormData(event.currentTarget)));
     if (!parsed.success) {
@@ -228,6 +260,39 @@ export function SalesInquiryForm({
           ].join("\n");
     const source = sourceLine(lang);
     const fullMessage = source ? `${message}\n${source}` : message;
+    const lead = {
+      name: d.name,
+      contact: d.contact,
+      channel: d.channel,
+      product: d.product,
+      message: fullMessage,
+      lang,
+    };
+    const leadParams = {
+      form_location: location,
+      lang,
+      product: d.product,
+      guests: d.guests,
+      lead_source: sourceSummary(readAttribution()) || "direct",
+    };
+    if (d.channel === "Email") {
+      if (sending) return;
+      setSending(true);
+      setSendError(false);
+      const ok = await sendLeadEmail(lead);
+      setSending(false);
+      if (!ok) {
+        setSendError(true);
+        return;
+      }
+      rememberLead({ url: "", channel: "email", product: d.product });
+      trackThen("generate_lead", { ...leadParams, channel: "email" }, () => {
+        void navigate({ to: "/request/thanks", search: { lang } });
+      });
+      return;
+    }
+    // A copy by email, so the request is not lost if the visitor never taps Send.
+    void sendLeadEmail(lead);
     const channel = d.channel === "Telegram" ? "telegram" : "whatsapp";
     const url = contactUrl(channel, fullMessage);
     rememberLead({ url, channel, product: d.product });
@@ -273,9 +338,15 @@ export function SalesInquiryForm({
         </label>
         <label className="text-sm font-bold">
           {t.channel}
-          <select name="channel" className={field}>
+          <select
+            name="channel"
+            value={channelChoice}
+            onChange={(e) => setChannelChoice(e.target.value)}
+            className={field}
+          >
             <option>WhatsApp</option>
             <option>Telegram</option>
+            {emailOn && <option value="Email">{t.emailOption}</option>}
           </select>
         </label>
         <label className="text-sm font-bold">
@@ -367,14 +438,20 @@ export function SalesInquiryForm({
             {t.error}
           </p>
         )}
+        {sendError && (
+          <p role="alert" className="text-destructive sm:col-span-2">
+            {t.sendError}
+          </p>
+        )}
         <div className="flex flex-wrap gap-3 sm:col-span-2">
           <Button
             type="submit"
             size="lg"
+            disabled={sending}
             className="h-auto min-h-11 whitespace-normal py-3 text-center bg-mosaic-leaf font-bold hover:bg-mosaic-deep"
           >
-            <MessageCircle />
-            {t.submit}
+            {channelChoice === "Email" ? <Mail /> : <MessageCircle />}
+            {channelChoice === "Email" ? (sending ? t.sending : t.submitEmail) : t.submit}
           </Button>
           <Button
             asChild
@@ -398,6 +475,20 @@ export function SalesInquiryForm({
               {t.call} · {CONTACTS.phoneNumber}
             </a>
           </Button>
+        </div>
+        <div className="hidden items-center gap-4 rounded-md border border-border bg-background p-3 sm:col-span-2 lg:flex">
+          <img
+            src="/assets/whatsapp-qr.svg"
+            alt={`WhatsApp ${CONTACTS.whatsappNumber}`}
+            width={96}
+            height={96}
+            className="h-24 w-24 shrink-0"
+          />
+          <p className="text-sm leading-6 text-muted-foreground">
+            {t.qr}
+            <br />
+            <strong className="text-foreground">WhatsApp {CONTACTS.whatsappNumber}</strong>
+          </p>
         </div>
       </form>
     </div>

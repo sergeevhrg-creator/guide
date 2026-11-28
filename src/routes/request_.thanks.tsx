@@ -55,7 +55,20 @@ function ThanksPage() {
       >
         <div className="mx-auto max-w-2xl text-center">
           <CheckCircle2 className="mx-auto h-14 w-14 text-mosaic-leaf" aria-hidden="true" />
-          {lead ? (
+          {lead?.channel === "email" ? (
+            <>
+              <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight text-mosaic-deep sm:text-4xl">
+                {c.emailThanksTitle}
+              </h1>
+              <p className="mt-4 leading-7 text-foreground">{c.emailThanksText}</p>
+              <Button asChild size="lg" variant="outline" className="mt-8 h-auto min-h-11 py-3">
+                <Link to="/tours" search={{ lang }}>
+                  <ArrowLeft />
+                  {c.toTours}
+                </Link>
+              </Button>
+            </>
+          ) : lead ? (
             <>
               <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight text-mosaic-deep sm:text-4xl">
                 {c.thanksTitle}
