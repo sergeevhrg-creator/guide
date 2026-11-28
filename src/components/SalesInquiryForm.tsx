@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
-import { Mail, MessageCircle, Phone, Send } from "lucide-react";
+import { Mail, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACTS, contactUrl } from "@/lib/contacts";
 import { useLang } from "@/lib/i18n/lang";
@@ -470,9 +470,9 @@ export function SalesInquiryForm({
             variant="outline"
             className="h-auto min-h-11 whitespace-normal py-3 text-center"
           >
-            <a href={CONTACTS.phoneUrl} aria-label={`${t.call}: ${CONTACTS.phoneNumber}`}>
-              <Phone />
-              {t.call} · {CONTACTS.phoneNumber}
+            <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle />
+              WhatsApp {CONTACTS.whatsappNumber}
             </a>
           </Button>
         </div>

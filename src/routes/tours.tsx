@@ -167,18 +167,13 @@ function ToursPage() {
             </Button>
             <Button
               asChild
-              size="icon"
+              size="sm"
               variant="outline"
-              className="hidden h-9 w-9 shrink-0 border-mosaic-deep/20 text-mosaic-deep hover:bg-mosaic-mist sm:inline-flex"
+              className="hidden shrink-0 border-mosaic-leaf font-bold text-mosaic-deep hover:bg-mosaic-mist sm:inline-flex"
             >
-              <a
-                href={CONTACTS.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                title="WhatsApp"
-              >
-                <MessageCircle aria-hidden />
+              <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <MessageCircle />
+                WhatsApp
               </a>
             </Button>
             <Button
