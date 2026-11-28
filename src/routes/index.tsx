@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ChevronRight, Menu, MessageCircle, Phone, Send, X } from "lucide-react";
+import { ArrowRight, ChevronRight, Menu, Mail, MessageCircle, Phone, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MosaicLogo } from "@/components/MosaicLogo";
 import { MadeiraHeroMotion } from "@/components/MadeiraHeroMotion";
@@ -219,13 +219,34 @@ function HomePage() {
               {mobileNavOpen ? <X aria-hidden /> : <Menu aria-hidden />}
             </Button>
             <Button
-              asChild
               size="sm"
-              className="hidden bg-mosaic-leaf hover:bg-mosaic-deep sm:inline-flex"
+              className="hidden bg-mosaic-leaf font-bold hover:bg-mosaic-deep sm:inline-flex"
+              onClick={() => openOrder(undefined, "home_header")}
             >
-              <a href={CONTACTS.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <MessageCircle />
-                WhatsApp
+              <Mail />
+              {
+                {
+                  ru: "Оставить заявку",
+                  en: "Request a tour",
+                  be: "Пакінуць заяўку",
+                  uk: "Залишити заявку",
+                }[lang]
+              }
+            </Button>
+            <Button
+              asChild
+              size="icon"
+              variant="outline"
+              className="hidden h-9 w-9 shrink-0 border-mosaic-deep/20 text-mosaic-deep hover:bg-mosaic-mist sm:inline-flex"
+            >
+              <a
+                href={CONTACTS.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                title="WhatsApp"
+              >
+                <MessageCircle aria-hidden />
               </a>
             </Button>
             <Button

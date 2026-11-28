@@ -95,7 +95,8 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
           <SheetTitle className="pr-14 font-display text-xl font-extrabold text-mosaic-deep">{t.title}</SheetTitle>
           <SheetDescription className="mt-2 leading-6">{t.text}</SheetDescription>
           <div className="mt-6 grid gap-3">
-            <Button asChild className="h-auto min-h-11 whitespace-normal py-3 text-center bg-mosaic-leaf font-bold hover:bg-mosaic-deep">
+            <Button className="h-auto min-h-11 whitespace-normal py-3 text-center bg-mosaic-leaf font-bold hover:bg-mosaic-deep" onClick={() => { acted.current = true; changeOpen(false); onOpenForm(); }}>{t.form}</Button>
+            <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold">
               <a href={contactUrl("whatsapp", QUICK_INQUIRY[lang])} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp {CONTACTS.whatsappNumber}</a>
             </Button>
             <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold">
@@ -104,7 +105,6 @@ export function QuickContact({ onOpenForm }: { onOpenForm: () => void }) {
             <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold">
               <a href={CONTACTS.phoneUrl} aria-label={`${t.call}: ${CONTACTS.phoneNumber}`}><Phone />{t.call} · {CONTACTS.phoneNumber}</a>
             </Button>
-            <Button variant="secondary" className="h-auto min-h-11 whitespace-normal py-3 text-center font-bold" onClick={() => { acted.current = true; changeOpen(false); onOpenForm(); }}>{t.form}</Button>
           </div>
         </SheetContent>
       </Sheet>

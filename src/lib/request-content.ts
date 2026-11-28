@@ -73,7 +73,7 @@ export const requestCopy: Record<
     eyebrow: "Заявка",
     title: "Расскажите, какую поездку вы хотите",
     intro:
-      "Заполните короткую форму — откроется готовое сообщение Павлу. Нажмите «Отправить», и Павел лично ответит и предложит маршрут.",
+      "Заполните короткую форму и нажмите «Отправить заявку» — Павел сам свяжется с вами по указанному контакту и предложит маршрут. Если удобнее, выберите WhatsApp или Telegram.",
     points: ["Отвечает лично Павел", "Группа от 1 до 4 гостей", "Маршрут под ваш темп и погоду"],
     back: "К экскурсиям",
     thanksSeoTitle: "Сообщение готово — Madeira Mosaic",
@@ -95,7 +95,7 @@ export const requestCopy: Record<
     eyebrow: "Request",
     title: "Tell Pavel about the trip you’d like",
     intro:
-      "Fill in the short form and a ready-to-send message to Pavel will open. Tap Send, and Pavel will reply personally with a route.",
+      "Fill in the short form and tap Send request — Pavel will contact you personally and suggest a route. Prefer messaging? Choose WhatsApp or Telegram.",
     points: [
       "Pavel replies personally",
       "1 to 4 guests",
@@ -121,7 +121,7 @@ export const requestCopy: Record<
     eyebrow: "Заяўка",
     title: "Раскажыце, якую паездку вы хочаце",
     intro:
-      "Запоўніце кароткую форму — адкрыецца гатовае паведамленне Паўлу. Націсніце «Адправіць», і Павел асабіста адкажа і прапануе маршрут.",
+      "Запоўніце кароткую форму і націсніце «Адправіць заяўку» — Павел сам звяжацца з вамі па пазначаным кантакце і прапануе маршрут. Калі зручней, абярыце WhatsApp ці Telegram.",
     points: [
       "Адказвае асабіста Павел",
       "Група ад 1 да 4 гасцей",
@@ -147,7 +147,7 @@ export const requestCopy: Record<
     eyebrow: "Заявка",
     title: "Розкажіть, яку поїздку ви хочете",
     intro:
-      "Заповніть коротку форму — відкриється готове повідомлення Павлу. Натисніть «Надіслати», і Павло особисто відповість та запропонує маршрут.",
+      "Заповніть коротку форму й натисніть «Надіслати заявку» — Павло сам зв’яжеться з вами за вказаним контактом і запропонує маршрут. Якщо зручніше, оберіть WhatsApp або Telegram.",
     points: [
       "Відповідає особисто Павло",
       "Група від 1 до 4 гостей",
